@@ -90,4 +90,12 @@ Backend runs on **NestJS microservices**, designed for scalability and independe
 
 ### 🧩 Microservices
 
+backend/
+├── api-gateway
+└── services/
+├──── authentication
+├──── institute
+├──── telecalling
+├──── training
+└──── reception
 
