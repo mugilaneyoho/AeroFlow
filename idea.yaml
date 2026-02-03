@@ -1,0 +1,107 @@
+
+#### 1. Authentication Service
+- User authentication & authorization
+- Role-based access control (RBAC)
+- Token management
+
+#### 2. Institute Service
+- Institute configuration
+- Course & department management
+- Master data handling
+
+#### 3. Telecalling Service
+- Lead lifecycle management
+- Call logs & follow-ups
+- Telecaller assignment logic
+
+#### 4. Training Service
+- Batch & class allocation
+- Trainer management
+- Student training records
+
+#### 5. Reception Service
+- Walk-in admissions
+- Student onboarding
+- Front-desk operations
+
+---
+
+## 🔄 Inter-Service Communication
+
+- **Protocol**: gRPC
+- **Async Jobs**: Bull queues
+- **Cache / Queue Backend**: Redis
+
+Used for:
+- Lead assignment
+- Notifications
+- Background processing
+- High-performance data exchange
+
+---
+
+## 🧰 Tech Stack
+
+| Layer        | Technology            |
+|-------------|-----------------------|
+| Frontend    | (Your choice: React / Angular / Vue) |
+| Backend     | NestJS (Microservices) |
+| Transport   | gRPC                  |
+| Queue       | Bull                  |
+| Cache       | Redis                 |
+| Database    | (PostgreSQL / MySQL / MongoDB) |
+| Auth        | JWT / OAuth (planned) |
+
+---
+
+## 📦 Repository Structure
+AeroFlow/
+├── frontend/
+│ ├── master-admin
+│ ├── telecalling
+│ ├── training
+│ └── student
+│
+└── backend/
+├── api-gateway
+└── services/
+├── authentication
+├── institute
+├── telecalling
+├── training
+└── reception
+
+---
+
+## 🔐 Access Control
+
+- Role-based permissions
+- Department-level isolation
+- Secure service-to-service communication
+
+---
+
+## 📈 Future Enhancements
+
+- CRM integrations
+- WhatsApp / SMS automation
+- Analytics & reporting dashboards
+- Multi-institute SaaS tenancy
+- Mobile app support
+
+---
+
+## 🤝 Contribution
+
+This project is currently under active development.  
+Contribution guidelines will be added soon.
+
+---
+
+## 📄 License
+
+Private / Internal Use (Update as required)
+
+---
+
+**AeroFlow — From first call to takeoff.** ✈️
