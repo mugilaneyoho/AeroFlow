@@ -1,0 +1,51 @@
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Generated,
+} from 'typeorm';
+
+@Entity('offlineclasses')
+export class OfflineClassesEntity {
+  @Column({ unique: true })
+  @Generated('increment')
+  id: number;
+
+  @PrimaryGeneratedColumn('uuid')
+  uuid: string;
+
+  @Column({ type: 'uuid' })
+  batch_id: string;
+
+  @Column({ type: 'uuid' })
+  staff_id: string;
+
+  @Column()
+  subject: string;
+
+  @Column({ type: 'datetime' })
+  start_date: Date;
+
+  @Column({ type: 'datetime' })
+  start_time: Date;
+
+  @Column({ type: 'datetime' })
+  end_time: Date;
+
+  @Column()
+  batch_name: string;
+
+  @Column({ type: 'text', default: 'offline' })
+  class_mode: string;
+
+  @Column({ type: 'boolean', default: false })
+  is_delete: boolean;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
+}

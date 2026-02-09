@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package batch;
+
+service BatchService {
+  rpc GetAllBatch (GetAll) returns (BatchsResponse);
+  rpc GetById (GetId) returns (BatchResponse);
+}
+
+message Empty {}
+
+message BatchItem {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message Meta {
+  int32 total = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message BatchsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated BatchItem data = 3; 
+  Meta meta = 4;                
+}
+
+message BatchResponse {
+  bool success = 1;
+  string message = 2;
+  BatchItem data = 3;          
+}
+
+message GetId {
+  string batchid = 1;
+}
+
+message GetAll {
+  string courseid = 1;
+}
