@@ -13,32 +13,32 @@ import { StatusRecordEntity } from './statusrecord.entity';
 export class AttendanceEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column('uuid')
-  classId: string;
+  classId!: string;
 
   @Column('uuid')
-  staffId: string;
+  staffId!: string;
 
   @Column({ type: 'timestamp' })
-  date: Date;
+  date!: Date;
 
   @Column()
-  present_count: number;
+  present_count!: number;
 
   @Column()
-  absent_count: number;
+  absent_count!: number;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @OneToMany(() => StatusRecordEntity, (record) => record.attendance)
-  records: StatusRecordEntity[];
+  records!: StatusRecordEntity[];
 }

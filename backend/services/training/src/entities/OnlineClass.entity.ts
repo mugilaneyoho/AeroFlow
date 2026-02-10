@@ -11,41 +11,41 @@ import {
 export class OnlineClassesEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column({ type: 'uuid' })
-  batch_id: string;
+  batch_id!: string;
 
   @Column({ type: 'uuid' })
-  staff_id: string;
+  staff_id!: string;
 
   @Column()
-  subject: string;
+  subject!: string;
 
-  @Column({ type: 'datetime' })
-  start_date: Date;
+  @Column({ type: 'timestamptz' })
+  start_date!: Date;
 
-  @Column({ type: 'datetime' })
-  start_time: Date;
+  @Column({ type: 'timestamptz' })
+  start_time!: Date;
 
-  @Column({ type: 'datetime' })
-  end_time: Date;
+  @Column({ type: 'timestamptz' })
+  end_time!: Date;
 
   @Column()
-  batch_name: string;
+  batch_name!: string;
 
   @Column({ type: 'text', default: 'online' })
-  class_mode: string;
+  class_mode!: string;
 
   @Column({ type: 'boolean', default: false })
-  is_delete: boolean;
+  is_delete!: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
+  updatedAt!: Date;
 }

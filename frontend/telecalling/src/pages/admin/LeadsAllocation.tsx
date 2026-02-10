@@ -11,7 +11,7 @@ import TeleCallerStatsCard from '../../components/ui/TeleCallerStatsCard'
 
 const LeadsAllocation:React.FC = () => {
 
-  const [Tabs, setTabs] = useState<string>('leads');
+  const [Tabs, setTabs] = useState<string>('tele');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [uploadLeads,{data,isLoading,isSuccess}] = useUploadLeadsMutation()
@@ -104,7 +104,7 @@ const LeadsAllocation:React.FC = () => {
 
       <div>
         {
-          Tabs !== 'leads' ? <LeadsTabel/> : <div className='flex flex-col gap-5'>
+          Tabs === 'tele' ? <div className='flex flex-col gap-5'>
             <p className='font-semibold text-2xl'>Tele-Callers</p>
             <div className='flex flex-col h-[90vh] gap-5 w-full overflow-y-scroll' style={{scrollbarWidth:'none'}}>
               {
@@ -113,7 +113,8 @@ const LeadsAllocation:React.FC = () => {
                 </div>))
               }
             </div>
-          </div>
+          </div> :
+           <LeadsTabel/>
         }
       </div>
     </div>

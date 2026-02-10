@@ -1,5 +1,6 @@
 import React from 'react'
 import CountCard from '../../components/ui/CountCard'
+import PaymentTabel from '../../features/Registration/PaymentTabel'
 
 const arr = [
   {
@@ -8,12 +9,12 @@ const arr = [
     value: 3
   },
   {
-    label: 'Payments',
+    label: 'Verified Payments',
     icon: 'admit',
     value: 4,
   },
   {
-    label: 'Verifing',
+    label: 'Pending Verifing',
     icon: 'present',
     value: 6
   },
@@ -34,17 +35,15 @@ const RegisterFees: React.FC = () => {
 
       <div className='flex flex-row justify-between'>
         {
-            arr.map((arr,index)=><div key={index}>
-              <CountCard label={arr.label} value={arr.value} icon={arr.icon}/>
-            </div>)
+          arr.map((arr, index) => <div key={index}>
+            <CountCard label={arr.label} value={arr.value} icon={arr.icon} />
+          </div>)
         }
       </div>
 
-      <div>
-        <p>Payment Details</p>
-        <div>
-
-        </div>
+      <div className='flex flex-col gap-5'>
+        <p className='font-semibold text-2xl'>Payment Details</p>
+        <PaymentTabel />
       </div>
     </div>
   )

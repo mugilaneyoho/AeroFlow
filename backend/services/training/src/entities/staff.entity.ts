@@ -11,47 +11,47 @@ Entity('staffprofile');
 export class StaffProfileEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column()
-  staff_id: string;
+  staff_id!: string;
 
   @Column()
-  staff_name: string;
+  staff_name!: string;
 
   @Column()
-  phone_number: string;
+  phone_number!: string;
 
   @Column()
-  address: string;
+  address!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column()
-  experience: string;
+  experience!: string;
 
   @Column()
-  employee_type: string;
+  employee_type!: string;
 
   @Column()
-  qualification: string;
+  qualification!: string;
 
   @Column()
-  expertise: string;
+  expertise!: string;
 
   @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  is_active: boolean = false;
 
   @Column({ type: 'boolean', default: false })
-  is_delete: boolean;
+  is_delete: boolean = false;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: string;
+  createdAt!: string;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: string;
+  updatedAt!: string;
 }

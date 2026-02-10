@@ -13,6 +13,8 @@ import { AttendanceModule } from './attendance/attendance.module';
 import { BullModule } from '@nestjs/bull';
 import { QueueModule } from './queue/queue.module';
 import { ConfigModule } from '@nestjs/config';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -21,12 +23,16 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: '.env',
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: 3306,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME,
+      type: 'postgres',
+      url: 'postgresql://patron_2whd_user:UVa7zf8WHQFqsXBQmFcGRbBboFr1ubsh@dpg-d65csker433s73evgaj0-a.singapore-postgres.render.com/patron_2whd',
+      ssl: {
+        rejectUnauthorized: false,
+      },
+      // host: process.env.DB_HOST,
+      // port: 3306,
+      // username: process.env.DB_USER,
+      // password: process.env.DB_PASS,
+      // database: process.env.DB_NAME,
       entities: [
         StaffProfileEntity,
         OfflineClassesEntity,
@@ -36,7 +42,24 @@ import { ConfigModule } from '@nestjs/config';
       ],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([AttendanceEntity, StatusRecordEntity]),
+    ClientsModule.register([
+      {
+        name: 'common',
+        transport: Transport.GRPC,
+        options: {
+          package: 'common',
+          protoPath: join(__dirname, './proto/common.proto'),
+          url: '0.0.0.0:3003',
+        },
+      },
+    ]),
+    TypeOrmModule.forFeature([
+      OnlineClassesEntity,
+      OfflineClassesEntity,
+      StaffProfileEntity,
+      AttendanceEntity,
+      StatusRecordEntity,
+    ]),
     BullModule.forRoot({
       redis: {
         host: 'localhost',

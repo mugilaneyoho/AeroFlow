@@ -12,7 +12,7 @@ const AdminRoute = () => (
             <Route path="/leads" element={<LeadsAllocation/>}/>
             <Route path="/registerfee" element={<RegisterFees/>}/>
             <Route path="/telecallers" element={<Telecaller/>}/>
-            <Route path="*" element={<Navigate to='/'/>}/>
+            <Route path="*" element={<Navigate to='/' replace/>}/>
         </Route>
     </Routes>
 )

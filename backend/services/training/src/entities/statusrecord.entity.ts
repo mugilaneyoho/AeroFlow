@@ -18,26 +18,26 @@ export enum StatusRecordEnum {
 export class StatusRecordEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column('uuid')
-  attendanceId: string;
+  attendanceId!: string;
 
   @Column('uuid')
-  studentId: string;
+  studentId!: string;
 
   @Column({ type: 'enum', enum: StatusRecordEnum, nullable: false })
-  status: StatusRecordEnum;
+  status!: StatusRecordEnum;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @ManyToOne(() => AttendanceEntity, (attendance) => attendance.records)
-  attendance: AttendanceEntity;
+  attendance!: AttendanceEntity;
 }
