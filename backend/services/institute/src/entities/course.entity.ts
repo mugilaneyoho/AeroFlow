@@ -20,51 +20,51 @@ import { BatchEntity } from './batch.entity';
 export class CourseEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
-  @Column({ type: 'char', length: 36 })
-  institute_id: string;
+  @Column('uuid')
+  institute_id!: string;
   @ManyToOne(() => InstituteEntity, { eager: false })
   @JoinColumn({ name: 'insitute_id' })
-  institute: InstituteEntity;
+  institute!: InstituteEntity;
 
-  @Column({ type: 'char', length: 36 })
-  branch_id: string;
+  @Column('uuid')
+  branch_id!: string;
   @ManyToOne(() => BranchEntity, (branch) => branch.courses)
-  branch: BranchEntity;
+  branch!: BranchEntity;
 
   @Column()
-  course_name: string;
+  course_name!: string;
 
   @Column()
-  description: string;
+  description!: string;
 
   @Column()
-  thumbnail: string;
+  thumbnail!: string;
 
   @Column()
-  total_batches: number;
+  total_batches!: number;
 
   @Column()
-  price: number;
+  price!: number;
 
   @Column({ type: 'boolean', default: false })
-  is_delete: boolean;
+  is_delete!: boolean;
 
   @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  is_active!: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
   })
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @OneToMany(() => BatchEntity, (batch) => batch.course_id)
-  batches: BatchEntity[];
+  batches!: BatchEntity[];
 }

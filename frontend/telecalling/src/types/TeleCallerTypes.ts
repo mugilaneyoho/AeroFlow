@@ -1,5 +1,6 @@
 
 export type TeleCallerProfile = {
+  uuid: string;
   employee_name?: string;
   emp_id?: string;
   phone_number?: string;

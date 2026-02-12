@@ -1,14 +1,15 @@
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"
+import ApiLists from "./ApiLists"
 
 export const CommonApi = createApi({
     reducerPath:'common',
     baseQuery:fetchBaseQuery({
-        baseUrl:'http://localhost:3006',
+        baseUrl: import.meta.env.VITE_BACKEND_URL,
     }),
     tagTypes:['commonapi'],
     endpoints:(builder)=>({
         getDashboard: builder.query({
-            query:()=>'/dashboard'
+            query:()=> ApiLists.common.getAdminDash,
         }),
 
         getEmployeeStatus: builder.query({
@@ -17,9 +18,20 @@ export const CommonApi = createApi({
 
         uploadLeads: builder.mutation({
             query:(formData)=>({
-                url:'/leads/upload',
+                url: ApiLists.leads.postUpload,
                 method:"POST",
                 body:formData
+            })
+        }),
+
+        getAllTeleCallersList: builder.query({
+            query:()=>ApiLists.common.getAllTele,
+        }),
+        AssignLeads:builder.mutation({
+            query:(data)=>({
+                url:ApiLists.leads.postAssign,
+                method:'POST',
+                body:data,
             })
         })
     })
@@ -29,4 +41,6 @@ export const {
     useGetDashboardQuery,
     useGetEmployeeStatusQuery,
     useUploadLeadsMutation,
+    useGetAllTeleCallersListQuery,
+    useAssignLeadsMutation,
 } = CommonApi

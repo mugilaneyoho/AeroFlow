@@ -3,6 +3,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   OnModuleInit,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,6 +12,7 @@ import { Repository } from 'typeorm';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { lastValueFrom, Observable } from 'rxjs';
 import * as microservices from '@nestjs/microservices';
+import { UpdateStaffDto } from './dto/update-staff.dto';
 
 interface staffgrpc {
   CreateStaff(data: {
@@ -145,6 +147,33 @@ export class StaffService implements OnModuleInit {
       };
     } catch (error) {
       console.error(error, 'delete staff error');
+      throw new InternalServerErrorException({
+        success: false,
+        message: 'internal server error',
+      });
+    }
+  }
+
+  async update(uuid: string, data: UpdateStaffDto) {
+    try {
+      const exist = await this.staffRepo.findOne({ where: { uuid } });
+
+      if (!exist) {
+        return new NotFoundException({
+          success: false,
+          message: 'classes not founded.',
+        });
+      }
+
+      Object.assign(exist, data);
+
+      const staff = await this.staffRepo.save(exist);
+
+      return {
+        staff,
+      };
+    } catch (error) {
+      console.error(error, 'update staff error');
       throw new InternalServerErrorException({
         success: false,
         message: 'internal server error',

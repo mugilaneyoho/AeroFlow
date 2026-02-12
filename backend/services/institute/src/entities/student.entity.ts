@@ -11,44 +11,44 @@ Entity('Studentprofile');
 export class StudentProfileEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column('uuid')
-  course_id: string;
+  course_id!: string;
 
   @Column('uuid')
-  batch_id: string;
+  batch_id!: string;
 
   @Column()
-  student_name: string;
+  student_name!: string;
 
   @Column()
-  student_id: string;
+  student_id!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column()
-  phone_number: string;
+  phone_number!: string;
 
   @Column()
-  qualification: string;
+  qualification!: string;
 
   @Column({ type: 'timestamp' })
-  admission_date: string;
+  admission_date!: string;
 
   @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  is_active!: boolean;
 
   @Column({ type: 'boolean', default: false })
-  is_delete: boolean;
+  is_delete!: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
+  updatedAt!: Date;
 }

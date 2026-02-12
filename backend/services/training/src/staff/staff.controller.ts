@@ -5,11 +5,13 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { StaffService } from './staff.service';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { UpdateStaffDto } from './dto/update-staff.dto';
 
 @ApiTags('Staff')
 @Controller('staff')
@@ -28,7 +30,11 @@ export class StaffController {
     return this.staffService.findAll(query);
   }
 
-  // @Put('')
+  @Put(':uuid')
+  @ApiOperation({ summary: 'edit staff details only' })
+  update(@Param('uuid') uuid: string, @Body() data: UpdateStaffDto) {
+    return this.staffService.update(uuid, data);
+  }
 
   @Get(':uuid')
   @ApiOperation({ summary: 'get single staff details' })

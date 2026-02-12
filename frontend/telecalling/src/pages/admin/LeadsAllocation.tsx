@@ -4,7 +4,7 @@ import search from '../../assets/search-normal.png'
 import LeadsTabel from '../../features/leads/LeadsTabel'
 import upload from '../../assets/upload.png'
 import addlead from '../../assets/addlead.png'
-import { useUploadLeadsMutation } from '../../services/api'
+import { useAssignLeadsMutation, useUploadLeadsMutation } from '../../services/api'
 import ArrayDropDown from '../../components/ui/ArrayDropDown'
 import TeleCallerStatsCard from '../../components/ui/TeleCallerStatsCard'
 
@@ -13,8 +13,13 @@ const LeadsAllocation:React.FC = () => {
 
   const [Tabs, setTabs] = useState<string>('tele');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const countInput = useRef<HTMLInputElement | null>(null);
+  const [selectTele, setselectTele] = useState<string[] | never[]>([]);
+  const [assignLeads,{isLoading}] = useAssignLeadsMutation()
 
-  const [uploadLeads,{data,isLoading,isSuccess}] = useUploadLeadsMutation()
+
+
+  const [uploadLeads] = useUploadLeadsMutation()
 
   const handelDivClick=()=>{
     fileInputRef?.current?.click();
@@ -41,6 +46,11 @@ const LeadsAllocation:React.FC = () => {
     setTabs(tab)
   }
 
+  const AssignLeads = () =>{
+    assignLeads({userid: selectTele, count: countInput?.current?.value })
+    console.log(isLoading)
+  }
+
   return (
     <div className='flex flex-col gap-5'>
       <div>
@@ -53,15 +63,17 @@ const LeadsAllocation:React.FC = () => {
         <div className='grid grid-cols-2 w-full gap-5'>
           <div> 
             <p className='font-medium'>Select Tele-Caller</p>
-          <ArrayDropDown/>
+          <ArrayDropDown setSelectedProps={setselectTele} />
           </div>
           <div>
             <p className='font-medium'>Number Of Leads</p>
-            <input type="number" className='border border-[#79747E] bg-[#F5F5F5] w-full text-lg p-1 px-2 rounded-lg placeholder:font-medium' placeholder='Enter Number'/>
+            <input type="number"
+              ref={countInput}
+             className='border border-[#79747E] bg-[#F5F5F5] w-full text-lg p-1 px-2 rounded-lg placeholder:font-medium' placeholder='Enter Number'/>
           </div>
         </div>
         <div className='grid grid-cols-2 w-full gap-5'>
-          <div className='flex justify-center gap-3 items-center p-2 rounded-lg border border-[#79747E] bg-[#1F338C] text-white'>
+          <div onClick={AssignLeads} className='flex justify-center gap-3 items-center p-2 rounded-lg border border-[#79747E] bg-[#1F338C] text-white'>
             <img src={addlead} alt="" />
             <p>Allocate Leads</p>
           </div>

@@ -1,33 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import logo from '../../assets/icons/profile.svg'
 import close from '../../assets/closse.png'
-import ToggleSwitch from '../../components/ui/ToggelButton'
 import {useFormik} from 'formik'
-import { useCreateTeleCallerMutation } from '../../services/RTKQuery/TeleCaller'
+import { useCreateTeleCallerMutation, useGetTeleCallerByUUIDQuery, useGetTeleCallerQuery, useUpdateTeleCallerMutation } from '../../services/RTKQuery/TeleCaller'
 
 type props = {
   OnClose:(data:boolean)=>void;
+  uuid?:string
 }
 
-const TeleCallerCreateForm: React.FC<props> = ({OnClose}) => {
-  const [CreateTelecaller,{data,isSuccess,isLoading}] = useCreateTeleCallerMutation()
+const TeleCallerCreateForm: React.FC<props> = ({OnClose,uuid}) => {
+
+  const { data } = useGetTeleCallerByUUIDQuery(uuid, {
+  skip: !uuid
+})
+  const [CreateTelecaller,{isLoading}] = useCreateTeleCallerMutation()
+  const [UpdateTelecaller,{isSuccess}] = useUpdateTeleCallerMutation()
 
   const formik = useFormik({
     initialValues: {
-      employee_name: '',
-      emp_id: '',
-      phone_number: '',
-      alter_number: '',
-      email: '',
-      address: '',
-      education: '',
-      work_exp: '',
-      image: '',
-      password: '',
+      employee_name: data?.data.employee_name || '',
+      emp_id:data?.data.emp_id || '',
+      phone_number: data?.data.phone_number || '',
+      alter_number: data?.data.alter_number ||  '',
+      email:data?.data.email || '',
+      address:data?.data.address || '',
+      education: data?.data.education || '',
+      work_exp: data?.data.work_exp || '',
+      image:data?.data.image || '',
+      password:data?.data.password || '',
+      uuid:uuid,
     },
+    enableReinitialize:true,
     onSubmit: async (value) => {
-      await CreateTelecaller(value)
-      OnClose(!isSuccess)
+      if (uuid) {
+        await UpdateTelecaller(value,uuid)
+      }else{
+        await CreateTelecaller(value)
+      }
+      OnClose(false)
     }
   })
 

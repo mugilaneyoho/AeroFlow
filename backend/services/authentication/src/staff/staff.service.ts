@@ -42,6 +42,7 @@ export class StaffService {
         ...data,
         role_id: role.uuid,
         password: hashpass,
+        profile_id: data.profileId,
       });
 
       await this.staffRepo.save(staff);

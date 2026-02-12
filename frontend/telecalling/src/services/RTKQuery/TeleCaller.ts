@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import ApiLists from '../ApiLists'
 
 export const TeleCallerApi = createApi({
     reducerPath: 'telecallerapi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3006',
+        baseUrl: import.meta.env.VITE_BACKEND_URL,
         // prepareHeaders: (headers, { getState }) => {
         //     const token = getState().auth.token
         //     if (token) {
@@ -16,15 +17,32 @@ export const TeleCallerApi = createApi({
     endpoints: (builder) => ({
         CreateTeleCaller: builder.mutation({
             query: (data) => ({
-                url: '/employee/create',
+                url: ApiLists.telecaller.post,
                 method: 'POST',
                 body: data,
             }),
             invalidatesTags: ['telecaller']
         }),
         getTeleCaller: builder.query({
-            query: () => '/employee/all',
+            query: () => ApiLists.telecaller.getAll,
             providesTags: ['telecaller']
+        }),
+        updateTeleCaller:builder.mutation({
+            query:(data)=>({
+                url:ApiLists.telecaller.put.replace(':uuid',data?.uuid),
+                method:'PUT',
+                body: data,
+            })
+        }),
+        getTeleCallerByUUID:builder.query({
+            query:(uuid:string)=>ApiLists.telecaller.getByUUID.replace(':uuid',uuid),
+            providesTags: ['telecaller']
+        }),
+        deleteTeleCaller:builder.mutation({
+            query:(uuid)=>({
+                url:ApiLists.telecaller.delete.replace(':uuid',uuid),
+                method:'DELETE',
+            })
         })
 
     })
@@ -33,4 +51,7 @@ export const TeleCallerApi = createApi({
 export const {
     useGetTeleCallerQuery,
     useCreateTeleCallerMutation,
+    useDeleteTeleCallerMutation,
+    useUpdateTeleCallerMutation,
+    useGetTeleCallerByUUIDQuery
 } = TeleCallerApi

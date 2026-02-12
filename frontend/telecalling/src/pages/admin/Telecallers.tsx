@@ -10,6 +10,7 @@ import type { TeleCallerProfile } from '../../types/TeleCallerTypes'
 
 const Telecaller:React.FC = () => {
   const [Form, setForm] = useState<boolean>(false);
+  const [uuid,setuuid] = useState('')
 
   const {data,isLoading,error} = useGetTeleCallerQuery('telecallerapi')
 
@@ -43,15 +44,15 @@ const Telecaller:React.FC = () => {
         </div>
       </div>
 
-      <div className='grid xl:grid-cols-6 lg:grid-cols-3 md:grid-cols-2 gap-5 w-full'>
+      <div className='grid 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-5 w-full'>
         {
           data?.data?.map((data:TeleCallerProfile)=>(
-            <TeleCallerCard data={data}/>
+            <TeleCallerCard data={data} setuuid={setuuid} setform={setForm}/>
           ))
         }
       </div>
 
-      <Modal isOpen={Form} children={<TeleCallerCreateForm OnClose={setForm}/>} onClose={CloseForm}/>
+      <Modal isOpen={Form} children={<TeleCallerCreateForm OnClose={setForm} uuid={uuid}/>} onClose={CloseForm}/>
 
     </div>
   )

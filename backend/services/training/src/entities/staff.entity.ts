@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-Entity('staffprofile');
+@Entity('staffprofile')
 export class StaffProfileEntity {
   @Column({ unique: true })
   @Generated('increment')

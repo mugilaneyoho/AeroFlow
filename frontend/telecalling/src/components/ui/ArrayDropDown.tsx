@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useRef, useEffect } from "react";
+import { useGetAllTeleCallersListQuery } from "../../services/api";
 
 const options = [
   { id: 1, value: "React" },
@@ -7,15 +9,26 @@ const options = [
   { id: 4, value: "Svelte" },
 ];
 
-export default function ArrayDropDown() {
+type props = {
+  setSelectedProps:(data:string[] | never[])=>void
+}
+
+const ArrayDropDown:React.FC<props> = ({setSelectedProps})=> {
   const [selected, setSelected] = useState([]);
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
-  const toggleOption = (option) => {
-    setSelected((prev) =>
-      prev.some((item) => item.id === option.id)
-        ? prev.filter((item) => item.id !== option.id)
+  useEffect(() => {
+    setSelectedProps?.(selected)
+  }, [selected, setSelectedProps]);
+
+
+  const {data} = useGetAllTeleCallersListQuery('')
+
+  const toggleOption = (option:any) => {
+    setSelected((prev:any) =>
+      prev.some((item:any) => item.uuid === option.uuid)
+        ? prev.filter((item:any) => item.uuid !== option.uuid)
         : [...prev, option]
     );
   };
@@ -35,18 +48,18 @@ export default function ArrayDropDown() {
       {/* Trigger */}
       <div
         onClick={() => setOpen(!open)}
-        className="min-h-[44px] cursor-pointer rounded-md border p-2 flex flex-wrap gap-1 items-center"
+        className="min-h-11 cursor-pointer rounded-md border p-2 flex flex-wrap gap-1 items-center"
       >
         {selected.length === 0 && (
           <span className="text-gray-400">Select options</span>
         )}
 
-        {selected.map((item) => (
+        {selected.map((item:any) => (
           <span
-            key={item.id}
+            key={item.uuid}
             className="flex items-center gap-1 rounded bg-blue-100 px-2 py-1 text-sm text-blue-700"
           >
-            {item.value}
+            {item.employee_name}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -63,18 +76,18 @@ export default function ArrayDropDown() {
       {/* Dropdown */}
       {open && (
         <div className="absolute z-10 mt-1 w-full rounded-md border bg-white shadow">
-          {options.map((option) => (
+          {data?.map((option:any) => (
             <label
-              key={option.id}
+              key={option.uuid}
               className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer"
             >
               <input
                 type="checkbox"
-                checked={selected.some((item) => item.id === option.id)}
+                checked={selected.some((item:any) => item.uuid === option.uuid)}
                 onChange={() => toggleOption(option)}
                 className="accent-blue-600"
               />
-              {option.value}
+              {option.employee_name + ' ' + option.emp_id} 
             </label>
           ))}
         </div>
@@ -82,3 +95,5 @@ export default function ArrayDropDown() {
     </div>
   );
 }
+
+export default ArrayDropDown

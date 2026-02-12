@@ -127,4 +127,14 @@ export class ProfileService {
       });
     }
   }
+
+  async findAll() {
+    const data = await this.InstituteRepo.find();
+    const data2 = await this.BranchRepo.find();
+
+    return {
+      institute: data,
+      branch: data2,
+    };
+  }
 }

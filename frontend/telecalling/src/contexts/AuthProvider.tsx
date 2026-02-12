@@ -10,7 +10,7 @@ export const AuthProvider:React.FC<{children:ReactNode}>=({children})=>{
 
     const [isAdmin, setisAdmin] = useState(()=>{
         const role = GetLocalStorage('t_as_r')
-        return role !== 'telecaller' ? false : true
+        return role === 'admin' ? true : true
     });
 
     const login = (token:string, role:string)=>{

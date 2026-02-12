@@ -11,32 +11,45 @@ import {
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('telecaller')
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
   @Get('all')
+  @ApiOperation({ summary: 'get all telecallers' })
   findAll(@Query() query: { page: string; limit: string }) {
     return this.employeeService.findAll(query);
   }
 
+  @Get('lists')
+  @ApiOperation({ summary: ' get all employee for dropdown' })
+  getall() {
+    return this.employeeService.GetAlltele();
+  }
+
   @Post('create')
+  @ApiOperation({ summary: 'create new telecaller' })
   create(@Body() data: CreateEmployeeDto) {
     return this.employeeService.create(data);
   }
 
   @Get(':uuid')
+  @ApiOperation({ summary: 'get telecaller by uuid' })
   findOne(@Param('uuid') uuid: string) {
     return this.employeeService.findOne(uuid);
   }
 
   @Put(':uuid')
+  @ApiOperation({ summary: 'updated telecaller details' })
   update(@Param('uuid') uuid: string, @Body() data: UpdateEmployeeDto) {
     return this.employeeService.update(uuid, data);
   }
 
   @Delete(':uuid')
+  @ApiOperation({ summary: 'delete telecaller by uuid' })
   softDelete(@Param('uuid') uuid: string) {
     return this.employeeService.softDelete(uuid);
   }

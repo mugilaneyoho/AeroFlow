@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsDateString, IsNotEmpty } from 'class-validator';
 
 export class UpdateClassDto {
   @ApiProperty({ example: 'batch uuid' })
@@ -16,14 +15,17 @@ export class UpdateClassDto {
   subject!: string;
 
   @ApiProperty({ example: '2026-02-06 16:58:45.130761' })
+  @IsDateString()
   @IsNotEmpty()
   start_date!: Date;
 
   @ApiProperty({ example: '2026-02-06 16:58:45.130761' })
+  @IsDateString()
   @IsNotEmpty()
   start_time!: Date;
 
   @ApiProperty({ example: '2026-02-06 16:58:45.130761' })
+  @IsDateString()
   @IsNotEmpty()
   end_time!: Date;
 

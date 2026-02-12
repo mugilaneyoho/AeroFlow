@@ -19,66 +19,66 @@ import { CourseEntity } from './course.entity';
 export class BatchEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
-  @Column({ type: 'char', length: 36 })
-  institute_id: string;
+  @Column('uuid')
+  institute_id!: string;
   @ManyToOne(() => InstituteEntity, { eager: false })
   @JoinColumn({ name: 'institute_id' })
-  institute: InstituteEntity;
+  institute!: InstituteEntity;
 
-  @Column({ type: 'char', length: 36 })
-  branch_id: string;
+  @Column('uuid')
+  branch_id!: string;
   @ManyToOne(() => BranchEntity, { eager: false })
   @JoinColumn({ name: 'branch_id' })
-  branch: BranchEntity;
+  branch!: BranchEntity;
 
-  @Column({ type: 'char', length: 36 })
-  course_id: string;
+  @Column('uuid')
+  course_id!: string;
   @ManyToOne(() => CourseEntity, (course) => course.batches)
-  course: CourseEntity;
+  course!: CourseEntity;
 
   @Column()
-  batch_name: string;
+  batch_name!: string;
 
   @Column()
-  batch_code: string;
+  batch_code!: string;
 
   @Column()
-  seats_filled: number;
+  seats_filled!: number;
 
   @Column()
-  total_seats: number;
+  total_seats!: number;
 
   @Column({ type: 'date' })
-  start_date: Date;
+  start_date!: Date;
 
   @Column({ type: 'date' })
-  end_date: Date;
+  end_date!: Date;
 
   @Column()
-  duration: number;
+  duration!: number;
 
   @Column()
-  duration_type: string;
+  duration_type!: string;
 
   @Column()
-  class_start_time: string;
+  class_start_time!: string;
 
   @Column()
-  class_end_time: string;
+  class_end_time!: string;
 
   @Column({ type: 'boolean', default: false })
-  is_delete: boolean;
+  is_delete!: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
   })
-  updatedAt: Date;
+  updatedAt!: Date;
 }

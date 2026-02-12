@@ -12,6 +12,11 @@ export class ProfileController {
     return this.insituteService.create(body);
   }
 
+  @Get('all')
+  all() {
+    return this.insituteService.findAll()
+  }
+
   @Get(':uuid')
   findOne(@Param('uuid') uuid: string) {
     return this.insituteService.findOne(uuid);

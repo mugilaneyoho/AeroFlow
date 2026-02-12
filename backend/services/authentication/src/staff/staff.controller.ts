@@ -1,6 +1,7 @@
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import { StaffService } from './staff.service';
 import { UpdateStaffDto } from './dto/update-staff.dto';
+import { GrpcMethod } from '@nestjs/microservices';
 
 @Controller('staff')
 export class StaffController {
@@ -15,6 +16,10 @@ export class StaffController {
   // create(@Body() data: CreateStaffDto) {
   //   return this.staffService.create(data);
   // }
+  @GrpcMethod('StaffService','CreateStaff')
+  create(data: { email: string; password: string; profileId: string }){
+    return this.staffService.create(data);
+  }
 
   @Put(':uuid')
   update(@Param('uuid') uuid: string, @Body() data: UpdateStaffDto) {

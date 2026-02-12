@@ -23,7 +23,7 @@ export class BranchEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
-  @Column({ type: 'char', length: 36 })
+  @Column('uuid')
   institute_id: string;
   @ManyToOne(() => InstituteEntity, { eager: false })
   @JoinColumn({ name: 'institute_id' })

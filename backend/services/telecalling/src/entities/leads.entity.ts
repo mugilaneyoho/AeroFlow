@@ -25,14 +25,14 @@ export class LeadsEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
-  @Column()
+  @Column({nullable:true})
   name: string;
 
   @Index()
   @Column()
   phone: string;
 
-  @Column()
+  @Column({nullable:true})
   notes: string;
 
   @Index()

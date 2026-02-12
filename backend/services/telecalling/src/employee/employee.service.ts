@@ -185,4 +185,12 @@ export class EmployeeService implements OnModuleInit {
       });
     }
   }
+
+  async GetAlltele() {
+    const data = await this.employeeRepo.find({
+      select: ['uuid', 'employee_name', 'emp_id'],
+    });
+
+    return data;
+  }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { createProxyMiddleware } from 'http-proxy-middleware';
@@ -12,6 +13,39 @@ async function bootstrap() {
       changeOrigin: true,
       pathRewrite: {
         '^/auth': '',
+      },
+    }),
+  );
+
+  app.use(
+    '/institute',
+    createProxyMiddleware({
+      target: 'http://localhost:3006',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/institute': '',
+      },
+    }),
+  );
+
+  app.use(
+    '/telecalling',
+    createProxyMiddleware({
+      target: 'http://localhost:3007',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/telecalling': '',
+      },
+    }),
+  );
+
+  app.use(
+    '/training',
+    createProxyMiddleware({
+      target: 'http://localhost:3005',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/training': '',
       },
     }),
   );

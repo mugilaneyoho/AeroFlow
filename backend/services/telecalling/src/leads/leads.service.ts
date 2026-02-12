@@ -73,14 +73,19 @@ export class LeadsService {
     }
   }
 
-  async assignLeads(userid: string[]) {
+  async assignLeads(userid: any[], count: number) {
     try {
-      for (const id of userid) {
+      console.log(userid, count);
+
+      for (const user of userid) {
         await this.queue.add('assign', {
-          id,
-          limit: 20,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          id: user?.uuid,
+          limit: count,
         });
       }
+
+      return { success: true, message: 'leads assigned few minitues' };
     } catch (error) {
       console.error(error, 'leads assign error!');
       throw new InternalServerErrorException({
