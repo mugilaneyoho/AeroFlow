@@ -1,18 +1,18 @@
 
 services:
-  # api-gateway:
-  #   build:
-  #     context: ./api-gateway
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - authentication-service
-  #     - institute-service
-  #     - telecalling-service
-  #     - training-service
-  #   networks:
-  #     - app-network
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - authentication-service
+      - institute-service
+      - telecalling-service
+      - training-service
+    networks:
+      - app-network
     
   authentication-service:
     build:
