@@ -34,6 +34,9 @@ export class PaymentEntiry {
   @Column('uuid')
   collected_by!: string;
 
+  @Column('uuid')
+  student_id!: string;
+
   @Column()
   notes!: string;
 

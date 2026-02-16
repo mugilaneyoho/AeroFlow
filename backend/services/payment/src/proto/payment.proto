@@ -1,0 +1,17 @@
+syntac = "proto3";
+
+package payment;
+
+service PaymentService {
+    rpc CreatePayment () returns ()
+}
+
+message create {
+    int32 adminssionFees = 1;
+    string paymentDate = 2;
+    string paymentMode = 3;
+    string transactionId = 4;
+    string telecallerId = 5;
+    string studentId = 6;
+    string remarks = 7;
+}

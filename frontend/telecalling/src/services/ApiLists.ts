@@ -20,6 +20,11 @@ class ApiLists {
         getAdminDash: '/telecalling/dashboard',
         getAllTele:'/telecalling/employee/lists',
     }
+
+    login = {
+        tele:'/auth/telecalling/login',
+        admin:'/auth/admins/login'
+    }
 }
 
 export default new ApiLists()

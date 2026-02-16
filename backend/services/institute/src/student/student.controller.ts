@@ -24,8 +24,6 @@ export class StudentController {
     return this.studentService.findAll(query);
   }
 
-  // @Put('')
-
   @Get(':uuid')
   findOne(@Param('uuid') uuid: string) {
     return this.studentService.findOne(uuid);

@@ -2,9 +2,9 @@ import React from 'react'
 
 const PersonalDetails: React.FC = () => {
     return (
-        <div className='flex flex-col gap-5 w-full'>
-            <div className="flex flex-col gap-5">
-                <p>Personal information</p>
+        <div className='flex flex-col gap-5 w-full mt-5'>
+            <div className="flex flex-col gap-5 border-2 p-4 border-[#A99595] rounded-2xl">
+                <p className='font-semibold text-2xl'>Personal information</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Student Name</label>
@@ -38,8 +38,8 @@ const PersonalDetails: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-5">
-                <p>Contact Information</p>
+            <div className="flex flex-col gap-5 border-2 p-4 border-[#A99595] rounded-2xl">
+                <p className='font-semibold text-2xl'>Contact Information</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Primary Phone</label>
@@ -71,8 +71,8 @@ const PersonalDetails: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-5">
-                <p> Address Information</p>
+            <div className="flex flex-col gap-5 border-2 p-4 border-[#A99595] rounded-2xl">
+                <p className='font-semibold text-2xl'> Address Information</p>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div className='col-span-2'>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
@@ -113,8 +113,8 @@ const PersonalDetails: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-5">
-                <p>Course & Academic Information</p>
+            <div className="flex flex-col gap-5 border-2 p-4 border-[#A99595] rounded-2xl">
+                <p className='font-semibold text-2xl'>Course & Academic Information</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div className='col-span-2'>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Educational Qualification</label>

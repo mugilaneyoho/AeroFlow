@@ -23,7 +23,6 @@ export const CommonApi = createApi({
                 body:formData
             })
         }),
-
         getAllTeleCallersList: builder.query({
             query:()=>ApiLists.common.getAllTele,
         }),
@@ -37,7 +36,14 @@ export const CommonApi = createApi({
         getAllLeads: builder.query({
             query:()=>ApiLists.leads.getAll,
             providesTags:['leads']
-        })
+        }),
+        TelecallerLogin:builder.mutation({
+            query:(data)=>({
+                url:data?.isAdmin ? ApiLists.login.admin : ApiLists.login.tele,
+                method:'POST',
+                body:data
+            })
+        }),
     })
 })
 
@@ -48,4 +54,5 @@ export const {
     useGetAllTeleCallersListQuery,
     useAssignLeadsMutation,
     useGetAllLeadsQuery,
+    useTelecallerLoginMutation,
 } = CommonApi

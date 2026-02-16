@@ -8,26 +8,30 @@ import { Provider } from "react-redux"
 import LoginPage from "../pages/common/LoginPage";
 
 const AppRoute = () => {
-    const {isAuthenticated,isAdmin} = useAuth()
+    const { isAuthenticated, isAdmin } = useAuth()
 
-    if (!isAuthenticated) {   
+    if (isAuthenticated) {
         return isAdmin ?
-        <>
+            <>
+                <Provider store={AdminStore}>
+                    <AdminRoute />
+                </Provider>
+            </>
+            :
+            <>
+                <Provider store={TelecallerStore}>
+                    <TelecallerRoute />
+                </Provider>
+            </>
+    } else {
+        return <>
             <Provider store={AdminStore}>
-                <AdminRoute />
+                <Routes>
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
             </Provider>
         </>
-        :
-        <>
-            <Provider store={TelecallerStore}>
-                <TelecallerRoute />
-            </Provider>
-        </>
-    }else{
-        return <Routes>
-            <Route path="/" element={<LoginPage/>}/>
-            <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
     }
 }
 

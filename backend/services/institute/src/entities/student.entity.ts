@@ -22,6 +22,9 @@ export class StudentProfileEntity {
   @Column('uuid')
   batch_id!: string;
 
+  @Column('uuid')
+  admittedBy!: string;
+
   @Column()
   student_name!: string;
 
