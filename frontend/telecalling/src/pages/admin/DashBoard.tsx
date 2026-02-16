@@ -10,35 +10,35 @@ import { useGetDashboardQuery } from '../../services/api'
 
 const DashBoard:React.FC = () => {
 
-  const {data,isLoading,error} = useGetDashboardQuery('common')
+  const {data} = useGetDashboardQuery('common')
 
-  console.log(data?.data)
+  console.log(data?.data,"dashboard")
 
   const datas = [
     {
-      label:'Tele-Callers',
+      label:'Assigned Leads',
       icon:'call',
-      value:4,
+      value: data?.data?.leadcounts?.ASSIGNED || 0,
     },
     {
-      label:'Today Leads',
+      label:'Waiting Leads',
       icon:'lead',
-      value:6
+      value: data?.data?.leadcounts?.WAITING || 0,
     },
     {
-      label:'Calls Completed',
+      label:'Rejected Leads',
       icon:'cutcall',
-      value:3
+      value:data?.data?.leadcounts?.REJECTED || 0
     },
     {
       label:'Calls Pending',
       icon:'pencall',
-      value:4
+      value:data?.data?.leadcounts?.NEW || 0
     },
     {
       label:'Interested Students',
       icon:'interest',
-      value:3
+      value:data?.data?.leadcounts?.INTERESTED || 0
     },
     {
       label:'Registration Fee Paid',
@@ -46,14 +46,14 @@ const DashBoard:React.FC = () => {
       value:3
     },
     {
-      label:'Converted Admissions',
+      label:'Admit Leads',
       icon:'admit',
-      value:2
+      value:data?.data?.leadcounts?.ADMITTED || 0
     },
     {
       label:'Present Tele-Callers',
       icon:'present',
-      value:4
+      value: data?.data?.employee || 0
     }
   ]
 

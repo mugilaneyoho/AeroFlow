@@ -19,7 +19,7 @@ export class LeadProcessor {
       `UPDATE leads
       SET "assignedTo" = $1,
           "assignedAt" = NOW(),
-          status = 'IN_PROGRESS'
+          status = 'ASSIGNED'
       WHERE id IN (
         SELECT id FROM leads
         WHERE "assignedTo" IS NULL

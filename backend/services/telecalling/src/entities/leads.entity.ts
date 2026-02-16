@@ -6,7 +6,10 @@ import {
   UpdateDateColumn,
   Generated,
   Index,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { EmployeEntity } from './employee.entity';
 
 export enum LeadStatus {
   NEW = 'NEW',
@@ -14,26 +17,27 @@ export enum LeadStatus {
   REJECTED = 'REJECTED',
   INTERESTED = 'INTERESTED',
   ADMITTED = 'ADMITTED',
+  ASSIGNED = 'ASSIGNED',
 }
 
 @Entity('leads')
 export class LeadsEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
-  @Column({nullable:true})
-  name: string;
+  @Column({ nullable: true })
+  name!: string;
 
   @Index()
   @Column()
-  phone: string;
+  phone!: string;
 
-  @Column({nullable:true})
-  notes: string;
+  @Column({ nullable: true })
+  notes!: string;
 
   @Index()
   @Column({
@@ -41,20 +45,32 @@ export class LeadsEntity {
     enum: LeadStatus,
     default: LeadStatus.NEW,
   })
-  status: LeadStatus;
+  status!: LeadStatus;
+
+  @Column({ type: 'uuid', nullable: true })
+  batch_id!: string;
+
+  @Column({ type: 'text', nullable: true })
+  course_name!: string;
+
+  @Column({ type: 'uuid', nullable: true })
+  student_id!: string;
 
   @Index()
-  @Column({ type: 'char', length: 36, nullable: true })
-  assignedTo: string;
+  @Column({ type: 'uuid', nullable: true })
+  assignedTo!: string;
+  @ManyToOne(() => EmployeEntity, (emp) => emp.leads)
+  @JoinColumn({ name: 'assignedTo' })
+  employee!: EmployeEntity;
 
   @Column({ type: 'timestamp', nullable: true })
-  assignedAt: Date;
+  assignedAt!: Date;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
   })
-  updatedAt: Date;
+  updatedAt!: Date;
 }

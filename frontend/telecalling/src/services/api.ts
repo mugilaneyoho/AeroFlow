@@ -6,14 +6,14 @@ export const CommonApi = createApi({
     baseQuery:fetchBaseQuery({
         baseUrl: import.meta.env.VITE_BACKEND_URL,
     }),
-    tagTypes:['commonapi'],
+    tagTypes:['commonapi','leads'],
     endpoints:(builder)=>({
         getDashboard: builder.query({
             query:()=> ApiLists.common.getAdminDash,
         }),
 
         getEmployeeStatus: builder.query({
-            query:()=>'/emp-status'
+            query:()=>'/telecalling/emp-status'
         }),
 
         uploadLeads: builder.mutation({
@@ -33,6 +33,10 @@ export const CommonApi = createApi({
                 method:'POST',
                 body:data,
             })
+        }),
+        getAllLeads: builder.query({
+            query:()=>ApiLists.leads.getAll,
+            providesTags:['leads']
         })
     })
 })
@@ -43,4 +47,5 @@ export const {
     useUploadLeadsMutation,
     useGetAllTeleCallersListQuery,
     useAssignLeadsMutation,
+    useGetAllLeadsQuery,
 } = CommonApi

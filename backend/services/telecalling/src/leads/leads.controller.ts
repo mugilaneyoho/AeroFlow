@@ -13,6 +13,7 @@ import { LeadsService } from './leads.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { LeadsUpdateDto } from './dto/leads-update.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LeadStatus } from 'src/entities/leads.entity';
 
 @ApiTags('leads')
 @Controller('leads')
@@ -46,7 +47,19 @@ export class LeadsController {
 
   @Get('byemployee/:uuid')
   @ApiOperation({ summary: 'get leads by employee uuid' })
-  getbyemployee(@Param('uuid') uuid: string) {
-    return this.leadsService.findByEmployee(uuid);
+  getbyemployee(
+    @Param('uuid') uuid: string,
+    @Query() query: { page: string; limit: string; status: LeadStatus },
+  ) {
+    return this.leadsService.findByEmployee(uuid, query);
+  }
+
+  @Get('completed/:uuid')
+  @ApiOperation({ summary: 'get leads by employee uuid' })
+  getcomplete(
+    @Param('uuid') uuid: string,
+    @Query() query: { page: string; limit: string; status: LeadStatus },
+  ) {
+    return this.leadsService.findCompleted(uuid);
   }
 }

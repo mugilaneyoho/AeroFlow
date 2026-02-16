@@ -4,7 +4,7 @@ import search from '../../assets/search-normal.png'
 import LeadsTabel from '../../features/leads/LeadsTabel'
 import upload from '../../assets/upload.png'
 import addlead from '../../assets/addlead.png'
-import { useAssignLeadsMutation, useUploadLeadsMutation } from '../../services/api'
+import { useAssignLeadsMutation, useGetEmployeeStatusQuery, useUploadLeadsMutation } from '../../services/api'
 import ArrayDropDown from '../../components/ui/ArrayDropDown'
 import TeleCallerStatsCard from '../../components/ui/TeleCallerStatsCard'
 
@@ -17,6 +17,9 @@ const LeadsAllocation:React.FC = () => {
   const [selectTele, setselectTele] = useState<string[] | never[]>([]);
   const [assignLeads,{isLoading}] = useAssignLeadsMutation()
 
+  const {data} = useGetEmployeeStatusQuery('')
+
+  console.log(data,'employee')
 
 
   const [uploadLeads] = useUploadLeadsMutation()
@@ -120,8 +123,8 @@ const LeadsAllocation:React.FC = () => {
             <p className='font-semibold text-2xl'>Tele-Callers</p>
             <div className='flex flex-col h-[90vh] gap-5 w-full overflow-y-scroll' style={{scrollbarWidth:'none'}}>
               {
-                Array(6).fill(null).map((_,index)=>(<div key={index}>
-                  <TeleCallerStatsCard/>
+                data?.data?.map((tele:any,index:number)=>(<div key={index}>
+                  <TeleCallerStatsCard data={tele}/>
                 </div>))
               }
             </div>

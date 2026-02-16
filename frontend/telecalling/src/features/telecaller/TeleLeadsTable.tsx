@@ -1,4 +1,5 @@
 import React from 'react'
+import { useGetEmployeeCompletedLeadsQuery } from '../../services/RTKQuery/CallerQueryApi'
 
 const title = [
     'Phone Number',
@@ -8,15 +9,11 @@ const title = [
     'Notes'
 ]
 
-const data = {
-    number:'9876543213',
-    name:'abinaya',
-    status:'pending',
-    lastCalls:'34/3/3004',
-    notes:'follow up'
-}
 
 const TeleLeadsTable:React.FC = () => {
+
+  const {data} = useGetEmployeeCompletedLeadsQuery({uuid:'4026c9ac-40e8-4d72-ae38-14a9cf28eaac'})
+    
   return (
      <div className='flex flex-col gap-5 shadow-[0px_4px_14px_0px_#00000040] rounded-lg p-4'>
         <div className='w-full h-[90vh] p-4'>
@@ -33,13 +30,13 @@ const TeleLeadsTable:React.FC = () => {
           </div>
              <div className='flex h-[78vh] flex-col gap-5 mt-5 overflow-y-scroll' style={{scrollbarWidth:'none'}}>
                 {
-                  Array(12).fill(data).map((item,index)=>(
-                     <div className='grid grid-cols-5 bg-[#F5F5F5] text-center font-medium rounded-lg hover:bg-[#E1EDFF]' key={index}>
-                      <p className='py-4 '>{item.number}</p>
-                      <p className='py-4 '>{item.name}</p>
-                      <p className='py-4 '>{item.status}</p>
-                      <p className='py-4 '>{item.lastCalls}</p>
-                      <p className='py-4 '>{item.notes}</p>
+                 data?.map((item:any)=>(
+                     <div className='grid grid-cols-5 bg-[#F5F5F5] text-center font-medium rounded-lg hover:bg-[#E1EDFF]' key={item?.uuid}>
+                      <p className='py-4 '>{item?.phone}</p>
+                      <p className='py-4 '>{item?.name}</p>
+                      <p className='py-4 '>{item?.status}</p>
+                      <p className='py-4 '>{item?.updatedAt?.split('T')[0]}</p>
+                      <p className='py-4 '>{item?.notes}</p>
                     </div>
                   ))
                 }

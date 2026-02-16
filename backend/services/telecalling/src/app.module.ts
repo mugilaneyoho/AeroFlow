@@ -25,10 +25,11 @@ import { ConfigModule } from '@nestjs/config';
       // host: process.env.DB_HOST,
       // port: 3306,
       // username: process.env.DB_USER,
-      // password: process.env.DB_PASS,
       // database: process.env.DB_NAME,
+      // password: process.env.DB_PASS,
       entities: [LeadsEntity, EmployeEntity],
       synchronize: true,
+      maxQueryExecutionTime: 20,
     }),
     TypeOrmModule.forFeature([LeadsEntity, EmployeEntity]),
     BullModule.forRoot({

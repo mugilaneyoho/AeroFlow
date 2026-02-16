@@ -2,7 +2,7 @@ import React from 'react'
 
 const RecentCall:React.FC = () => {
   return (
-    <div className='w-full h-full shadow-[0px_0px_14px_0px_#00000040_inset] p-3'>
+    <div className='w-full h-full shadow-[0px_0px_14px_0px_#00000040_inset] p-3 rounded-xl'>
         <p className='font-medium text-xl'>Recent Call Activities</p>
         <div className='p-4 h-96 overflow-x-hidden'>
             {

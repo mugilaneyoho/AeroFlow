@@ -1,41 +1,63 @@
-import React, { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react'
 import arrrow from '../../assets/Vector.svg'
 import TeleLeadsTable from '../../features/telecaller/TeleLeadsTable'
 import CallerWindow from '../../features/telecaller/CallerWindow'
 import logo from '../../assets/logo1.png'
 import { IoCallOutline } from "react-icons/io5";
+import { useGetEmployeeLeadsQuery } from '../../services/RTKQuery/CallerQueryApi'
+import { StartCallingThunks } from '../../features/Callers/thunks'
+import { useDispatch } from 'react-redux'
+import type { TelecallerAppDispatch } from '../../store/telecallerStore'
+import { PickCallerNumber, StoreAllNumber } from '../../features/Callers/slice'
+import { useNavigate } from 'react-router-dom'
 
 const LeadsCallerPage: React.FC = () => {
   const [calls, setcalls] = useState(false);
+  const dispatch = useDispatch<TelecallerAppDispatch>()
+  const navigate = useNavigate()
+
+  const [leadStatus, setleadStatus] = useState<string>('ASSIGNED');
+
+  const {data} = useGetEmployeeLeadsQuery({uuid:'4026c9ac-40e8-4d72-ae38-14a9cf28eaac',status:leadStatus},{refetchOnMountOrArgChange:true})
+
+  useEffect(() => {
+    if (data) {
+      dispatch(StoreAllNumber(data))
+    }
+  }, [data, dispatch]);
+
   return (
     <div className='w-full grid grid-cols-4 gap-5'>
       <div className='col-span-3 flex flex-col gap-5'>
-        <div className='grid grid-cols-4 gap-5 h-[70vh]'>
-          <div className='col-span-1 h-[70vh] flex flex-col p-4 shadow-[0px_0px_14px_0px_#2516F8_inset] rounded-2xl'>
+        <div className='grid grid-cols-4 gap-5 h-max'>
+          <div className='col-span-1 h-min flex flex-col p-4 shadow-[0px_0px_14px_0px_#2516F8_inset] rounded-2xl'>
             <p className='font-bold text-2xl' >Leads</p>
-            <div className='flex flex-col gap-5 mt-5 h-[70vh] overflow-scroll' style={{scrollbarWidth:'none'}}>
+            <div className='flex flex-col gap-5 mt-5 h-[55vh] overflow-scroll' style={{scrollbarWidth:'none'}}>
               {
-                Array(12).fill(null).map(() => (
-                  <div className='flex items-center justify-center rounded-xl border border-solid border-[#2516F8] px-4 py-2 shadow-[0px_0px_14px_0px_#2516F8_inset]'>
-                    <p>98765432135</p>
+                data?.length == 0 ?
+                  'no leads, to change status'
+                : data?.map((data:any) => (
+                  <div key={data?.uuid} onClick={()=>dispatch(PickCallerNumber(data))} className='flex items-center justify-center rounded-xl border border-solid border-[#2516F8] px-4 py-2 shadow-[0px_0px_14px_0px_#2516F8_inset]'>
+                    <p>{data?.phone}</p>
                   </div>
                 ))
               }
             </div>
           </div>
-          <div className='col-span-3 h-ful w-full shadow-[0px_0px_14px_0px_#2516F8_inset] rounded-2xl'>
+          <div className='col-span-3 h-ful w-full h-min shadow-[0px_0px_14px_0px_#2516F8_inset] rounded-2xl'>
             {
               calls ? 
-              <CallerWindow/>
+              <CallerWindow setwindow={setcalls} setLeadStatus={setleadStatus}/>
               :
-              <div className='flex flex-col justify-center items-center gap-5'>
+              <div className='flex flex-col h-[65vh] justify-center items-center gap-5'>
                   <div className='shadow-[0px_0px_14px_0px_#2516F8_inset] bg-white rounded-[50%] p-5 mt-10'>
                     <img src={logo} alt="" className='w-52'/>
                   </div>
 
                   <p className='text-2xl font-semibold text-[#2516F8]'>Ready To Call</p>
 
-                  <div onClick={()=>setcalls(true)} className='flex flex-row gap-2 font-medium items-center shadow-[0px_0px_14px_0px_#2516F8_inset] bg-white text-[#2516F8] cursor-pointer border border-[#FFFFFF] hover:shadow-[0px_4px_4px_0px_#1E2DFA80] hover:bg-[#2516F8] hover:border-[#2516F8] hover:text-white px-6 py-2 rounded-2xl'>
+                  <div onClick={()=>{setcalls(true); dispatch(StartCallingThunks())}} className='flex flex-row gap-2 font-medium items-center shadow-[0px_0px_14px_0px_#2516F8_inset] bg-white text-[#2516F8] cursor-pointer border border-[#FFFFFF] hover:shadow-[0px_4px_4px_0px_#1E2DFA80] hover:bg-[#2516F8] hover:border-[#2516F8] hover:text-white px-6 py-2 rounded-2xl'>
                     <IoCallOutline/>
                     <p>Start Call</p>
                   </div>
@@ -77,7 +99,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Ready For Admission</p>
           </div>
-          <div className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={()=>navigate('/leadlist/INTERESTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
             <p className='text-[#170D9A] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -94,7 +116,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>In Queue</p>
           </div>
-          <div className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={()=>navigate('/leadlist/ASSIGNED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
             <p className='text-[#8D1AAA] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -111,7 +133,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Callback Required</p>
           </div>
-          <div className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={()=>navigate('/leadlist/WAITING')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
             <p className='text-[#BA820F] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -128,7 +150,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Rejected</p>
           </div>
-          <div className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={()=>navigate('/leadlist/REJECTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
             <p className='text-[#D20F0F] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -145,7 +167,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Joined</p>
           </div>
-          <div className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={()=>navigate('/leadlist/ADMITTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
             <p className='text-[#1AAA28] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>

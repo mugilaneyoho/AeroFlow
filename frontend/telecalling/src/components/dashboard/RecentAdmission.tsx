@@ -3,7 +3,7 @@ import logo from '../../assets/icons/profile.svg'
 
 const RecentAdmission:React.FC = () => {
   return (
-    <div className='shadow-[0px_0px_14px_0px_#00000040_inset] p-3 h-full'>
+    <div className='shadow-[0px_0px_14px_0px_#00000040_inset] p-3 h-full rounded-xl'>
       <p className='font-medium text-xl'>Recent Admissions</p>
       <div className='p-4 h-96 flex flex-col gap-5 overflow-x-hidden'>
         {

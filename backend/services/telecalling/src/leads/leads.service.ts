@@ -135,6 +135,7 @@ export class LeadsService {
       const [leads, total] = await this.leadsRepo.findAndCount({
         where: { status: Not(LeadStatus.NEW) },
         skip: (page - 1) * limit,
+        relations: ['employee'],
         take: limit,
         order: { createdAt: 'DESC' },
       });
@@ -159,12 +160,47 @@ export class LeadsService {
     }
   }
 
-  async findByEmployee(uuid: string) {
+  async findByEmployee(
+    uuid: string,
+    query: { page: string; limit: string; status: LeadStatus },
+  ) {
+    try {
+      let leads: LeadsEntity[];
+
+      if (query.status == LeadStatus.ASSIGNED) {
+        leads = await this.leadsRepo.find({
+          where: {
+            assignedTo: uuid,
+            status: query.status,
+          },
+          select: ['uuid', 'phone', 'notes', 'status', 'name'],
+        });
+      } else {
+        leads = await this.leadsRepo.find({
+          where: {
+            assignedTo: uuid,
+            status: query.status,
+          },
+          relations: ['employee'],
+        });
+      }
+
+      return leads;
+    } catch (error) {
+      console.error(error, 'leads fetch all error');
+      throw new InternalServerErrorException({
+        success: false,
+        message: 'internal server error',
+      });
+    }
+  }
+
+  async findCompleted(uuid: string) {
     try {
       const leads = await this.leadsRepo.find({
         where: {
           assignedTo: uuid,
-          status: And(Not(LeadStatus.REJECTED), Not(LeadStatus.ADMITTED)),
+          status: And(Not(LeadStatus.ADMITTED), Not(LeadStatus.ASSIGNED)),
         },
       });
 

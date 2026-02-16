@@ -13,6 +13,7 @@ class ApiLists {
         putStatus:'/telecalling/leads/update/:uuid',
         getAll:'/telecalling/leads/all',
         getByemp: 'telecalling/leads/byemployee/:uuid',
+        completeLeads: '/telecalling/leads/completed/:uuid',
     }
 
     common = {

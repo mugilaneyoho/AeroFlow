@@ -5,55 +5,60 @@ import {
   PrimaryGeneratedColumn,
   Generated,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { LeadsEntity } from './leads.entity';
 
 @Entity('employee')
 export class EmployeEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column({ nullable: false })
-  employee_name: string;
+  employee_name!: string;
 
   @Column({ nullable: false })
-  emp_id: string;
+  emp_id!: string;
 
   @Column({ nullable: false })
-  phone_number: string;
+  phone_number!: string;
 
   @Column()
-  alter_number: string;
+  alter_number!: string;
 
   @Column()
-  work_exp: string;
+  work_exp!: string;
 
   @Column()
-  address: string;
+  address!: string;
 
   @Column()
-  education: string;
+  education!: string;
 
   @Column({ unique: true, nullable: false })
-  email: string;
+  email!: string;
 
   @Column()
-  image: string;
+  image!: string;
 
   @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  is_active!: boolean;
 
   @Column({ type: 'boolean', default: false })
-  is_delete: boolean;
+  is_delete!: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
   })
-  updatedAt: Date;
+  updatedAt!: Date;
+
+  @OneToMany(() => LeadsEntity, (lead) => lead.assignedTo)
+  leads!: LeadsEntity[];
 }
