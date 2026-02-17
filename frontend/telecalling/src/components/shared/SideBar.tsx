@@ -36,7 +36,7 @@ const SideBar:React.FC = () => {
               <img src={NavbarIcon.clickable.fees} alt="" className=' absolute'/>
             ]}
           />
-          <SideBarLink
+          {/* <SideBarLink
             to='/report'
             icon={[
               <img src={NavbarIcon.normal.report} alt="" className=' absolute'/>,
@@ -49,7 +49,7 @@ const SideBar:React.FC = () => {
               <img src={NavbarIcon.normal.ticket} alt="" className=' absolute'/>,
               <img src={NavbarIcon.clickable.ticket} alt="" className=' absolute'/>
             ]}
-          />
+          /> */}
         </div>
       </div>
     </div>

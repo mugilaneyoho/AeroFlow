@@ -54,13 +54,15 @@ export class EmployeeService implements OnModuleInit {
 
       const final = await this.employeeRepo.save(user);
 
+      console.log(final);
+
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const grpc_res: { success: boolean; message: string } =
         await lastValueFrom(
           this.AuthService.CreateUser({
             email: final.email,
             password: data.password,
-            profileId: final.uuid,
+            profileId: final?.uuid,
           }),
         );
 
@@ -85,7 +87,9 @@ export class EmployeeService implements OnModuleInit {
 
   async findOne(uuid: string) {
     try {
-      const user = await this.employeeRepo.findOne({ where: { uuid } });
+      const user = await this.employeeRepo.findOne({
+        where: { uuid, is_delete: false },
+      });
 
       if (!user) {
         return new NotFoundException({
@@ -188,7 +192,17 @@ export class EmployeeService implements OnModuleInit {
 
   async GetAlltele() {
     const data = await this.employeeRepo.find({
+      where: { is_delete: false },
       select: ['uuid', 'employee_name', 'emp_id'],
+    });
+
+    return data;
+  }
+
+  async activeEmployee() {
+    const data = await this.employeeRepo.find({
+      where: { is_active: true, is_delete: false },
+      select: ['uuid', 'employee_name', 'emp_id', 'image', 'is_active'],
     });
 
     return data;

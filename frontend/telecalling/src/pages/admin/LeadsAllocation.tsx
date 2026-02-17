@@ -76,7 +76,7 @@ const LeadsAllocation:React.FC = () => {
           </div>
         </div>
         <div className='grid grid-cols-2 w-full gap-5'>
-          <div onClick={AssignLeads} className='flex justify-center gap-3 items-center p-2 rounded-lg border border-[#79747E] bg-[#1F338C] text-white'>
+          <div onClick={AssignLeads} className='flex justify-center gap-3 items-center p-2 rounded-lg border border-[#79747E] bg-[#1F338C] text-white cursor-pointer'>
             <img src={addlead} alt="" />
             <p>Allocate Leads</p>
           </div>

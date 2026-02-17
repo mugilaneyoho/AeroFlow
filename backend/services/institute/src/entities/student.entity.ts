@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-Entity('Studentprofile');
+@Entity('Studentprofile')
 export class StudentProfileEntity {
   @Column({ unique: true })
   @Generated('increment')
@@ -36,6 +36,24 @@ export class StudentProfileEntity {
 
   @Column()
   phone_number!: string;
+
+  @Column()
+  alter_number!: string;
+
+  @Column()
+  gender!: string;
+
+  @Column()
+  address!: string;
+
+  @Column()
+  city!: string;
+
+  @Column()
+  state!: string;
+
+  @Column()
+  pincode!: string;
 
   @Column()
   qualification!: string;

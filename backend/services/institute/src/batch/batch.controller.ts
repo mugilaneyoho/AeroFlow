@@ -35,6 +35,11 @@ export class BatchController {
     return this.batchService.findAllBycourse(courseid, query);
   }
 
+  @Get('dropdown/:courseid')
+  finddropdownByCourse(@Param('courseid') courseid: string) {
+    return this.batchService.finddropdownBycourse(courseid);
+  }
+
   @Get(':uuid')
   findOne(@Param('uuid') uuid: string) {
     return this.batchService.findOne(uuid);

@@ -213,4 +213,50 @@ export class LeadsService {
       });
     }
   }
+
+  async recentAdmit() {
+    const data = await this.leadsRepo.find({
+      where: { status: LeadStatus.ADMITTED },
+      relations: ['employee'],
+      order: { createdAt: 'DESC' },
+    });
+
+    return data;
+  }
+
+  async findByStatus(uuid: string) {
+    try {
+      const leadStatsRaw = await this.leadsRepo
+        .createQueryBuilder('leads')
+        .select('leads.assignedTo', 'assignedTo')
+        .addSelect('leads.status', 'status')
+        .addSelect('COUNT(leads.id)', 'count')
+        .where('leads.assignedTo = :assignedTo', {
+          assignedTo: uuid,
+        })
+        .groupBy('leads.assignedTo')
+        .addGroupBy('leads.status')
+        .getRawMany();
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const leadStats = leadStatsRaw.reduce(
+        (acc: any, row: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          acc[row.status] = Number(row.count);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          return acc;
+        },
+        {} as Record<string, number>,
+      );
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return leadStats;
+    } catch (error) {
+      console.error(error, 'leads fetch all error');
+      throw new InternalServerErrorException({
+        success: false,
+        message: 'internal server error',
+      });
+    }
+  }
 }

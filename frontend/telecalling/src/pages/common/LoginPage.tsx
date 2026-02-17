@@ -6,6 +6,8 @@ import { CiMail } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import ToggleSwitch from '../../components/ui/ToggelButton';
 import { useTelecallerLoginMutation } from '../../services/api';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../contexts/AuthUseContext';
 
 const LoginPage:React.FC = () => {
 
@@ -14,9 +16,11 @@ const LoginPage:React.FC = () => {
 
     const [isAdmin, setisAdmin] = useState(false);
 
-    const [teleLogin,{data,isLoading}] = useTelecallerLoginMutation()
+    const {login} = useAuth()
 
-    const handellogin =()=>{
+    const [teleLogin,{isLoading,reset}] = useTelecallerLoginMutation()
+
+    const handellogin =async()=>{
 
         const email = emailRef.current?.value
         const password = passRef.current?.value
@@ -27,10 +31,34 @@ const LoginPage:React.FC = () => {
             password,
         }
 
-        teleLogin(obj)
+        if (email === "" || password === "") {
+            toast.warning("enter email and password")
+            return 
+        }
+
+        const res = await teleLogin(obj)
+
+        const data = res?.data
+
+        if (data?.status && data?.status === 401 || data?.status === 404) {
+            toast.warning(data?.message)
+            reset()
+            return
+        }
+
+        if (data?.response && data?.success === false) {
+            toast.warning(data?.response?.message)
+            reset()
+            return
+        }
 
         if (data) {
-            console.log(data)
+            if (data?.success) {
+                login(data?.data,data?.role,data?.profid)
+                toast.success(data?.message)
+            }else{
+                toast.error('internal server error')
+            }
         }
     }
 
@@ -45,12 +73,12 @@ const LoginPage:React.FC = () => {
         <div className='flex flex-col gap-5 mt-5 w-80'>
             <div className='flex flex-row gap-5 p-2 items-center rounded-xl bg-white'>
                 <CiMail/>
-                <input type="text" ref={emailRef} className='w-full focus:outline-none' placeholder='enter your email'/>
+                <input type="text" defaultValue="admin@telecalling.com" ref={emailRef} className='w-full focus:outline-none' placeholder='enter your email'/>
             </div>
             <div className='flex flex-row gap-5 p-2 items-center rounded-xl bg-white justify-between'>
                 <div className='flex flex-row items-center gap-5'>
                 <CiLock/>
-                <input type="text" ref={passRef} className='w-full focus:outline-none' placeholder='enter your password'/>
+                <input type="text" defaultValue="123456" ref={passRef} className='w-full focus:outline-none' placeholder='enter your password'/>
                 </div>
                 <IoEyeOutline/>
             </div>

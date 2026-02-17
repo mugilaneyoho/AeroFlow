@@ -69,6 +69,7 @@ export class TelecallingService {
         success: true,
         message: 'login successfully.',
         data: token,
+        profid: user?.profile_id,
       };
     } catch (error) {
       console.error(error, 'staff login failed');
@@ -111,6 +112,13 @@ export class TelecallingService {
       const role = await this.roleRepo.findOne({
         where: { role: roles.TELECALLER },
       });
+
+      if (!role) {
+        return {
+          success: false,
+          message: 'role not founded',
+        };
+      }
 
       const hasspass = await PasswordUtils.hash(data.password);
 

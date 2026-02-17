@@ -10,15 +10,16 @@ export const AuthProvider:React.FC<{children:ReactNode}>=({children})=>{
 
     const [isAdmin, setisAdmin] = useState(()=>{
         const role = GetLocalStorage('t_as_r')
-        return role === 'admin' ? true : false
+        return role === 'TELEADMIN' ? true : false
     });
 
-    const login = (token:string, role:string)=>{
+    const login = (token:string, role:string, prof:string)=>{
         StoreLocalStorage("t_a_tk",token)
         StoreLocalStorage("t_as_r",role)
+        StoreLocalStorage("t_pro_i",prof)
         setisAuthenticated(true)
         setisAdmin(()=>{
-            return role === 'admin' ? true : false
+            return role === 'TELEADMIN' ? true : false
         })
     };
 

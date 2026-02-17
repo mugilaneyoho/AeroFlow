@@ -22,14 +22,19 @@ export class CourseController {
     return this.courseSerivce.create(body);
   }
 
-  @Get(':uuid')
-  findOne(@Param('uuid') uuid: string) {
-    return this.courseSerivce.findOne(uuid);
-  }
-
   @Get('all')
   findAll(@Query() query: { page: string; limit: string }) {
     return this.courseSerivce.findAll(query);
+  }
+
+  @Get('dropdown')
+  finddrop() {
+    return this.courseSerivce.finddrop();
+  }
+
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.courseSerivce.findOne(uuid);
   }
 
   @Put(':uuid')

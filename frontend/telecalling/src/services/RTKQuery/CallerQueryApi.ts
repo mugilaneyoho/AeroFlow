@@ -6,7 +6,7 @@ export const CallerQueryApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: import.meta.env.VITE_BACKEND_URL,
     }),
-    tagTypes: ['leads','compleads'],
+    tagTypes: ['leads','compleads','course','batch'],
     endpoints: (builder)=>({
         getEmployeeLeads: builder.query({
             query:({uuid,status})=>({
@@ -26,6 +26,31 @@ export const CallerQueryApi = createApi({
         getEmployeeCompletedLeads: builder.query({
             query:(data)=>ApiLists.leads.completeLeads.replace(':uuid',data.uuid),
             providesTags:['compleads']
+        }),
+        getTeleCallerStatusLeads:builder.query({
+            query:(uuid)=>ApiLists.leads.getBystatus.replace(':uuid',uuid),
+        }),
+        createStudentAdmission:builder.mutation({
+            query:(data)=>({
+                url:ApiLists.admission.student,
+                method:'POST',
+                body:data,
+            })
+        }),
+        createPaymentAdmission:builder.mutation({
+            query:(data)=>({
+                url:'',
+                method:'POST',
+                body:data
+            })
+        }),
+        getAllcourse:builder.query({
+            query:()=>ApiLists.admission.getallcourse,
+            providesTags:['course']
+        }),
+        getAllBatch:builder.query({
+            query:(uuid)=>ApiLists.admission.getbatchBycourse.replace(':uuid',uuid),
+            providesTags:['batch']
         })
     })
 })
@@ -34,4 +59,9 @@ export const {
     useGetEmployeeCompletedLeadsQuery,
     useGetEmployeeLeadsQuery,
     useUpdateEmployeeLeadsMutation,
+    useGetTeleCallerStatusLeadsQuery,
+    useCreateStudentAdmissionMutation,
+    useCreatePaymentAdmissionMutation,
+    useGetAllcourseQuery,
+    useGetAllBatchQuery,
 } = CallerQueryApi

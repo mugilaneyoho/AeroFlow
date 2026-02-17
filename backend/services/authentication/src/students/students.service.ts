@@ -23,7 +23,7 @@ export class StudentsService {
     private JwtService: JwtService,
   ) {}
 
-  async create(data: Partial<StudentEntity>) {
+  async create(data: { email: string; password: string; profileId: string }) {
     try {
       if (!data.email) {
         throw new NotFoundException({
@@ -51,7 +51,7 @@ export class StudentsService {
       }
 
       const role = await this.rolesRepo.findOne({
-        where: { role: roles.TELECALLER },
+        where: { role: roles.STUDENT },
       });
 
       const hashpass: string = await PasswordUtils.hash(data.password);
@@ -60,6 +60,7 @@ export class StudentsService {
         ...data,
         password: hashpass,
         role_id: role?.uuid,
+        profile_id: data?.profileId,
       });
 
       if (!user) {

@@ -9,6 +9,7 @@ import { BullModule } from '@nestjs/bull';
 import { EmployeeModule } from './employee/employee.module';
 import { EmployeEntity } from './entities/employee.entity';
 import { ConfigModule } from '@nestjs/config';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { ConfigModule } from '@nestjs/config';
     LeadsModule,
     QueueModule,
     EmployeeModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

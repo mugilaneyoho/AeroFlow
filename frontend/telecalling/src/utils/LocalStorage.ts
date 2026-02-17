@@ -12,6 +12,10 @@ export const RemoveLocalStorage =(key:string)=>{
     storages.removeItem(key)
 }
 
-export const ClearLocalStorage = (key:string)=>{
+export const ClearLocalStorage = ()=>{
     storages.clear()
+}
+
+export const GetProfileUUID=()=>{
+    return storages.getItem('t_pro_i')
 }

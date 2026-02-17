@@ -152,4 +152,14 @@ export class CourseService {
       });
     }
   }
+
+  async finddrop() {
+    const data = this.courseRepo.find({
+      where: { is_delete: false, is_active: true },
+      select: ['uuid', 'course_name', 'price'],
+      order: { createdAt: 'DESC' },
+    });
+
+    return data;
+  }
 }

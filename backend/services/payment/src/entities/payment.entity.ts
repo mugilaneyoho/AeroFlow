@@ -38,6 +38,9 @@ export class PaymentEntiry {
   student_id!: string;
 
   @Column()
+  student_name!: string;
+
+  @Column()
   notes!: string;
 
   @CreateDateColumn({ type: 'timestamp' })

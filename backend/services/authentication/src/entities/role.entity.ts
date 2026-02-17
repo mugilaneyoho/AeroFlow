@@ -22,17 +22,17 @@ export enum roles {
 export class rolesEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column({ type: 'enum', enum: roles, nullable: false })
-  role: roles;
+  role!: roles;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
+  updatedAt!: Date;
 }

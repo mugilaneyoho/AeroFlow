@@ -22,7 +22,7 @@
     "start:institute":"cd .. && cd services/institute && npm i && npm run start:dev",
     "start:telecalling":"cd .. && cd services/telecalling && npm i && npm run start:dev",
     "start:training":"cd .. && cd services/training && npm i && npm run start:dev",
-    "start:all":"concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING -c yellow,green,blue,red,white \"npm run start:dev\" \"npm run start:auth\" \"npm run start:insitute\" \"npm run start:telecalling\" \"npm run start:training\" "
+    "start:all":"concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING -c yellow,green,blue,red,white \"npm run start:dev\" \"npm run start:auth\" \"npm run start:institute\" \"npm run start:telecalling\" \"npm run start:training\" "
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

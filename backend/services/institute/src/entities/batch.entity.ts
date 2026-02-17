@@ -47,7 +47,7 @@ export class BatchEntity {
   @Column()
   batch_code!: string;
 
-  @Column()
+  @Column({ default: 0 })
   seats_filled!: number;
 
   @Column()

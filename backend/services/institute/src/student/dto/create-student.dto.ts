@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDateString,
@@ -25,11 +24,6 @@ export class CreateStudentDto {
   @IsNotEmpty()
   student_name!: string;
 
-  @ApiProperty({ example: 'Stud002' })
-  @IsString()
-  @IsNotEmpty()
-  student_id!: string;
-
   @ApiProperty({ example: 'hackii@example.com' })
   @IsEmail()
   @IsNotEmpty()
@@ -39,6 +33,11 @@ export class CreateStudentDto {
   @IsPhoneNumber()
   @IsNotEmpty()
   phone_number!: string;
+
+  @ApiProperty({ example: '9876543210' })
+  @IsPhoneNumber()
+  @IsNotEmpty()
+  alter_number!: string;
 
   @ApiProperty({ example: 'b.tech' })
   @IsString()
@@ -54,4 +53,29 @@ export class CreateStudentDto {
   @IsString()
   @IsNotEmpty()
   password!: string;
+
+  @ApiProperty({ example: 'male' })
+  @IsString()
+  @IsNotEmpty()
+  gender!: string;
+
+  @ApiProperty({ example: 'address' })
+  @IsString()
+  @IsNotEmpty()
+  address!: string;
+
+  @ApiProperty({ example: 'city' })
+  @IsString()
+  @IsNotEmpty()
+  city!: string;
+
+  @ApiProperty({ example: 'state' })
+  @IsString()
+  @IsNotEmpty()
+  state!: string;
+
+  @ApiProperty({ example: 'pincode' })
+  @IsString()
+  @IsNotEmpty()
+  pincode!: string;
 }

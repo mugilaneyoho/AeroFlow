@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import logo from '../../assets/logo1.png'
-import logout from '../../assets/icons/logout.svg'
+import logoutimg from '../../assets/icons/logout.svg'
 import profile from '../../assets/icons/profile.svg'
 import { useAuth } from '../../contexts/AuthUseContext'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { IoCallOutline } from "react-icons/io5";
 import { TbReportSearch } from "react-icons/tb";
 import { LuTicket } from "react-icons/lu";
+import { useTelecallerLoginMutation } from '../../services/api'
 
 const NavBar:React.FC = () => {
-  const {isAdmin} = useAuth()
+  const {isAdmin,logout} = useAuth()
   const location = useLocation()
   const path = location.pathname
   const navigate = useNavigate()
+  const [_,{reset}] = useTelecallerLoginMutation()
+  
   return (
     <div className='w-fullbg-[#FFFFFF] shadow-[0px_4px_4px_0px_#00000040] p-3 px-10'>
       <div className="flex flex-row justify-between">
@@ -43,7 +46,7 @@ const NavBar:React.FC = () => {
         }
         <div className='flex flex-row h-15 gap-10'>
           <img src={profile} alt="" width={50}/>
-          <img src={logout} alt="" width={25}/>
+          <img onClick={()=>{logout(); reset()}} src={logoutimg} alt="" width={25} className='cursor-pointer'/>
         </div>
       </div>
     </div>

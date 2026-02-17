@@ -1,6 +1,13 @@
 import React from 'react'
+import AdmissionsBtn from './AdmissionsBtn'
 
-const PaymentDetails:React.FC = () => {
+type props = {
+    currentStep:number;
+    BackStep?:()=>void;
+    NextStep?:()=>void;
+}
+
+const PaymentDetails:React.FC<props> = ({currentStep,BackStep,NextStep}) => {
 
   return (
     <div className='flex flex-col gap-5'>
@@ -102,6 +109,8 @@ const PaymentDetails:React.FC = () => {
             </div>
             </div>
         </div>
+
+        <AdmissionsBtn currentStep={currentStep} BackStep={BackStep} NextStep={NextStep}/>
     </div>
   )
 }

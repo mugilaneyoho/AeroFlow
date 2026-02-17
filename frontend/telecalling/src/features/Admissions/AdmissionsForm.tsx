@@ -10,8 +10,9 @@ const AdmissionsForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const navigate = useNavigate()
     const formRef = useRef<any>(null)
+    const [studentId, setstudentId] = useState<string>("");
 
-    function NestStep() {
+    function NextStep() {
         setCurrentStep(currentStep + 1)
     }
 
@@ -38,38 +39,9 @@ const AdmissionsForm = () => {
                 <StepIndicator currentStep={currentStep} />
             </div>
             <div>
-                {currentStep === 1 && <PersonalDetails />}
-                {currentStep === 2 && <PaymentDetails />}
+                {currentStep === 1 && <PersonalDetails currentStep={currentStep} BackStep={BackStep} NextStep={NextStep} setStudent={setstudentId}/>}
+                {currentStep === 2 && <PaymentDetails currentStep={currentStep} BackStep={BackStep} NextStep={NextStep}/>}
                 {currentStep === 3 && <ApplicationSuccess/>}
-            </div>
-
-            <div className='flex flex-row gap-5 justify-end text-xl mt-5'>
-
-                {currentStep === 3 ?
-                    <div className='flex flex-row gap-5'>
-                        <div className=' cursor-pointer border-2 border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>
-                            <p>Download Receipt</p>
-                        </div>
-                        <div onClick={()=>navigate(-1)} className=' cursor-pointer border-2 border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>
-                            <p>Finish & Close</p>
-                        </div>
-                    </div>
-                    :
-                    <>
-                        <div onClick={() => navigate(-1)} className='border-2 cursor-pointer border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>
-                            <p>Cancel</p>
-                        </div>
-                        {
-                            currentStep !== 1 &&
-                            <div onClick={BackStep} className=' cursor-pointer border-2 border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>
-                                <p>Back</p>
-                            </div>
-                        }
-                        <div onClick={NestStep} className='cursor-pointer border-2 border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>
-                            <p>{currentStep === 1 ? 'Next Payment Details' : 'Confirm Payment'}</p>
-                        </div>
-                    </>
-                }
             </div>
         </div>
     )

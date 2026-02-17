@@ -6,13 +6,13 @@ import RecentAdmission from '../../components/dashboard/RecentAdmission'
 import plus from '../../assets/Frame.png'
 import upload from '../../assets/Frame (1).png'
 import leads from '../../assets/Frame (2).png'
-import { useGetDashboardQuery } from '../../services/api'
+import { useGetActiveEmployeeQuery, useGetDashboardQuery } from '../../services/api'
 
 const DashBoard:React.FC = () => {
 
   const {data} = useGetDashboardQuery('common')
 
-  console.log(data?.data,"dashboard")
+  const {data:activeemp} = useGetActiveEmployeeQuery('')
 
   const datas = [
     {
@@ -106,19 +106,20 @@ const DashBoard:React.FC = () => {
       <div className='w-full shadow-[0px_4px_14px_0px_#00000040] p-2 rounded-lg'>
         <div className='flex flex-row justify-between p-2'>
           <p className='font-semibold text-lg'>Active Tele-Callers</p>
-          <p className='border border-solid border-[#881F8C] p-1 px-4 text-white bg-[#0AD544] rounded-xl'>3 Online</p>
+          <p className='border border-solid border-[#881F8C] p-1 px-4 text-white bg-[#0AD544] rounded-xl'>{activeemp?.length} Online</p>
         </div>
           <div className='w-full flex flex-col gap-4 p-2'>
             {
-              Array(3).fill(null).map((_,index)=>{
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              activeemp?.map((emp:any)=>{
                 return (
-                  <div key={index} className='shadow-[0px_4px_4px_0px_#5CFF3C] rounded-xl bg-[#EAFFE6]'>
+                  <div key={emp.uuid} className='shadow-[0px_4px_4px_0px_#5CFF3C] rounded-xl bg-[#EAFFE6]'>
                       <div className='flex flex-row w-full justify-between px-4 py-2'>
                         <div className='flex flex-row gap-4 items-center'>
                           <img src={logo} alt="" />
                           <div>
-                            <p className='font-medium text-lg'>Priya Sharma</p>
-                            <p className='font-medium text-[#595555]'>IT course</p>
+                            <p className='font-medium text-lg'>{emp?.employee_name}</p>
+                            <p className='font-medium text-[#595555]'>{emp?.emp_id}</p>
                             <p className='font-medium text-[#595555]'>clock-in 09:00 AM</p>
                           </div>
                         </div>

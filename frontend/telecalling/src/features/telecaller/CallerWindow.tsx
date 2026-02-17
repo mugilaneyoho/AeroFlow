@@ -40,6 +40,9 @@ const CallerWindow:React.FC<props> = ({setwindow, setLeadStatus}) => {
         UpdateLeads(datas)
 
         dispatch(NextNumber())
+
+        name.current!.value = ''
+        notes.current!.value = ''
     }
 
     const Changefilterd = (status:string)=>{
@@ -100,11 +103,11 @@ const CallerWindow:React.FC<props> = ({setwindow, setLeadStatus}) => {
             <div className='bg-white rounded-xl w-full'>
                <div className='flex flex-col gap-2 p-4'>
                     <p className='text-black text-lg font-medium'>Lead Name</p>
-                    <input type="text" ref={name} value={picknumber.name} className='text-white bg-[#2516F8] placeholder:text-white focus:outline-none p-2 rounded-xl' placeholder='Enter Lead Name..'/>
+                    <input type="text" ref={name} value={picknumber?.name} className='text-white bg-[#2516F8] placeholder:text-white focus:outline-none p-2 rounded-xl' placeholder='Enter Lead Name..'/>
                </div>
                <div className='flex flex-col gap-2 p-4'>
                     <p className='text-black text-lg font-medium'>Notes</p>
-                    <input type="text" ref={notes} value={picknumber.notes} className='text-white bg-[#2516F8] placeholder:text-white focus:outline-none p-2 rounded-xl' placeholder='Enter Lead Name..'/>
+                    <input type="text" ref={notes} value={picknumber?.notes} className='text-white bg-[#2516F8] placeholder:text-white focus:outline-none p-2 rounded-xl' placeholder='Enter Lead Name..'/>
                </div>
             </div>
             <p className='text-white text-2xl font-extrabold'>Quick Updated</p>
@@ -123,7 +126,7 @@ const CallerWindow:React.FC<props> = ({setwindow, setLeadStatus}) => {
                </div>
                <div onClick={()=>setwindow(false)} className='shadow-[0px_0px_14px_0px_#1AAA28_inset] border border-[#1AAA28] bg-[#D9FFDD] px-4 py-2 rounded-xl'>
                     <MdOutlineCallEnd/>
-                    <p className='font-semibold'>Go to admit</p>
+                    <p className='font-semibold'>Close window</p>
                </div>
                <div onClick={()=>dispatch(NextNumber())} className='shadow-[0px_0px_14px_0px_#1AAA28_inset] border border-[#1AAA28] bg-[#D9FFDD] px-4 py-2 rounded-xl'>
                     <TbPlayerTrackNext/>

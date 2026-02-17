@@ -24,7 +24,10 @@ export class CreateBatchDto {
   @IsNotEmpty()
   branch_id!: string;
 
-  @ApiProperty({ example: 'course uuid' })
+  @ApiProperty({
+    example:
+      'course uuid (use this for demo "48e45edc-e5a5-4bc1-98ac-c35c9ad2a200")',
+  })
   @IsUUID()
   @IsNotEmpty()
   course_id!: string;

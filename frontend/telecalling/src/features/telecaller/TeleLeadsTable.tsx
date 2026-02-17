@@ -1,5 +1,6 @@
 import React from 'react'
 import { useGetEmployeeCompletedLeadsQuery } from '../../services/RTKQuery/CallerQueryApi'
+import { GetProfileUUID } from '../../utils/LocalStorage'
 
 const title = [
     'Phone Number',
@@ -12,7 +13,8 @@ const title = [
 
 const TeleLeadsTable:React.FC = () => {
 
-  const {data} = useGetEmployeeCompletedLeadsQuery({uuid:'4026c9ac-40e8-4d72-ae38-14a9cf28eaac'})
+    const uuid = GetProfileUUID()
+  const {data} = useGetEmployeeCompletedLeadsQuery({uuid})
     
   return (
      <div className='flex flex-col gap-5 shadow-[0px_4px_14px_0px_#00000040] rounded-lg p-4'>

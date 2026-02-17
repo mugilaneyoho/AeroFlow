@@ -45,7 +45,7 @@ export class CourseEntity {
   @Column()
   thumbnail!: string;
 
-  @Column()
+  @Column({ nullable: true })
   total_batches!: number;
 
   @Column()

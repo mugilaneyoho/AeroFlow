@@ -30,6 +30,11 @@ export class EmployeeController {
     return this.employeeService.GetAlltele();
   }
 
+  @Get('active-emp')
+  getactive() {
+    return this.employeeService.activeEmployee();
+  }
+
   @Post('create')
   @ApiOperation({ summary: 'create new telecaller' })
   create(@Body() data: CreateEmployeeDto) {

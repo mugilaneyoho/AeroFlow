@@ -34,8 +34,9 @@ const TeleCallerCreateForm: React.FC<props> = ({OnClose,uuid}) => {
     enableReinitialize:true,
     onSubmit: async (value) => {
       if (uuid) {
-        await UpdateTelecaller(value,uuid)
+        await UpdateTelecaller(value)
       }else{
+        delete value.uuid
         await CreateTelecaller(value)
       }
       OnClose(false)

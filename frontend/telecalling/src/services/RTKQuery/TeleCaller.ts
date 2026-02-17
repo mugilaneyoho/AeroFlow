@@ -42,8 +42,9 @@ export const TeleCallerApi = createApi({
             query:(uuid)=>({
                 url:ApiLists.telecaller.delete.replace(':uuid',uuid),
                 method:'DELETE',
-            })
-        })
+            }),
+            invalidatesTags:['telecaller']
+        }),
 
     })
 })

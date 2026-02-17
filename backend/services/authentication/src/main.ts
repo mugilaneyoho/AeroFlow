@@ -10,13 +10,18 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
-      package: ['telecaller_auth', 'staff'],
+      package: ['telecaller_auth', 'staff', 'student'],
       protoPath: [
         join(__dirname, './proto/telecalling.proto'),
         join(__dirname, './proto/staff.proto'),
+        join(__dirname, './proto/student.proto'),
       ],
-      url: `0.0.0.0:50051`,
+      url: `0.0.0.0:${process.env.PORT_GRPC}`,
     },
+  });
+
+  app.enableCors({
+    origin: 'http://localhost:5173',
   });
 
   await app.startAllMicroservices();

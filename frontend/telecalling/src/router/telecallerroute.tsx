@@ -9,7 +9,7 @@ const TelecallerRoute = () => (
         <Route path="/" element={<MainLayout/>}>
             <Route index element={<LeadsCallerPage/>}/>
             <Route path="/leadlist/:status" element={<FilteredLeads/>}/>
-            <Route path="/admit" element={<AdmissionsForm/>}/>
+            <Route path="/admit/:uuid" element={<AdmissionsForm/>}/>
             <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
     </Routes>

@@ -44,6 +44,12 @@ export const CommonApi = createApi({
                 body:data
             })
         }),
+         getActiveEmployee:builder.query({
+            query:()=>ApiLists.common.getactiveemp,
+        }),
+        getRecentAdmission:builder.query({
+            query:()=>ApiLists.common.getrecetamit,
+        })
     })
 })
 
@@ -55,4 +61,6 @@ export const {
     useAssignLeadsMutation,
     useGetAllLeadsQuery,
     useTelecallerLoginMutation,
+    useGetActiveEmployeeQuery,
+    useGetRecentAdmissionQuery,
 } = CommonApi

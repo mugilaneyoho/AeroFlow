@@ -3,11 +3,13 @@ import FilteredCards from '../../components/ui/FilteredCards'
 import { useParams } from 'react-router-dom'
 import { GoDownload } from "react-icons/go";
 import { useGetEmployeeLeadsQuery } from '../../services/RTKQuery/CallerQueryApi';
+import { GetProfileUUID } from '../../utils/LocalStorage';
 
 const FilteredLeads:React.FC = () => {
   const {status} = useParams()
+  const uuid = GetProfileUUID()
 
-  const {data,isLoading,isSuccess} = useGetEmployeeLeadsQuery({uuid:'4026c9ac-40e8-4d72-ae38-14a9cf28eaac',status},{refetchOnMountOrArgChange:true})
+  const {data,isLoading,isSuccess} = useGetEmployeeLeadsQuery({uuid,status},{refetchOnMountOrArgChange:true})
 
   console.log(data)
 

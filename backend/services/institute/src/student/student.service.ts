@@ -37,6 +37,7 @@ export class StudentService implements OnModuleInit {
 
   async create(data: CreateStudentDto) {
     try {
+      const nowDate = new Date();
       const exist = await this.studentRepo.findOne({
         where: { email: data.email },
       });
@@ -48,7 +49,15 @@ export class StudentService implements OnModuleInit {
         });
       }
 
-      const user = this.studentRepo.create(data);
+      const student_id =
+        'PI' +
+        nowDate.getMonth() +
+        nowDate.getFullYear() +
+        'STD' +
+        nowDate.getMilliseconds() +
+        nowDate.getMinutes();
+
+      const user = this.studentRepo.create({ ...data, student_id });
 
       const student = await this.studentRepo.save(user);
 
@@ -57,7 +66,7 @@ export class StudentService implements OnModuleInit {
         await lastValueFrom(
           this.AuthService.CreateStudent({
             email: student.email,
-            password: data.password,
+            password: 'patron',
             profileId: student.uuid,
           }),
         );

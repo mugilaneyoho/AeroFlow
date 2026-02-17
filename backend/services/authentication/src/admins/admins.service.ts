@@ -144,10 +144,10 @@ export class AdminsService {
       const user = await this.adminRepo.findOne({ where: { email } });
 
       if (!user) {
-        return new NotFoundException({
+        return {
           success: false,
           message: 'user not founded',
-        });
+        };
       }
 
       const verify = await PasswordUtils.verify(user.password, password);
@@ -159,6 +159,10 @@ export class AdminsService {
         });
       }
 
+      const role = await this.roleRepo.findOne({
+        where: { uuid: user.role_id },
+      });
+
       const token = await this.JwtService.signAsync(
         { ...user },
         { expiresIn: '7d' },
@@ -168,6 +172,7 @@ export class AdminsService {
         success: true,
         message: 'login successfully.',
         data: token,
+        role: role?.role,
       };
     } catch (error) {
       console.error(error, 'admin login failed');

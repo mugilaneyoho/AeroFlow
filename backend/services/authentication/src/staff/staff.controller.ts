@@ -16,8 +16,8 @@ export class StaffController {
   // create(@Body() data: CreateStaffDto) {
   //   return this.staffService.create(data);
   // }
-  @GrpcMethod('StaffService','CreateStaff')
-  create(data: { email: string; password: string; profileId: string }){
+  @GrpcMethod('StaffService', 'CreateStaff')
+  create(data: { email: string; password: string; profileId: string }) {
     return this.staffService.create(data);
   }
 

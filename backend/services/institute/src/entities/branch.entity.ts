@@ -18,37 +18,37 @@ import { CourseEntity } from './course.entity';
 export class BranchEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column('uuid')
-  institute_id: string;
+  institute_id!: string;
   @ManyToOne(() => InstituteEntity, { eager: false })
   @JoinColumn({ name: 'institute_id' })
-  institute: InstituteEntity;
+  institute!: InstituteEntity;
 
   @Column()
-  branch_name: string;
+  branch_name!: string;
 
   @Column()
-  phone_number: string;
+  phone_number!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column()
-  address: string;
+  address!: string;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
   })
-  updatedAt: Date;
+  updatedAt!: Date;
 
   @OneToMany(() => CourseEntity, (course) => course.branch_id)
-  courses: CourseEntity[];
+  courses!: CourseEntity[];
 }

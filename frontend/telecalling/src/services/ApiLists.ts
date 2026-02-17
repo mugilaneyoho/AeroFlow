@@ -14,16 +14,26 @@ class ApiLists {
         getAll:'/telecalling/leads/all',
         getByemp: 'telecalling/leads/byemployee/:uuid',
         completeLeads: '/telecalling/leads/completed/:uuid',
+        getBystatus: '/telecalling/leads/bystatus/:uuid',
     }
 
     common = {
         getAdminDash: '/telecalling/dashboard',
         getAllTele:'/telecalling/employee/lists',
+        getactiveemp:'/telecalling/employee/active-emp',
+        getrecetamit:'/telecalling/leads/temp-recent-admit',
     }
 
     login = {
         tele:'/auth/telecalling/login',
         admin:'/auth/admins/login'
+    }
+
+    admission = {
+        student:'/institute/student/create',
+        payment:'/telecalling/payment/create',
+        getallcourse:'/institute/course/dropdown',
+        getbatchBycourse:'/institute/batch/dropdown/:uuid',
     }
 }
 

@@ -2,7 +2,8 @@ import React from 'react'
 import profil from '../../assets/icons/profile.svg'
 import close from '../../assets/closse.png'
 import { GiConfirmed } from "react-icons/gi";
-import { useGetTeleCallerByUUIDQuery } from '../../services/RTKQuery/TeleCaller';
+import { useDeleteTeleCallerMutation, useGetTeleCallerByUUIDQuery } from '../../services/RTKQuery/TeleCaller';
+import { toast } from 'react-toastify';
 
 type props = {
     closeview: (data: boolean) => void;
@@ -15,6 +16,14 @@ const ViewTeleCaller: React.FC<props> = ({ closeview, tabType, uuid }) => {
     const {data,isLoading} = useGetTeleCallerByUUIDQuery(uuid,{
         skip:!uuid
     })
+
+    const [DeletedTeleCallersApi,{data:deleteres,isSuccess}] = useDeleteTeleCallerMutation()
+
+    const DeleteteleCaller =async(uuid:string)=>{
+        await DeletedTeleCallersApi(uuid)
+        toast.success('employee deleted success')
+        closeview(false)
+    }
 
     return (
         <div className='w-[60vh] h-[50vh] p-4 bg-white rounded-xl shadow-[0px_0px_14px_0px_#00000040_inset]'>
@@ -57,8 +66,8 @@ const ViewTeleCaller: React.FC<props> = ({ closeview, tabType, uuid }) => {
                             <p className='text-4xl font-semibold'>Are you sure?</p>
                             <p className='text-2xl'>Do you want to delete</p>
                             <div className='flex flex-row gap-10'>
-                                <div onClick={()=>closeview(false)} className='bg-[#F8F8F8] text-2xl px-10 py-2 border border-[#1F338C4D] rounded-xl'>No</div>
-                                <div className='bg-[#1F338C] text-2xl px-10 text-white py-2 border border-[#1F338C] rounded-xl'>Yes</div>
+                                <div onClick={()=>closeview(false)} className='bg-[#F8F8F8] text-2xl px-10 py-2 border border-[#1F338C4D] rounded-xl cursor-pointer'>No</div>
+                                <div onClick={()=>DeleteteleCaller(data?.data?.uuid)} className='bg-[#1F338C] text-2xl px-10 text-white py-2 border border-[#1F338C] cursor-pointer rounded-xl'>Yes</div>
                             </div>
                         </div>
                     </>

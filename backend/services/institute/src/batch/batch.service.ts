@@ -19,6 +19,7 @@ export class BatchService {
 
   async create(data: CreateBatchDto) {
     try {
+      const nowDate = new Date();
       const exist = await this.batchRepo.findOne({
         where: { batch_name: data.batch_name },
       });
@@ -30,7 +31,13 @@ export class BatchService {
         });
       }
 
-      const batch = this.batchRepo.create({ ...data });
+      const batch_code =
+        'PI' +
+        nowDate.getMonth() +
+        nowDate.getFullYear() +
+        nowDate.getMilliseconds();
+
+      const batch = this.batchRepo.create({ ...data, batch_code });
 
       await this.batchRepo.save(batch);
 
@@ -214,5 +221,16 @@ export class BatchService {
         message: 'internal server error!',
       });
     }
+  }
+
+  async finddropdownBycourse(course_id: string) {
+    const nowDate = new Date();
+    const data = this.batchRepo.find({
+      where: { course_id, is_delete: false, start_date: LessThan(nowDate) },
+      select: ['batch_name', 'uuid', 'batch_code'],
+      order: { createdAt: 'DESC' },
+    });
+
+    return data;
   }
 }

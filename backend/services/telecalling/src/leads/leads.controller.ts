@@ -33,6 +33,11 @@ export class LeadsController {
     return this.leadsService.assignLeads(userid, count);
   }
 
+  @Get('temp-recent-admit')
+  tempadmit() {
+    return this.leadsService.recentAdmit();
+  }
+
   @Put('update/:uuid')
   @ApiOperation({ summary: 'leads status and details are updated' })
   update(@Body() data: LeadsUpdateDto, @Param('uuid') uuid: string) {
@@ -52,6 +57,12 @@ export class LeadsController {
     @Query() query: { page: string; limit: string; status: LeadStatus },
   ) {
     return this.leadsService.findByEmployee(uuid, query);
+  }
+
+  @Get('bystatus/:uuid')
+  @ApiOperation({ summary: 'get leads by employee uuid' })
+  getbystatus(@Param('uuid') uuid: string) {
+    return this.leadsService.findByStatus(uuid);
   }
 
   @Get('completed/:uuid')
