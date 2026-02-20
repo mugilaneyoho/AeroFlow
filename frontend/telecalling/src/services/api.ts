@@ -49,6 +49,9 @@ export const CommonApi = createApi({
         }),
         getRecentAdmission:builder.query({
             query:()=>ApiLists.common.getrecetamit,
+        }),
+        getAllPayments:builder.query({
+            query:()=>ApiLists.common.getAllpayment
         })
     })
 })
@@ -63,4 +66,5 @@ export const {
     useTelecallerLoginMutation,
     useGetActiveEmployeeQuery,
     useGetRecentAdmissionQuery,
+    useGetAllPaymentsQuery,
 } = CommonApi

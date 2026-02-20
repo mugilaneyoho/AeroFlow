@@ -10,7 +10,8 @@ const AdmissionsForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const navigate = useNavigate()
     const formRef = useRef<any>(null)
-    const [studentId, setstudentId] = useState<string>("");
+    const [student, setstudent] = useState<any | null>(null);
+    const [paymentdata,setpaymentdata] = useState<any | null>(null);
 
     function NextStep() {
         setCurrentStep(currentStep + 1)
@@ -39,9 +40,9 @@ const AdmissionsForm = () => {
                 <StepIndicator currentStep={currentStep} />
             </div>
             <div>
-                {currentStep === 1 && <PersonalDetails currentStep={currentStep} BackStep={BackStep} NextStep={NextStep} setStudent={setstudentId}/>}
-                {currentStep === 2 && <PaymentDetails currentStep={currentStep} BackStep={BackStep} NextStep={NextStep}/>}
-                {currentStep === 3 && <ApplicationSuccess/>}
+                {currentStep === 1 && <PersonalDetails currentStep={currentStep} BackStep={BackStep} NextStep={NextStep} setStudent={setstudent}/>}
+                {currentStep === 2 && <PaymentDetails currentStep={currentStep} BackStep={BackStep} NextStep={NextStep} student={student} setpayment={setpaymentdata}/>}
+                {currentStep === 3 && <ApplicationSuccess currentStep={currentStep} payment={paymentdata} />}
             </div>
         </div>
     )

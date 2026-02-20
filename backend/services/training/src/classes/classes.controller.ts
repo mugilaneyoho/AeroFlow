@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ClassesService } from './classes.service';
 import { CreateClassDto } from './dto/create-class.dto';
@@ -21,7 +22,7 @@ export class ClassesController {
   }
 
   @Get('all')
-  findAll(query: { page: string; limit: string }) {
+  findAll(@Query() query: { page: string; limit: string }) {
     return this.classService.findAll(query);
   }
 

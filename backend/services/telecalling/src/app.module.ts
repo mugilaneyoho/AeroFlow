@@ -19,7 +19,7 @@ import { PaymentModule } from './payment/payment.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgresql://patron_2whd_user:UVa7zf8WHQFqsXBQmFcGRbBboFr1ubsh@dpg-d65csker433s73evgaj0-a.singapore-postgres.render.com/patron_2whd',
+      url: 'postgresql://patron_727o_user:vNL871u0UdD5lEwe01ZqngnTCDgO7NtE@dpg-d6bvqg7tn9qs73c7qcqg-a.singapore-postgres.render.com/patron_727o',
       ssl: {
         rejectUnauthorized: false,
       },

@@ -8,10 +8,17 @@ import {
   JoinColumn,
   ManyToOne,
   Index,
+  OneToMany,
 } from 'typeorm';
 import { InstituteEntity } from './institute.entity';
 import { BranchEntity } from './branch.entity';
 import { CourseEntity } from './course.entity';
+import { StudentProfileEntity } from './student.entity';
+
+export enum BatchMode {
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE',
+}
 
 @Entity('batch')
 @Index(['batch_name', 'course_id', 'branch_id', 'uuid'])
@@ -26,23 +33,27 @@ export class BatchEntity {
 
   @Column('uuid')
   institute_id!: string;
-  @ManyToOne(() => InstituteEntity, { eager: false })
+  @ManyToOne(() => InstituteEntity, (institute) => institute.batches)
   @JoinColumn({ name: 'institute_id' })
   institute!: InstituteEntity;
 
   @Column('uuid')
   branch_id!: string;
-  @ManyToOne(() => BranchEntity, { eager: false })
+  @ManyToOne(() => BranchEntity, (branch) => branch.batches)
   @JoinColumn({ name: 'branch_id' })
   branch!: BranchEntity;
 
   @Column('uuid')
   course_id!: string;
   @ManyToOne(() => CourseEntity, (course) => course.batches)
+  @JoinColumn({ name: 'course_id' })
   course!: CourseEntity;
 
   @Column()
   batch_name!: string;
+
+  @Column({ type: 'enum', enum: BatchMode, default: BatchMode.OFFLINE })
+  batch_mode!: BatchMode;
 
   @Column()
   batch_code!: string;
@@ -74,6 +85,9 @@ export class BatchEntity {
   @Column({ type: 'boolean', default: false })
   is_delete!: boolean;
 
+  @Column({ type: 'boolean', default: true })
+  is_active!: boolean;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;
 
@@ -81,4 +95,7 @@ export class BatchEntity {
     type: 'timestamp',
   })
   updatedAt!: Date;
+
+  @OneToMany(() => StudentProfileEntity, (student) => student.batch_id)
+  students!: StudentProfileEntity[];
 }

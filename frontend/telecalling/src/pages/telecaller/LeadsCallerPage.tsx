@@ -115,7 +115,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Ready For Admission</p>
           </div>
-          <div onClick={() => navigate('/leadlist/INTERESTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={() => navigate('/leadlist/INTERESTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl cursor-pointer'>
             <p className='text-[#170D9A] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -132,7 +132,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>In Queue</p>
           </div>
-          <div onClick={() => navigate('/leadlist/ASSIGNED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={() => navigate('/leadlist/ASSIGNED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl cursor-pointer'>
             <p className='text-[#8D1AAA] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -149,7 +149,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Callback Required</p>
           </div>
-          <div onClick={() => navigate('/leadlist/WAITING')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={() => navigate('/leadlist/WAITING')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl cursor-pointer'>
             <p className='text-[#BA820F] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -166,7 +166,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Rejected</p>
           </div>
-          <div onClick={() => navigate('/leadlist/REJECTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={() => navigate('/leadlist/REJECTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl cursor-pointer'>
             <p className='text-[#D20F0F] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>
@@ -183,7 +183,7 @@ const LeadsCallerPage: React.FC = () => {
             </div>
             <p className='font-medium text-lg text-[#00000099]'>Joined</p>
           </div>
-          <div onClick={() => navigate('/leadlist/ADMITTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl'>
+          <div onClick={() => navigate('/leadlist/ADMITTED')} className='flex flex-row justify-between border border-[#BDC2C7BF] bg-white p-2 rounded-xl cursor-pointer'>
             <p className='text-[#1AAA28] font-light'>View All Leads</p>
             <img src={arrrow} alt="" className='w-5 h-5 rotate-270' />
           </div>

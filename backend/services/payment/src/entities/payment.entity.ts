@@ -5,7 +5,19 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { StudentFeesEntity } from './studentfees.entity';
+
+export enum PaymentStatus {
+  PENDING = 'PENDING',
+  AUTHORIZED = 'AUTHORIZED',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  CANCELED = 'CANCELED',
+  REFUNDED = 'REFUNDED',
+}
 
 @Entity('payment')
 export class PaymentEntiry {
@@ -16,32 +28,38 @@ export class PaymentEntiry {
   @PrimaryGeneratedColumn('uuid')
   uuid!: string;
 
+  @Column('uuid')
+  studentFeesId!: string;
+  @ManyToOne(() => StudentFeesEntity, (fees) => fees.payments)
+  @JoinColumn({ name: 'studentFeesId' })
+  studentFees!: StudentFeesEntity;
+
   @Column()
   amount!: number;
 
   @Column({ type: 'timestamptz' })
-  payment_date!: Date;
+  paymentDate!: Date;
 
   @Column()
-  payment_method!: string;
+  paymentMethod!: string;
 
   @Column()
-  receipt_number!: string;
+  receiptNumber!: string;
 
   @Column()
-  transaction_id!: string;
+  transactionId!: string;
 
   @Column('uuid')
-  collected_by!: string;
-
-  @Column('uuid')
-  student_id!: string;
+  studentId!: string;
 
   @Column()
-  student_name!: string;
+  studentName!: string;
 
   @Column()
   notes!: string;
+
+  @Column({ type: 'enum', enum: PaymentStatus, default: PaymentStatus.PENDING })
+  status!: PaymentStatus;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;

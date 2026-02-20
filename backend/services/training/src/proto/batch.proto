@@ -10,9 +10,15 @@ service BatchService {
 message Empty {}
 
 message BatchItem {
-  string id = 1;
-  string name = 2;
-  string description = 3;
+  string id = 1;               
+  string uuid = 2;              
+  string instituteId = 3;       
+  string branchId = 4;          
+  string courseId = 5;          
+  string batchName = 6;         
+  string batchMode = 7;         
+  string classStartTime = 8;  
+  string classEntTime = 9; 
 }
 
 message Meta {

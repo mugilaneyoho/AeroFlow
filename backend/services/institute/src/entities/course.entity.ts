@@ -13,6 +13,7 @@ import {
 import { InstituteEntity } from './institute.entity';
 import { BranchEntity } from './branch.entity';
 import { BatchEntity } from './batch.entity';
+import { StudentProfileEntity } from './student.entity';
 
 @Entity('course')
 @Index(['uuid', 'branch_id', 'course_name'])
@@ -27,13 +28,14 @@ export class CourseEntity {
 
   @Column('uuid')
   institute_id!: string;
-  @ManyToOne(() => InstituteEntity, { eager: false })
-  @JoinColumn({ name: 'insitute_id' })
+  @ManyToOne(() => InstituteEntity, (institute) => institute.courses)
+  @JoinColumn({ name: 'institute_id' })
   institute!: InstituteEntity;
 
   @Column('uuid')
   branch_id!: string;
   @ManyToOne(() => BranchEntity, (branch) => branch.courses)
+  @JoinColumn({ name: 'branch_id' })
   branch!: BranchEntity;
 
   @Column()
@@ -67,4 +69,7 @@ export class CourseEntity {
 
   @OneToMany(() => BatchEntity, (batch) => batch.course_id)
   batches!: BatchEntity[];
+
+  @OneToMany(() => StudentProfileEntity, (student) => student.course_id)
+  students!: StudentProfileEntity[];
 }

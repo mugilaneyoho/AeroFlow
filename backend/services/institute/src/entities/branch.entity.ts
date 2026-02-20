@@ -12,6 +12,7 @@ import {
 } from 'typeorm';
 import { InstituteEntity } from './institute.entity';
 import { CourseEntity } from './course.entity';
+import { BatchEntity } from './batch.entity';
 
 @Entity('branch')
 @Index(['uuid', 'branch_name', 'email'])
@@ -25,7 +26,7 @@ export class BranchEntity {
 
   @Column('uuid')
   institute_id!: string;
-  @ManyToOne(() => InstituteEntity, { eager: false })
+  @ManyToOne(() => InstituteEntity, (institute) => institute.branches)
   @JoinColumn({ name: 'institute_id' })
   institute!: InstituteEntity;
 
@@ -51,4 +52,7 @@ export class BranchEntity {
 
   @OneToMany(() => CourseEntity, (course) => course.branch_id)
   courses!: CourseEntity[];
+
+  @OneToMany(() => BatchEntity, (batch) => batch.branch_id)
+  batches!: BatchEntity[];
 }

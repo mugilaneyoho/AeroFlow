@@ -52,10 +52,13 @@ const FilteredCards:React.FC = ({data}:{data:any}) => {
             </div>
         </div>
 
+        {
+            status !== 'ADMITTED' && 
         <div className='flex flex-col justify-between items-center gap-10'>
             <div onClick={()=>navigate(`/admit/${data?.uuid}`)} className='shadow-[0px_0px_14px_0px_#2516F8_inset] px-6 py-2 font-semibold rounded-xl hover:bg-[#2516F8] hover:text-white cursor-pointer'>Go To Admited</div>
             <div className='shadow-[0px_0px_14px_0px_#20D432_inset] px-6 py-2 font-semibold rounded-xl hover:bg-[#20D432] hover:text-white cursor-pointer'>Update Status</div>
         </div>
+        }
 
     </div>
   )

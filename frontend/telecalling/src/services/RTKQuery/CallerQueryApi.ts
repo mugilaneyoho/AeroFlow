@@ -39,7 +39,7 @@ export const CallerQueryApi = createApi({
         }),
         createPaymentAdmission:builder.mutation({
             query:(data)=>({
-                url:'',
+                url:'/telecalling/payment/create',
                 method:'POST',
                 body:data
             })

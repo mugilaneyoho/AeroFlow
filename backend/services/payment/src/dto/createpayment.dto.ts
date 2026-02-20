@@ -1,11 +1,21 @@
 export class CreatePaymentDto {
   amount!: number;
-  payment_date!: Date;
-  payment_method!: string;
-  receipt_number!: string;
-  transaction_id!: string;
-  collected_by!: string;
-  student_id!: string;
-  student_name!: string;
+  paymentDate!: Date;
+  paymentMethod!: string;
+  transactionId!: string;
+  collectedBy!: string;
+  studentId!: string;
+  studentName!: string;
   notes!: string;
+}
+
+export class CreateGRPCdto {
+  admissionFees!: number;
+  paymentDate!: Date;
+  paymentMode!: string;
+  transactionId!: string;
+  telecallerId!: string;
+  studentId!: string;
+  studentName!:string;
+  remarks!: string;
 }

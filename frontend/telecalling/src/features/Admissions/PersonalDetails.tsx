@@ -8,7 +8,7 @@ type props = {
     currentStep:number;
     BackStep?:()=>void;
     NextStep?:()=>void;
-    setStudent:(data:string)=>void
+    setStudent:(data:any)=>void
 }
 
 const PersonalDetails: React.FC<props> = ({currentStep,BackStep,NextStep,setStudent}) => {
@@ -73,7 +73,9 @@ const PersonalDetails: React.FC<props> = ({currentStep,BackStep,NextStep,setStud
 
         const res = await createStudent(data)
 
-        console.log(res)
+        setStudent(res?.data?.data)
+
+        NextStep?.()
     }
 
     return (

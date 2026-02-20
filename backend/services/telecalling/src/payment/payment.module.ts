@@ -2,9 +2,12 @@ import { Module } from '@nestjs/common';
 import { PaymentController } from './payment.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { LeadsEntity } from 'src/entities/leads.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([LeadsEntity]),
     ClientsModule.register([
       {
         name: 'payment',

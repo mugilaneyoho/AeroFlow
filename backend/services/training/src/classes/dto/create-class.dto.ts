@@ -29,7 +29,7 @@ export class CreateClassDto {
   @IsNotEmpty()
   end_time!: Date;
 
-  @ApiProperty({ example: 'online' })
-  @IsNotEmpty()
-  mode!: string;
+  // @ApiProperty({ example: 'online' })
+  // @IsNotEmpty()
+  // mode!: string;
 }

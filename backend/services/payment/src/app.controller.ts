@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { GrpcMethod } from '@nestjs/microservices';
-import { CreatePaymentDto } from './dto/createpayment.dto';
+import { CreateGRPCdto, CreatePaymentDto } from './dto/createpayment.dto';
 
 @Controller()
 export class AppController {
@@ -18,7 +18,17 @@ export class AppController {
   }
 
   @GrpcMethod('PaymentService', 'CreatePayment')
-  create(data: CreatePaymentDto) {
-    return this.appService.create(data);
+  create(data: CreateGRPCdto) {
+    const body = {
+      amount: data.admissionFees,
+      paymentDate: data.paymentDate,
+      paymentMethod: data.paymentMode,
+      transactionId: data.transactionId,
+      collectedBy: data.telecallerId,
+      studentId: data.studentId,
+      studentName: data.studentName,
+      notes: data.remarks,
+    };
+    return this.appService.createAdmission(body);
   }
 }

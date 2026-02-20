@@ -1,10 +1,9 @@
 import React from 'react'
+import { useGetAllPaymentsQuery } from '../../services/api'
 
 const title = [
-    'Tele-caller Id & Name',
     'Student Name',
     'Mobile',
-    'Course',
     'Payment Mode',
     'Transaction Id',
     'Amount',
@@ -12,9 +11,7 @@ const title = [
     'Status'
 ]
 
-const data = {
-    tele: 'TC001',
-    telename: 'priya',
+const datas = {
     studentname: 'sharma',
     mobile: '9876543215',
     course: 'full stack',
@@ -26,12 +23,17 @@ const data = {
 }
 
 const PaymentTabel: React.FC = () => {
+
+    const {data,isLoading,isSuccess} = useGetAllPaymentsQuery('payment')
+
+    console.log(data)
+
     return (
         <div>
             <div className='flex flex-col gap-5 shadow-[0px_4px_14px_0px_#00000040] rounded-lg p-4'>
-                <div className='w-full h-[80vh] border-2 rounded-xl border-[#00000052] p-4'>
+                <div className='w-full h-[80vh] border-2 rounded-xl border-[#00000052] p-4 overflow-scroll' style={{scrollbarWidth:'none'}}>
                     <div className='w-full items-center rounded-xl bg-[#1F338C]'>
-                        <div className='grid grid-cols-9'>
+                        <div className='grid grid-cols-7'>
                             {
                                 title.map((value) => (
                                     <div className='col-span-1 flex flex-row py-4 justify-center text-white'>
@@ -41,21 +43,17 @@ const PaymentTabel: React.FC = () => {
                             }
                         </div>
                     </div>
-                    <div className='flex h-[62vh] flex-col gap-5 mt-5 overflow-y-scroll' style={{ scrollbarWidth: 'none' }}>
+                    <div className='flex h-[68vh] flex-col gap-5 mt-5 overflow-y-scroll' style={{ scrollbarWidth: 'none' }}>
                         {
-                            Array(12).fill(data).map((item, index) => (
-                                <div className='grid grid-cols-9 bg-[#F5F5F5] justify-center items-center text-center font-medium rounded-lg hover:bg-[#E1EDFF]' key={index}>
-                                    <div className='flex flex-col gap-0 py-2'>
-                                        <p className=''>{item.tele}</p>
-                                        <p className=''>{item.telename}</p>
-                                    </div>
-                                    <p className='py-4 '>{item.studentname}</p>
-                                    <p className='py-4 '>{item.mobile}</p>
-                                    <p className='py-4 '>{item.course}</p>
-                                    <p className='py-4 '>{item.payment}</p>
-                                    <p className='py-4 '>{item.trans}</p>
-                                    <p className='py-4 '>{item.amount}</p>
-                                    <p className='py-4 '>{item.date}</p>
+                            data?.data?.map((item, index) => (
+                                <div className='grid grid-cols-7 bg-[#F5F5F5] justify-center items-center text-center font-medium rounded-lg hover:bg-[#E1EDFF]' key={index}>
+                                    <p className='py-4 '>{item?.studentName}</p>
+                                    <p className='py-4 '>{item?.Phone}</p>
+                                    {/* <p className='py-4 '>{item?.course}</p> */}
+                                    <p className='py-4 '>{item?.paymentMode}UPI</p>
+                                    <p className='py-4 '>{item?.transactionId}</p>
+                                    <p className='py-4 '>{item?.amount}</p>
+                                    <p className='py-4 '>{item?.paymentDate?.split('GMT')[0]}</p>
                                     <p className='py-4 '>{item.status}</p>
                                 </div>
                             ))

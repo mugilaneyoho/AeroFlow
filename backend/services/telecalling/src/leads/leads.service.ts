@@ -43,11 +43,13 @@ export class LeadsService {
           .on(
             'data',
             (row: { name?: string; phone: string; email?: string }) => {
-              leads.push({
-                name: row?.name,
-                phone: row?.phone,
-                email: row?.email,
-              });
+              if (row?.phone !== '') {
+                leads.push({
+                  name: row?.name,
+                  phone: row?.phone,
+                  email: row?.email,
+                });
+              }
             },
           )
           .on('end', resolve)

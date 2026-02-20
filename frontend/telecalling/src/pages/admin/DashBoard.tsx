@@ -7,10 +7,12 @@ import plus from '../../assets/Frame.png'
 import upload from '../../assets/Frame (1).png'
 import leads from '../../assets/Frame (2).png'
 import { useGetActiveEmployeeQuery, useGetDashboardQuery } from '../../services/api'
+import { useNavigate } from 'react-router-dom'
 
 const DashBoard:React.FC = () => {
 
   const {data} = useGetDashboardQuery('common')
+  const navigate = useNavigate()
 
   const {data:activeemp} = useGetActiveEmployeeQuery('')
 
@@ -88,15 +90,15 @@ const DashBoard:React.FC = () => {
       <div className='flex flex-col gap-2'>
         <p className='font-bold text-xl'>Quick Actions</p>
         <div className='grid grid-cols-3 gap-14 w-full h-28'>
-          <div className='flex flex-col gap-2 h-28 justify-center items-center shadow-[0px_4px_14px_0px_#00000040] p-2 rounded-lg cursor-pointer'>
+          <div onClick={()=>navigate('/telecallers')} className='flex flex-col gap-2 h-28 justify-center items-center shadow-[0px_4px_14px_0px_#00000040] p-2 rounded-lg cursor-pointer'>
             <img src={plus} alt="" className='w-10 h-10'/>
             <p className='font-medium text-md text-[#1F338C]'>Create Tele-Caller</p>
           </div>
-          <div className='flex flex-col gap-2 h-28 justify-center items-center shadow-[0px_4px_14px_0px_#00000040] p-2 rounded-lg cursor-pointer'>
+          <div onClick={()=>navigate('/leads')} className='flex flex-col gap-2 h-28 justify-center items-center shadow-[0px_4px_14px_0px_#00000040] p-2 rounded-lg cursor-pointer'>
             <img src={upload} alt="" className='w-10 h-10'/>
             <p className='font-medium text-md text-[#1F338C]'>Upload Leads</p>
           </div>
-          <div className='flex flex-col gap-2 h-28 justify-center items-center shadow-[0px_4px_14px_0px_#00000040] p-2 rounded-lg cursor-pointer'>
+          <div onClick={()=>navigate('/leads')} className='flex flex-col gap-2 h-28 justify-center items-center shadow-[0px_4px_14px_0px_#00000040] p-2 rounded-lg cursor-pointer'>
             <img src={leads} alt="" className='w-10 h-10'/>
             <p className='font-medium text-md text-[#1F338C]'>Allocate Leads</p>
           </div>

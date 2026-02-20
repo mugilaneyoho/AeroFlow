@@ -20,7 +20,7 @@ async function bootstrap() {
   app.use(
     '/institute',
     createProxyMiddleware({
-      target: 'http://localhost:3006',
+      target: 'http://localhost:3004',
       changeOrigin: true,
       pathRewrite: {
         '^/institute': '',
@@ -31,7 +31,7 @@ async function bootstrap() {
   app.use(
     '/telecalling',
     createProxyMiddleware({
-      target: 'http://localhost:3007',
+      target: 'http://localhost:3006',
       changeOrigin: true,
       pathRewrite: {
         '^/telecalling': '',
@@ -42,7 +42,7 @@ async function bootstrap() {
   app.use(
     '/training',
     createProxyMiddleware({
-      target: 'http://localhost:3005',
+      target: 'http://localhost:3008',
       changeOrigin: true,
       pathRewrite: {
         '^/training': '',

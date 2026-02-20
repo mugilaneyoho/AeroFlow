@@ -12,9 +12,10 @@ message CreatePaymentRequest {
     string paymentDate = 2;
     string paymentMode = 3;
     string transactionId = 4;
-    string telecallerId = 5;
-    string studentId = 6;
+    string studentId = 5;
+    string studentName = 6;
     string remarks = 7;
+    string telecallerId = 8;
 }
 
 message Empty {}
@@ -29,11 +30,13 @@ message PaymentData {
     string student_id = 7;
     string student_name = 8;
     string notes = 9;
+    string status = 10;
 }
 
 message CommonResponse {
     bool success = 1;
     string message = 2;
+    PaymentData data = 3;
 }
 
 message GetAllPaymentResponse {

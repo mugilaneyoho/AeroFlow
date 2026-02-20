@@ -5,7 +5,9 @@ import {
   IsString,
   IsNumber,
   IsDateString,
+  IsEnum,
 } from 'class-validator';
+import { BatchMode } from 'src/entities/batch.entity';
 
 export class CreateBatchDto {
   @ApiProperty({
@@ -71,4 +73,9 @@ export class CreateBatchDto {
   @IsDateString()
   @IsNotEmpty()
   class_end_time!: string;
+
+  @ApiProperty({ example: BatchMode.ONLINE })
+  @IsEnum(BatchMode)
+  @IsNotEmpty()
+  batch_mode!: BatchMode;
 }

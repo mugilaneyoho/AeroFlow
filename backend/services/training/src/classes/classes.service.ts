@@ -15,7 +15,7 @@ import * as microservices from '@nestjs/microservices';
 import { UpdateClassDto } from './dto/update-class.dto';
 
 interface batchgrpc {
-  getbatch(data: { batchid: string }): Observable<any>;
+  GetById(data: { batchid: string }): Observable<any>;
 }
 
 @Injectable()
@@ -36,9 +36,9 @@ export class ClassesService implements OnModuleInit {
   }
 
   selectMode(mode: string) {
-    if (mode === 'online') {
+    if (mode === 'ONLINE') {
       return this.onlineRepo;
-    } else if (mode === 'offline') {
+    } else if (mode === 'OFFLINE') {
       return this.offlineRepo;
     } else {
       throw new NotFoundException('pass right class mode');
@@ -47,15 +47,18 @@ export class ClassesService implements OnModuleInit {
 
   async create(data: CreateClassDto) {
     try {
-      const classRepo = this.selectMode(data.mode);
-
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const grpc_batch: { success: boolean; data: { name: string } } =
-        await lastValueFrom(
-          this.batchService.getbatch({
-            batchid: data.batch_id,
-          }),
-        );
+      const grpc_batch: {
+        success: boolean;
+        data: {
+          batchMode: string;
+          batchName: string;
+        };
+      } = await lastValueFrom(
+        this.batchService.GetById({
+          batchid: data.batch_id,
+        }),
+      );
 
       if (!grpc_batch.success) {
         console.error('grpc staff profile error.');
@@ -65,9 +68,13 @@ export class ClassesService implements OnModuleInit {
         });
       }
 
+      console.log(grpc_batch.data, "datas");
+
+      const classRepo = this.selectMode(grpc_batch.data?.batchMode);
+
       const classData = classRepo.create({
         ...data,
-        batch_name: grpc_batch.data.name,
+        batch_name: grpc_batch.data.batchName,
       });
 
       const final = await classRepo.save(classData);

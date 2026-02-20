@@ -5,9 +5,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { CourseEntity } from './course.entity';
+import { BatchEntity } from './batch.entity';
 
-@Entity('Studentprofile')
+@Entity('StudentProfile')
 export class StudentProfileEntity {
   @Column({ unique: true })
   @Generated('increment')
@@ -18,9 +22,15 @@ export class StudentProfileEntity {
 
   @Column('uuid')
   course_id!: string;
+  @ManyToOne(() => CourseEntity, (course) => course.students)
+  @JoinColumn({ name: 'course_id' })
+  course!: CourseEntity;
 
   @Column('uuid')
   batch_id!: string;
+  @ManyToOne(() => BatchEntity, (batch) => batch.students)
+  @JoinColumn({ name: 'batch_id' })
+  batches!: BatchEntity;
 
   @Column('uuid')
   admittedBy!: string;

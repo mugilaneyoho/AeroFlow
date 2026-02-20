@@ -68,10 +68,22 @@ export class BatchService {
         });
       }
 
+      const grpcBatch = {
+        id: batch.id,
+        uuid: batch.uuid,
+        instituteId: batch.institute_id,
+        branchId: batch.branch_id,
+        courseId: batch.course_id,
+        batchName: batch.batch_name,
+        batchMode: batch.batch_mode,
+        classStartTime: batch.class_start_time,
+        classEntTime: batch.class_end_time,
+      };
+
       return {
         success: true,
         message: 'batch details fetched',
-        data: batch,
+        data: grpcBatch,
       };
     } catch (error) {
       console.error(error, 'find batch error!');
