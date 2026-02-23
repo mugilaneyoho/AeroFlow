@@ -19,6 +19,7 @@ message BatchItem {
   string batchMode = 7;         
   string classStartTime = 8;  
   string classEntTime = 9; 
+  string totalStudent = 10;
 }
 
 message Meta {

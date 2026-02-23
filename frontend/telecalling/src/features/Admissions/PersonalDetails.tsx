@@ -20,7 +20,7 @@ const PersonalDetails: React.FC<props> = ({currentStep,BackStep,NextStep,setStud
     const qualificationRef = useRef<HTMLInputElement | null>(null)
     const AlterRef = useRef<HTMLInputElement | null>(null)
     const admissionDateRef = useRef<HTMLInputElement | null>(null)
-    const passwordRef = useRef<HTMLInputElement | null>(null)
+    // const passwordRef = useRef<HTMLInputElement | null>(null)
     const addressRef = useRef<HTMLInputElement | null>(null)
     const cityRef = useRef<HTMLInputElement | null>(null)
     const stateRef = useRef<HTMLInputElement | null>(null)
@@ -37,6 +37,7 @@ const PersonalDetails: React.FC<props> = ({currentStep,BackStep,NextStep,setStud
     })
 
     const [createStudent,{isLoading}] = useCreateStudentAdmissionMutation()
+    console.log(isLoading)
 
     async function handelsubmit(){
         const course_id = courseId;

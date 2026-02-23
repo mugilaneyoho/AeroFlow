@@ -2,13 +2,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useGetAllTeleCallersListQuery } from "../../services/api";
 
-const options = [
-  { id: 1, value: "React" },
-  { id: 2, value: "Vue" },
-  { id: 3, value: "Angular" },
-  { id: 4, value: "Svelte" },
-];
-
 type props = {
   setSelectedProps:(data:string[] | never[])=>void
 }
@@ -34,11 +27,11 @@ const ArrayDropDown:React.FC<props> = ({setSelectedProps})=> {
   };
 
   useEffect(() => {
-    const close = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
+    // const close = (e) => {
+      // if (ref.current && !ref.current.contains(e.target)) {
+      //   setOpen(false);
+      // }
+    // };
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, []);

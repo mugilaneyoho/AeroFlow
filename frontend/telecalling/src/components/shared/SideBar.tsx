@@ -63,7 +63,7 @@ const SideBarLink =({
   to:string;
   icon:any;
 })=>{
-  const [isClick, setisClick] = useState();
+  // const [isClick, setisClick] = useState();
   const [isHovered, setIsHovered] = useState(false);
   const location = useLocation();
   const isActive = location.pathname == to;

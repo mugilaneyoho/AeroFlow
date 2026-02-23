@@ -20,62 +20,19 @@ export const AuthVerify = async (req, res, next) => {
             return res.status(401).json({ message: decoded.message, status: "session_expired" })
         }
 
-        const role = await axios.get(`${process.env.auth_url}/roles/${decoded.role}`)
+        if (decoded) {
+            const role = await axios.get(`${process.env.auth_url}/roles/${decoded.role}`)
 
-        if (decoded.role === "noob") {
-            const response = await axios.get(`${process.env.auth_url}/api/users/profile-gate/${decoded._id}`)
-            const { user } = response.data
-            if (!user) {
+            if (!role) {
                 return res.status(401).json({
                     success: false,
                     status: "failed",
-                    message: "User not found.",
+                    message: "your role not found.",
                     details: "The requested user does not exist in the system."
                 });
             }
 
-            req.headers["user"] = JSON.stringify(user)
-            next()
-        } else if (decoded.role === "student") {
-            const response = await axios.get(`${process.env.auth_url}/api/users/profile-gate/${decoded._id}`)
-            const { user } = response.data
-            if (!user) {
-                return res.status(401).json({
-                    success: false,
-                    status: "failed",
-                    message: "User not found.",
-                    details: "The requested user does not exist in the system."
-                });
-            }
-
-            req.headers["user"] = JSON.stringify(user)
-            next()
-        } else if (decoded.role === "merchant") {
-            const response = await axios.get(`${process.env.auth_url}/api/merchant/profile-gate/${decoded._id}`)
-            const { user } = response.data
-            if (!user) {
-                return res.status(401).json({
-                    success: false,
-                    status: "failed",
-                    message: "User not found.",
-                    details: "The requested user does not exist in the system."
-                });
-            }
-
-            req.headers["user"] = JSON.stringify(user)
-            next()
-        } else if (decoded.role === "admin") {
-            const response = await axios.get(`${process.env.auth_url}/api/admin/profile-gate/${decoded._id}`).catch((err) => { console.log(err) })
-            const { user } = response.data
-            if (!user) {
-                return res.status(401).json({
-                    success: false,
-                    status: "failed",
-                    message: "User not found.",
-                    details: "The requested user does not exist in the system."
-                });
-            }
-            req.headers["user"] = JSON.stringify(user)
+            req.headers["user"] = JSON.stringify({...decoded,role})
             next()
         } else {
             return res.status(401).json({ message: "your not allow to access", status: "not_permitted" });

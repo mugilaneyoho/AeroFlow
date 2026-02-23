@@ -8,7 +8,13 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { OfflineClassesEntity } from 'src/entities/OfflineClass.entity';
 import { OnlineClassesEntity } from 'src/entities/OnlineClass.entity';
-import { Repository } from 'typeorm';
+import {
+  FindManyOptions,
+  FindOptionsOrderValue,
+  LessThan,
+  MoreThan,
+  Repository,
+} from 'typeorm';
 import { CreateClassDto } from './dto/create-class.dto';
 import { lastValueFrom, Observable } from 'rxjs';
 import * as microservices from '@nestjs/microservices';
@@ -51,6 +57,7 @@ export class ClassesService implements OnModuleInit {
       const grpc_batch: {
         success: boolean;
         data: {
+          totalStudent: number | undefined;
           batchMode: string;
           batchName: string;
         };
@@ -68,13 +75,13 @@ export class ClassesService implements OnModuleInit {
         });
       }
 
-      console.log(grpc_batch.data, "datas");
-
       const classRepo = this.selectMode(grpc_batch.data?.batchMode);
 
       const classData = classRepo.create({
         ...data,
+        class_mode: grpc_batch.data?.batchMode.toLowerCase(),
         batch_name: grpc_batch.data.batchName,
+        total_student: grpc_batch.data?.totalStudent,
       });
 
       const final = await classRepo.save(classData);
@@ -115,24 +122,56 @@ export class ClassesService implements OnModuleInit {
     }
   }
 
-  async findAll(query: { page: string; limit: string }) {
+  async findAll(
+    query: { page: string; limit: string; classtype: string },
+    uuid?: string,
+  ) {
     try {
       const page = Number(query.page) || 1;
       const limit = Number(query.limit) || 5;
+      const classtype = query.classtype;
 
-      const [online, onlinTotal] = await this.onlineRepo.findAndCount({
-        where: { is_delete: false },
-        skip: (page - 1) * limit,
-        take: limit,
-        order: { createdAt: 'DESC' },
-      });
+      const nowDate = new Date();
 
-      const [offline, offlineTotal] = await this.offlineRepo.findAndCount({
-        where: { is_delete: false },
-        skip: (page - 1) * limit,
-        take: limit,
-        order: { createdAt: 'DESC' },
-      });
+      let filter: FindManyOptions<OfflineClassesEntity>;
+
+      if (classtype === 'ongoing') {
+        filter = {
+          where: {
+            is_delete: false,
+            staff_id: uuid,
+            start_date: MoreThan(nowDate),
+          },
+          skip: (page - 1) * limit,
+          take: limit,
+          order: { createdAt: 'DESC' as FindOptionsOrderValue },
+          relations: ['staff'],
+        };
+      } else if (classtype === 'completed') {
+        filter = {
+          where: {
+            is_delete: false,
+            staff_id: uuid,
+            start_date: LessThan(nowDate),
+            end_time: LessThan(nowDate),
+          },
+          skip: (page - 1) * limit,
+          take: limit,
+          order: { createdAt: 'DESC' as FindOptionsOrderValue },
+          relations: ['staff'],
+        };
+      } else {
+        filter = {};
+        return {
+          success: false,
+          message: 'query is worng',
+        };
+      }
+
+      const [online, onlinTotal] = await this.onlineRepo.findAndCount(filter);
+
+      const [offline, offlineTotal] =
+        await this.offlineRepo.findAndCount(filter);
 
       const total = onlinTotal + offlineTotal;
       const classes = [...online, ...offline];

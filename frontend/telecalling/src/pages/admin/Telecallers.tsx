@@ -12,7 +12,7 @@ const Telecaller:React.FC = () => {
   const [Form, setForm] = useState<boolean>(false);
   const [uuid,setuuid] = useState('')
 
-  const {data,isLoading,error} = useGetTeleCallerQuery('telecallerapi')
+  const {data} = useGetTeleCallerQuery('telecallerapi')
 
   const CloseForm =()=>{
     setForm(false)

@@ -5,7 +5,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { OfflineClassesEntity } from './OfflineClass.entity';
+import { OnlineClassesEntity } from './OnlineClass.entity';
 
 @Entity('staffprofile')
 export class StaffProfileEntity {
@@ -54,4 +57,10 @@ export class StaffProfileEntity {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt!: string;
+
+  @OneToMany(() => OfflineClassesEntity, (classes) => classes.staff_id)
+  offline_class!: OfflineClassesEntity[];
+
+  @OneToMany(() => OnlineClassesEntity, (classes) => classes.staff_id)
+  online_class!: OnlineClassesEntity[];
 }

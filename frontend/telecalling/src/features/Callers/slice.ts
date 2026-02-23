@@ -16,10 +16,12 @@ const CallerSlice = createSlice({
             state.AllNumber = action.payload;
             state.pickNumber = state?.AllNumber?.[0]
         },
-        NextNumber:(state)=>{
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        NextNumber:(state:any)=>{
             const uuid = state.pickNumber?.uuid
 
-            const index = state.AllNumber.findIndex((item)=>item.uuid === uuid)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const index = state.AllNumber.findIndex((item:any)=>item.uuid === uuid)
 
             state.pickNumber = state.AllNumber[index + 1]
 

@@ -22,10 +22,17 @@ export class ClassesController {
   }
 
   @Get('all')
-  findAll(@Query() query: { page: string; limit: string }) {
+  findAll(@Query() query: { page: string; limit: string; classtype: string }) {
     return this.classService.findAll(query);
   }
 
+  @Get('staff/:staffid')
+  findbystaff(
+    @Param('staffid') uuid: string,
+    @Query() query: { page: string; limit: string; classtype: string },
+  ) {
+    return this.classService.findAll(query, uuid);
+  }
   @Put('update/:uuid/:mode')
   update(
     @Body() data: UpdateClassDto,

@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Generated,
+  ManyToOne,
 } from 'typeorm';
+import { StaffProfileEntity } from './staff.entity';
 
 @Entity('onlineclasses')
 export class OnlineClassesEntity {
@@ -21,6 +23,8 @@ export class OnlineClassesEntity {
 
   @Column({ type: 'uuid' })
   staff_id!: string;
+  @ManyToOne(() => StaffProfileEntity, (staff) => staff.online_class)
+  staff!: StaffProfileEntity;
 
   @Column()
   subject!: string;
@@ -39,6 +43,12 @@ export class OnlineClassesEntity {
 
   @Column({ type: 'text', default: 'online' })
   class_mode!: string;
+
+  @Column({ nullable: true })
+  total_student!: number;
+
+  @Column({ type: 'integer', default: 0 })
+  present_student!: number;
 
   @Column({ type: 'boolean', default: false })
   is_delete!: boolean;

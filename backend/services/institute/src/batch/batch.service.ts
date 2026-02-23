@@ -78,6 +78,7 @@ export class BatchService {
         batchMode: batch.batch_mode,
         classStartTime: batch.class_start_time,
         classEntTime: batch.class_end_time,
+        totalStudent: batch.seats_filled,
       };
 
       return {

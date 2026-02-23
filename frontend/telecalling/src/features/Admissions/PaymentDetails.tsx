@@ -23,7 +23,8 @@ const PaymentDetails:React.FC<props> = ({currentStep,BackStep,NextStep,student,s
 
     const {uuid} = useParams()
 
-    const [CreatePayment,{isLoading,isSuccess}] = useCreatePaymentAdmissionMutation()
+    const [CreatePayment,{isLoading}] = useCreatePaymentAdmissionMutation()
+    console.log(isLoading)
 
     const handelSubmit = async()=>{
         const admissionFees = amountRef.current?.value;

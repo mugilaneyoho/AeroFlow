@@ -1,4 +1,10 @@
-export const StepIndicator = ({currentStep}) => (
+import React from "react";
+
+type props = {
+  currentStep:number;
+}
+
+export const StepIndicator:React.FC<props> = ({currentStep}) => (
     <div className="flex items-center text-2xl justify-center space-x-4 mb-8 font-medium">
       <div className={`flex items-center ${currentStep >= 1 ? 'text-blue-600' : 'text-gray-400'}`}>
         <span className={`w-6 h-6 rounded-full flex items-center p-5 justify-center mr-2 ${currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'}`}>1</span>

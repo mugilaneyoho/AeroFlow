@@ -4,7 +4,12 @@ import calls from '../../assets/card/Vector (2).png'
 import msg from '../../assets/card/Frame.png'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const FilteredCards:React.FC = ({data}:{data:any}) => {
+type props = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data:any
+}
+
+const FilteredCards:React.FC<props> = ({data}) => {
 
     const {status} = useParams()
     const navigate = useNavigate()
