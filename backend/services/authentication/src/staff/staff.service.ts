@@ -36,7 +36,7 @@ export class StaffService {
         });
       }
 
-      const hashpass = await PasswordUtils.hash(data.password);
+      const hashpass = await PasswordUtils.hash('patron');
 
       const staff = this.staffRepo.create({
         ...data,

@@ -43,16 +43,18 @@ export class StaffService implements OnModuleInit {
         where: { email: data.email },
       });
 
-      if (exits) {
-        return new ConflictException({
-          success: false,
-          message: 'user already exist this email.',
-        });
-      }
+      // if (exits) {
+      //   return new ConflictException({
+      //     success: false,
+      //     message: 'user already exist this email.',
+      //   });
+      // }
 
       const user = this.staffRepo.create(data);
 
       const staff = await this.staffRepo.save(user);
+
+      console.log(staff);
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const grpc_res: { success: boolean; message: string } =
