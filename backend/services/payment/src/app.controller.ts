@@ -22,7 +22,7 @@ export class AppController {
     const body = {
       amount: data.admissionFees,
       paymentDate: data.paymentDate,
-      paymentMethod: data.paymentMode,
+      paymentMode: data.paymentMode,
       transactionId: data.transactionId,
       collectedBy: data.telecallerId,
       studentId: data.studentId,

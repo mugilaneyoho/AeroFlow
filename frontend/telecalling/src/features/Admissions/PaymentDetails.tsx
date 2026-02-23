@@ -43,6 +43,8 @@ const PaymentDetails:React.FC<props> = ({currentStep,BackStep,NextStep,student,s
             studentName,
             remarks,
             leadid:uuid,
+            courseName:student?.course?.course_name,
+            batchId:student?.batch_id,
         }
 
         const res = await CreatePayment(data)
@@ -59,7 +61,7 @@ const PaymentDetails:React.FC<props> = ({currentStep,BackStep,NextStep,student,s
             <div className=" grid grid-cols-4 gap-5">
                 <div><p className='text-[#776E6E] font-medium text-xl'>Name: <span className='text-black text-xl font-bold ml-2'>{student?.student_name}</span> </p></div>
                 <div><p className='text-[#776E6E] font-medium text-xl'>Phone: <span className='text-black text-xl font-bold ml-2'>{student?.phone_number}</span> </p></div>
-                <div><p className='text-[#776E6E] font-medium text-xl'>Course: <span className='text-black text-xl font-bold ml-2'>FullStack</span> </p></div>
+                <div><p className='text-[#776E6E] font-medium text-xl'>Course: <span className='text-black text-xl font-bold ml-2'>{student?.course?.course_name}</span> </p></div>
                 <div><p className='text-[#776E6E] font-medium text-xl'>Addmission Fees: <span className='text-black text-xl font-bold ml-2'>50000</span> </p></div>
             </div>
         </div>
@@ -141,7 +143,7 @@ const PaymentDetails:React.FC<props> = ({currentStep,BackStep,NextStep,student,s
                 </div>
         </div>
 
-        <div className='flex flex-col gap-5 border-black border-2 bg-[#2516F833] rounded-2xl p-4'>
+        {/* <div className='flex flex-col gap-5 border-black border-2 bg-[#2516F833] rounded-2xl p-4'>
             <p className='font-semibold text-2xl'>Payment Information</p>
             <div className='flex flex-col gap-2'>
             <div className='flex flex-row justify-between'>
@@ -157,7 +159,7 @@ const PaymentDetails:React.FC<props> = ({currentStep,BackStep,NextStep,student,s
                 <p className='font-medium text-xl text-[#2516F8]'>100</p>
             </div>
             </div>
-        </div>
+        </div> */}
 
         <AdmissionsBtn currentStep={currentStep} BackStep={BackStep} NextStep={NextStep} handelSubmit={handelSubmit}/>
     </div>

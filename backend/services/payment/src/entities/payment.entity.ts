@@ -41,7 +41,7 @@ export class PaymentEntiry {
   paymentDate!: Date;
 
   @Column()
-  paymentMethod!: string;
+  paymentMode!: string;
 
   @Column()
   receiptNumber!: string;

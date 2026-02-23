@@ -52,6 +52,7 @@ const PersonalDetails: React.FC<props> = ({currentStep,BackStep,NextStep,setStud
         const city = cityRef.current?.value;
         const state = stateRef.current?.value;
         const pincode = pincodeRef.current?.value;
+        const admissionFees = admissionFeesRef.current?.value
         const admittedBy = GetProfileUUID()
 
         const data ={
@@ -68,7 +69,8 @@ const PersonalDetails: React.FC<props> = ({currentStep,BackStep,NextStep,setStud
             city,
             state,
             pincode,
-            admittedBy
+            admittedBy,
+            admissionFees
         }
 
         const res = await createStudent(data)

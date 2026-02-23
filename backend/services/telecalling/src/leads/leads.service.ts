@@ -1,9 +1,11 @@
 import { InjectQueue } from '@nestjs/bull';
 import {
   BadRequestException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import type { Queue } from 'bull';
@@ -12,16 +14,25 @@ import { LeadsEntity, LeadStatus } from 'src/entities/leads.entity';
 import { Readable } from 'stream';
 import { And, Not, Repository } from 'typeorm';
 import { LeadsUpdateDto } from './dto/leads-update.dto';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
-export class LeadsService {
+export class LeadsService implements OnModuleInit {
   constructor(
     @InjectRepository(LeadsEntity)
     private leadsRepo: Repository<LeadsEntity>,
 
     @InjectQueue('lead-assign')
     private queue: Queue,
+
+    @Inject('activelog-service')
+    private readonly kafkaActiveLog: ClientKafka,
   ) {}
+
+  async onModuleInit() {
+    this.kafkaActiveLog.subscribeToResponseOf('activelog.created');
+    await this.kafkaActiveLog.connect();
+  }
 
   async uploadLeads(
     file: Express.Multer.File,
@@ -115,6 +126,13 @@ export class LeadsService {
       Object.assign(lead, data);
 
       await this.leadsRepo.save(lead);
+
+      this.kafkaActiveLog.emit('activelog.created', {
+        subject: 'status updated',
+        userId: '',
+        activelogType: 'telecallers',
+        description: '',
+      });
 
       return {
         success: true,

@@ -65,7 +65,7 @@ const LoginPage:React.FC = () => {
   return (
     <div className='flex flex-col w-screen h-screen text-center items-center bg-cover' style={{backgroundImage: `url(${bg})`}}>
         <div className='flex flex-col gap-5 mt-16'>
-            <div className='w-96 h-96 bg-white p-4 rounded-[50%]'>
+            <div className='w-80 h-80 bg-white p-4 rounded-[50%]'>
             <img src={logo} alt="" className=' mask-cover'/>
             </div>
             <p className='font-bold text-4xl text-white'>TeleCaller's Portal</p>
@@ -88,7 +88,7 @@ const LoginPage:React.FC = () => {
                 <ToggleSwitch checked={isAdmin} onToggle={setisAdmin}/>
             </div>
 
-            <button onClick={handellogin} disabled={isLoading} className={`bg-[#1F338C] text-white font-semibold text-xl border border-solid border-white rounded-2xl py-2 w-full ${isLoading ? 'cursor-none' :'cursor-pointer'}`}>
+            <button onClick={handellogin} disabled={isLoading} className={`bg-[#1F338C] text-white font-semibold text-xl border border-solid border-white rounded-2xl py-2 w-full ${isLoading ? 'cursor-not-allowed' :'cursor-pointer'}`}>
                 LOGIN NOW
             </button>
         </div>

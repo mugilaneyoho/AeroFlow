@@ -47,7 +47,7 @@ const LeadsCallerPage: React.FC = () => {
                 data?.length == 0 ?
                   'no leads, to change status'
                   : data?.map((data: any) => (
-                    <div key={data?.uuid} onClick={() => dispatch(PickCallerNumber(data))} className='flex items-center justify-center rounded-xl border border-solid border-[#2516F8] px-4 py-2 shadow-[0px_0px_14px_0px_#2516F8_inset]'>
+                    <div key={data?.uuid} onClick={() => dispatch(PickCallerNumber(data))} className='flex items-center justify-center rounded-xl border border-solid border-[#2516F8] px-4 py-2 shadow-[0px_0px_14px_0px_#2516F8_inset] cursor-pointer'>
                       <p>{data?.phone}</p>
                     </div>
                   ))

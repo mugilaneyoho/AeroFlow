@@ -1,7 +1,7 @@
 export class CreatePaymentDto {
   amount!: number;
   paymentDate!: Date;
-  paymentMethod!: string;
+  paymentMode!: string;
   transactionId!: string;
   collectedBy!: string;
   studentId!: string;
@@ -16,6 +16,6 @@ export class CreateGRPCdto {
   transactionId!: string;
   telecallerId!: string;
   studentId!: string;
-  studentName!:string;
+  studentName!: string;
   remarks!: string;
 }

@@ -38,8 +38,7 @@ export class PaymentController implements OnModuleInit {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const grpc_res = await lastValueFrom(this.PaymentService.GetAllPayment({}));
 
-    console.log(grpc_res)
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (!grpc_res.success) {
       console.error('grpc telecaller auth create error!');
       return new InternalServerErrorException('internal server error');
@@ -47,27 +46,33 @@ export class PaymentController implements OnModuleInit {
 
     return {
       success: true,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       data: grpc_res?.data,
     };
   }
 
   @Post('create')
   async create(@Body() data: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const grpc_res = await lastValueFrom(
       this.PaymentService.CreatePayment(data),
     );
 
-    console.log(grpc_res)
-
-
     await this.leadRepo.update(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       { uuid: data?.leadid },
-      { status: LeadStatus.ADMITTED },
+      {
+        status: LeadStatus.ADMITTED,
+        course_name: data?.courseName,
+        student_id: data?.studentId,
+        name:data?.studentName,
+        batch_id:data?.batchId
+      },
     );
 
     return {
       success: true,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       data: grpc_res?.data,
     };
   }

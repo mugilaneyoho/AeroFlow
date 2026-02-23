@@ -24,17 +24,17 @@ const AdmissionsBtn: React.FC<props> = ({ currentStep, BackStep, handelSubmit })
                 :
                 <>
                     {
-                        currentStep !== 3 &&
+                        currentStep === 1 &&
                         <div onClick={() => navigate(-1)} className='border-2 cursor-pointer border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>
                             <p>Cancel</p>
                         </div>
                     }
-                    {
+                    {/* {
                         currentStep !== 1 &&
                         <div onClick={currentStep === 3 ? () => navigate(-1) : BackStep} className=' cursor-pointer border-2 border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>
                             <p>{currentStep === 3 ? 'Finished & Close' : 'Back'}</p>
                         </div>
-                    }
+                    } */}
                     {
                         currentStep !== 3 &&
                         <div onClick={handelSubmit} className='cursor-pointer border-2 border-[#2516F8] px-8 py-2 font-medium rounded-xl hover:bg-[#2516F8] hover:text-white'>

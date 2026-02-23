@@ -79,10 +79,15 @@ export class StudentService implements OnModuleInit {
         });
       }
 
+      const final = await this.studentRepo.findOne({
+        where: { uuid: student?.uuid },
+        relations: ['course'],
+      });
+
       return {
         success: true,
         message: 'profile created successfully',
-        data: student,
+        data: final,
       };
     } catch (error) {
       console.error(error, 'create student error!');
