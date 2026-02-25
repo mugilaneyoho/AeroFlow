@@ -21,7 +21,7 @@ export class BatchService {
     try {
       const nowDate = new Date();
       const exist = await this.batchRepo.findOne({
-        where: { batch_name: data.batch_name },
+        where: { batchName: data.batchName },
       });
 
       if (exist) {
@@ -31,13 +31,13 @@ export class BatchService {
         });
       }
 
-      const batch_code =
+      const batchCode =
         'PI' +
         nowDate.getMonth() +
         nowDate.getFullYear() +
         nowDate.getMilliseconds();
 
-      const batch = this.batchRepo.create({ ...data, batch_code });
+      const batch = this.batchRepo.create({ ...data, batchCode });
 
       await this.batchRepo.save(batch);
 
@@ -58,7 +58,7 @@ export class BatchService {
   async findOne(uuid: string) {
     try {
       const batch = await this.batchRepo.findOne({
-        where: { uuid, is_delete: false },
+        where: { uuid, isDelete: false },
       });
 
       if (!batch) {
@@ -71,14 +71,14 @@ export class BatchService {
       const grpcBatch = {
         id: batch.id,
         uuid: batch.uuid,
-        instituteId: batch.institute_id,
-        branchId: batch.branch_id,
-        courseId: batch.course_id,
-        batchName: batch.batch_name,
-        batchMode: batch.batch_mode,
-        classStartTime: batch.class_start_time,
-        classEntTime: batch.class_end_time,
-        totalStudent: batch.seats_filled,
+        instituteId: batch.instituteId,
+        branchId: batch.branchId,
+        courseId: batch.courseId,
+        batchName: batch.batchName,
+        batchMode: batch.batchMode,
+        classStartTime: batch.classStartTime,
+        classEntTime: batch.classEndTime,
+        totalStudent: batch.seatsFilled,
       };
 
       return {
@@ -100,7 +100,7 @@ export class BatchService {
       const page = Number(query.page) || 1;
       const limit = Number(query.limit) || 10;
       const [batch, total] = await this.batchRepo.findAndCount({
-        where: { is_delete: false },
+        where: { isDelete: false },
         skip: (page - 1) * limit,
         take: limit,
         order: { createdAt: 'DESC' },
@@ -142,7 +142,7 @@ export class BatchService {
       const limit = Number(query.limit) || 10;
 
       const [batchs, total] = await this.batchRepo.findAndCount({
-        where: { course_id, is_delete: false },
+        where: { courseId: course_id, isDelete: false },
         skip: (page - 1) * limit,
         take: limit,
         order: { createdAt: 'DESC' },
@@ -199,7 +199,7 @@ export class BatchService {
 
   async softDelete(uuid: string) {
     try {
-      await this.batchRepo.update({ uuid }, { is_delete: true });
+      await this.batchRepo.update({ uuid }, { isDelete: true });
 
       return {
         success: true,
@@ -219,7 +219,11 @@ export class BatchService {
       const nowDate = new Date();
 
       const batches = await this.batchRepo.find({
-        where: { course_id, start_date: LessThan(nowDate), is_delete: false },
+        where: {
+          courseId: course_id,
+          startDate: LessThan(nowDate),
+          isDelete: false,
+        },
       });
 
       return {
@@ -239,8 +243,12 @@ export class BatchService {
   async finddropdownBycourse(course_id: string) {
     const nowDate = new Date();
     const data = this.batchRepo.find({
-      where: { course_id, is_delete: false, start_date: LessThan(nowDate) },
-      select: ['batch_name', 'uuid', 'batch_code'],
+      where: {
+        courseId: course_id,
+        isDelete: false,
+        startDate: LessThan(nowDate),
+      },
+      select: ['batchName', 'uuid', 'batchCode'],
       order: { createdAt: 'DESC' },
     });
 

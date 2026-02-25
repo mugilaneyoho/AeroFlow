@@ -32,8 +32,8 @@ export class AppService {
 
       const [BatchList, ActiveBatch] = await this.batchRepo.findAndCount({
         where: {
-          end_date: MoreThan(nowDate),
-          is_delete: false,
+          endDate: MoreThan(nowDate),
+          isDelete: false,
         },
       });
 
@@ -42,7 +42,7 @@ export class AppService {
         ActiveBatch,
         TotalStudent,
         BatchList,
-      }
+      };
     } catch (error) {
       console.log(error, 'dashboard grpc error.');
       throw new InternalServerErrorException('grpc server error');

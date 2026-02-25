@@ -30,6 +30,12 @@ export class StaffController {
     return this.staffService.findAll(query);
   }
 
+  @Get('dashboard')
+  @ApiOperation({ summary: 'get dashboard data' })
+  dashboard() {
+    return this.staffService.dashboard();
+  }
+
   @Put(':uuid')
   @ApiOperation({ summary: 'edit staff details only' })
   update(@Param('uuid') uuid: string, @Body() data: UpdateStaffDto) {

@@ -17,8 +17,4 @@ export class AppController {
   adminDash() {
     return this.appService.AdminDashboard();
   }
-
-  @ApiOperation({ summary: 'get dahboard details for staff portall' })
-  @Get('dashboard/staff/:uuid')
-  StaffDashboard() {}
 }

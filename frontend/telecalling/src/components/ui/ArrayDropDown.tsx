@@ -27,11 +27,11 @@ const ArrayDropDown:React.FC<props> = ({setSelectedProps})=> {
   };
 
   useEffect(() => {
-    // const close = (e) => {
-      // if (ref.current && !ref.current.contains(e.target)) {
-      //   setOpen(false);
-      // }
-    // };
+    const close = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, []);

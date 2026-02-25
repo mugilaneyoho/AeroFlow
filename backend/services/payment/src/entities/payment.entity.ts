@@ -12,11 +12,17 @@ import { StudentFeesEntity } from './studentfees.entity';
 
 export enum PaymentStatus {
   PENDING = 'PENDING',
-  AUTHORIZED = 'AUTHORIZED',
+  APPROVED = 'APPROVED',
   SUCCEEDED = 'SUCCEEDED',
   FAILED = 'FAILED',
   CANCELED = 'CANCELED',
   REFUNDED = 'REFUNDED',
+}
+
+export enum PaymentPerpose {
+  ADMISSIONFEE = 'ADMISSIONFEE',
+  COURSEFEE = 'COURSEFEE',
+  OTHERFEE = 'OTHERFEE',
 }
 
 @Entity('payment')
@@ -33,6 +39,9 @@ export class PaymentEntiry {
   @ManyToOne(() => StudentFeesEntity, (fees) => fees.payments)
   @JoinColumn({ name: 'studentFeesId' })
   studentFees!: StudentFeesEntity;
+
+  @Column({ type: 'text', nullable: true })
+  phoneNumber!: string;
 
   @Column()
   amount!: number;
@@ -60,6 +69,13 @@ export class PaymentEntiry {
 
   @Column({ type: 'enum', enum: PaymentStatus, default: PaymentStatus.PENDING })
   status!: PaymentStatus;
+
+  @Column({
+    type: 'enum',
+    enum: PaymentPerpose,
+    default: PaymentPerpose.COURSEFEE,
+  })
+  paymentPerpose!: PaymentPerpose;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;

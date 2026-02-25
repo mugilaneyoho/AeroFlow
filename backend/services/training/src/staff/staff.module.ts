@@ -5,10 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { StaffProfileEntity } from 'src/entities/staff.entity';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { OnlineClassesEntity } from 'src/entities/OnlineClass.entity';
+import { OfflineClassesEntity } from 'src/entities/OfflineClass.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([StaffProfileEntity]),
+    TypeOrmModule.forFeature([
+      StaffProfileEntity,
+      OnlineClassesEntity,
+      OfflineClassesEntity,
+    ]),
     ClientsModule.register([
       {
         name: 'staff',

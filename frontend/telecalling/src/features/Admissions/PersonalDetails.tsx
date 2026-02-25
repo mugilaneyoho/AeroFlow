@@ -242,7 +242,7 @@ const PersonalDetails: React.FC<props> = ({currentStep,BackStep,NextStep,setStud
                             <option>Select Batch</option>
                             {
                                 BatchData?.map((batch:any)=>(
-                                    <option key={batch?.uuid} value={batch?.uuid}>{batch?.batch_name}</option>
+                                    <option key={batch?.uuid} value={batch?.uuid}>{batch?.batchName}</option>
                                 ))
                             }
                         </select>

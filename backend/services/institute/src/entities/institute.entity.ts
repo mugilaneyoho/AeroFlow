@@ -46,6 +46,6 @@ export class InstituteEntity {
   @OneToMany(() => CourseEntity, (course) => course.institute_id)
   courses!: CourseEntity[];
 
-  @OneToMany(() => BatchEntity, (batch) => batch.institute_id)
+  @OneToMany(() => BatchEntity, (batch) => batch.instituteId)
   batches!: BatchEntity[];
 }

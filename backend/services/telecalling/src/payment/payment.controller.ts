@@ -53,9 +53,15 @@ export class PaymentController implements OnModuleInit {
 
   @Post('create')
   async create(@Body() data: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const lead = await this.leadRepo.findOne({ where: { uuid: data?.leadid } });
+    if (!lead) {
+      return 'lead are null';
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const grpc_res = await lastValueFrom(
-      this.PaymentService.CreatePayment(data),
+      this.PaymentService.CreatePayment({ ...data, phoneNumber: lead.phone }),
     );
 
     await this.leadRepo.update(
@@ -65,8 +71,8 @@ export class PaymentController implements OnModuleInit {
         status: LeadStatus.ADMITTED,
         course_name: data?.courseName,
         student_id: data?.studentId,
-        name:data?.studentName,
-        batch_id:data?.batchId
+        name: data?.studentName,
+        batch_id: data?.batchId,
       },
     );
 

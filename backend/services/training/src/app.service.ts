@@ -14,6 +14,7 @@ import * as microservices from '@nestjs/microservices';
 
 interface commongrpc {
   GetDashBoard(): Observable<any>;
+  FetchDashBoard(data: { data: string }): Observable<any>;
 }
 
 @Injectable()
@@ -57,17 +58,19 @@ export class AppService implements OnModuleInit {
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const grpc_res: any = await lastValueFrom(
-        this.CommonService.GetDashBoard(),
+        this.CommonService.FetchDashBoard({ data: 'string' }),
       );
 
       console.log(grpc_res, 'grpc res');
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return {
         staffcount,
         onlineClass,
         offlineClass,
         onlineClassCount: onlinetotal,
         offlineClassCount: offlinetotal,
+        ...grpc_res,
       };
     } catch (error) {
       console.error(error, 'admin dashboard error.');

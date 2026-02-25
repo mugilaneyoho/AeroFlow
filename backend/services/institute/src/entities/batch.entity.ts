@@ -21,8 +21,8 @@ export enum BatchMode {
 }
 
 @Entity('batch')
-@Index(['batch_name', 'course_id', 'branch_id', 'uuid'])
-@Index(['is_delete'])
+@Index(['batchName', 'courseId', 'branchId', 'uuid'])
+@Index(['isDelete'])
 export class BatchEntity {
   @Column({ unique: true })
   @Generated('increment')
@@ -31,62 +31,62 @@ export class BatchEntity {
   @PrimaryGeneratedColumn('uuid')
   uuid!: string;
 
-  @Column('uuid')
-  institute_id!: string;
+  @Column({ type: 'uuid', nullable: true })
+  instituteId!: string;
   @ManyToOne(() => InstituteEntity, (institute) => institute.batches)
   @JoinColumn({ name: 'institute_id' })
   institute!: InstituteEntity;
 
-  @Column('uuid')
-  branch_id!: string;
+  @Column({ type: 'uuid', nullable: true })
+  branchId!: string;
   @ManyToOne(() => BranchEntity, (branch) => branch.batches)
   @JoinColumn({ name: 'branch_id' })
   branch!: BranchEntity;
 
-  @Column('uuid')
-  course_id!: string;
+  @Column({ type: 'uuid', nullable: true })
+  courseId!: string;
   @ManyToOne(() => CourseEntity, (course) => course.batches)
   @JoinColumn({ name: 'course_id' })
   course!: CourseEntity;
 
-  @Column()
-  batch_name!: string;
+  @Column({ type: 'text', nullable: true })
+  batchName!: string;
 
   @Column({ type: 'enum', enum: BatchMode, default: BatchMode.OFFLINE })
-  batch_mode!: BatchMode;
+  batchMode!: BatchMode;
 
-  @Column()
-  batch_code!: string;
+  @Column({ type: 'text', nullable: true })
+  batchCode!: string;
 
   @Column({ default: 0 })
-  seats_filled!: number;
+  seatsFilled!: number;
 
-  @Column()
-  total_seats!: number;
+  @Column({ type: 'integer', nullable: true })
+  totalSeats!: number;
 
-  @Column({ type: 'date' })
-  start_date!: Date;
+  @Column({ type: 'date', nullable: true })
+  startDate!: Date;
 
-  @Column({ type: 'date' })
-  end_date!: Date;
+  @Column({ type: 'date', nullable: true })
+  endDate!: Date;
 
-  @Column()
+  @Column({ type: 'integer', nullable: true })
   duration!: number;
 
-  @Column()
-  duration_type!: string;
+  @Column({ type: 'text', nullable: true })
+  durationType!: string;
 
-  @Column()
-  class_start_time!: string;
+  @Column({ type: 'text', nullable: true })
+  classStartTime!: string;
 
-  @Column()
-  class_end_time!: string;
+  @Column({ type: 'text', nullable: true })
+  classEndTime!: string;
 
   @Column({ type: 'boolean', default: false })
-  is_delete!: boolean;
+  isDelete!: boolean;
 
   @Column({ type: 'boolean', default: true })
-  is_active!: boolean;
+  isActive!: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;

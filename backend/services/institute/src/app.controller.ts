@@ -11,7 +11,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @GrpcMethod('CommonService', 'GetDashBoard')
+  @GrpcMethod('CommonService', 'FetchDashBoard')
   getdashboard() {
     return this.appService.getdashboard();
   }

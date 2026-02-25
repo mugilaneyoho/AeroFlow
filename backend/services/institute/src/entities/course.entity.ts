@@ -67,7 +67,7 @@ export class CourseEntity {
   })
   updatedAt!: Date;
 
-  @OneToMany(() => BatchEntity, (batch) => batch.course_id)
+  @OneToMany(() => BatchEntity, (batch) => batch.courseId)
   batches!: BatchEntity[];
 
   @OneToMany(() => StudentProfileEntity, (student) => student.course_id)
