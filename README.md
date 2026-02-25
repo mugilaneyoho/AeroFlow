@@ -18,7 +18,7 @@ It streamlines **lead management, telecalling, admissions, training operations, 
 
 - **Frontend**: Role-based web application
 - **Backend**: Microservices architecture
-- **Communication**: gRPC
+- **Communication**: gRPC, Kafka
 - **Queue & Jobs**: Redis + Bull
 - **Framework**: NestJS
 
