@@ -2,12 +2,18 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { NotificationService } from './notification.service';
 import { CreateNotifyDto } from '../dto/CreateNotifyDto';
 import { UpdateNotificationDto } from 'src/dto/UpdateNotifyDto';
+import { EventPattern, Payload } from '@nestjs/microservices';
 
 
 @Controller('notification')
 export class NotificationController {
 
     constructor(private readonly notificationService: NotificationService) {}
+
+    @EventPattern('NotificationCreated')
+    async handleNotificationCreated(@Payload() data){
+        console.log('Notification created :', data)
+    }
 
     @Post()
     async create(@Body() dto:CreateNotifyDto){

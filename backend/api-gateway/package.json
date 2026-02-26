@@ -18,20 +18,22 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start:auth":"cd .. && cd services/authentication && npm i && npm run start:dev",
-    "start:institute":"cd .. && cd services/institute && npm i && npm run start:dev",
-    "start:telecalling":"cd .. && cd services/telecalling && npm i && npm run start:dev",
-    "start:training":"cd .. && cd services/training && npm i && npm run start:dev",
-    "start:payment":"cd .. && cd services/payment && npm i && npm run start:dev",
-    "start:all":"concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING,PAYMENT -c yellow,green,blue,red,white,gray \"npm run start:dev\" \"npm run start:auth\" \"npm run start:institute\" \"npm run start:telecalling\" \"npm run start:training\" \"npm run start:payment\" "
+    "start:auth": "cd .. && cd services/authentication && npm i && npm run start:dev",
+    "start:institute": "cd .. && cd services/institute && npm i && npm run start:dev",
+    "start:telecalling": "cd .. && cd services/telecalling && npm i && npm run start:dev",
+    "start:training": "cd .. && cd services/training && npm i && npm run start:dev",
+    "start:payment": "cd .. && cd services/payment && npm i && npm run start:dev",
+    "start:all": "concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING,PAYMENT -c yellow,green,blue,red,white,gray \"npm run start:dev\" \"npm run start:auth\" \"npm run start:institute\" \"npm run start:telecalling\" \"npm run start:training\" \"npm run start:payment\" "
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/typeorm": "^11.0.0",
     "http-proxy-middleware": "^3.0.5",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.28"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
