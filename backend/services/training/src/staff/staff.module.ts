@@ -22,7 +22,7 @@ import { OfflineClassesEntity } from 'src/entities/OfflineClass.entity';
         options: {
           package: 'staff',
           protoPath: join(__dirname, '../proto/staff.proto'),
-          url: '0.0.0.0:3001',
+          url: `0.0.0.0:${process.env.AUTH_GRPC}`,
         },
       },
     ]),

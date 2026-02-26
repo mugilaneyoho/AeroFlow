@@ -49,7 +49,7 @@ import { join } from 'path';
         options: {
           package: 'common',
           protoPath: join(__dirname, './proto/common.proto'),
-          url: '0.0.0.0:3003',
+          url: `0.0.0.0:${process.env.INSTITUTE_GRPC}`,
         },
       },
     ]),

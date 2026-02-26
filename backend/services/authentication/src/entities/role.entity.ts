@@ -10,7 +10,7 @@ import {
 export enum roles {
   MASTER = 'MASTER',
   SUBADMIN = 'SUBADMIN',
-  DPTADMIN = 'DPTADMIN',
+  RECEPTION = 'RECEPTION',
   HOD = 'HOD',
   TELEADMIN = 'TELEADMIN',
   STAFF = 'STAFF',

@@ -16,7 +16,7 @@ import { join } from 'path';
         options: {
           package: 'telecaller_auth',
           protoPath: join(__dirname, '../proto/telecalling.proto'),
-          url: '0.0.0.0:3001',
+          url: `0.0.0.0:${process.env.AUTH_GRPC}`,
         },
       },
     ]),

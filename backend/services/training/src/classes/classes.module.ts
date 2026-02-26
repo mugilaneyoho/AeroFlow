@@ -17,7 +17,7 @@ import { join } from 'path';
         options: {
           package: 'course',
           protoPath: join(__dirname, '../proto/course.proto'),
-          url: '0.0.0.0:3003',
+          url: `0.0.0.0:${process.env.INSTITUTE_GRPC}`,
         },
       },
       {
@@ -26,7 +26,7 @@ import { join } from 'path';
         options: {
           package: 'batch',
           protoPath: join(__dirname, '../proto/batch.proto'),
-          url: '0.0.0.0:3003',
+          url: `0.0.0.0:${process.env.INSTITUTE_GRPC}`,
         },
       },
     ]),
