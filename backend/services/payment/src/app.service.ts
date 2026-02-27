@@ -16,7 +16,7 @@ export class AppService {
     private paymentRepo: Repository<PaymentEntiry>,
     @InjectRepository(StudentFeesEntity)
     private feesRepo: Repository<StudentFeesEntity>,
-  ) {}
+  ) { }
 
   getHello(): string {
     return 'Hello World!';
@@ -54,7 +54,7 @@ export class AppService {
       where: { studentId: data.studentId },
     });
 
-    console.log(data,"check pay")
+    console.log(data, "check pay")
 
     const nowDate = new Date();
 
@@ -113,4 +113,51 @@ export class AppService {
       data: fees,
     };
   }
+
+  async getFeeSummary(data: { student_id: string }) {
+    const studentFee = await this.feesRepo.findOne({
+      where: { studentId: data.student_id },
+    });
+
+    if (!studentFee) {
+      return { total_fees: 0, paid_fees: 0, pending_amount: 0 };
+    }
+
+    const total = Number(studentFee.totalFees || 0);
+    const paid = Number(studentFee.paidAmount || 0);
+    const admissionFees = Number(studentFee.admissionFeesAmount || 0);
+    const pending = total - paid;
+
+    return {
+      total_fees: total,
+      paid_fees: paid,
+      admissionFeesAmount: admissionFees,
+      pending_amount: pending,
+    };
+  }
+
+  async getPaymentHistory(data: { student_id: string }) {
+    const studentFee = await this.feesRepo.findOne({
+      where: { studentId: data.student_id },
+    });
+
+    if (!studentFee) {
+      return { records: [] };
+    }
+
+    const payments = await this.paymentRepo.find({
+      where: { studentFeesId: studentFee.uuid },
+      order: { id: 'DESC' },
+    });
+
+    const records = payments.map((pay) => ({
+      transaction_id: pay.receiptNumber,
+      date: pay.createdAt ? pay.createdAt.toISOString() : new Date().toISOString(),
+      amount: Number(pay.amount),
+      purpose: pay.paymentPerpose,
+    }));
+
+    return { records };
+  }
+
 }

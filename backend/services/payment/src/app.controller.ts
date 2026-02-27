@@ -5,7 +5,7 @@ import { CreateGRPCdto, CreatePaymentDto } from './dto/createpayment.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   getHello(): string {
@@ -32,4 +32,15 @@ export class AppController {
     };
     return this.appService.createAdmission(body);
   }
+
+  @GrpcMethod('FeeManagement', 'GetFeeSummary')
+  async getFeeSummary(data: { student_id: string }) {
+    return this.appService.getFeeSummary(data);
+  }
+
+  @GrpcMethod('FeeManagement', 'GetPaymentHistory')
+  async getPaymentHistory(data: { student_id: string }) {
+    return this.appService.getPaymentHistory(data);
+  }
+
 }
