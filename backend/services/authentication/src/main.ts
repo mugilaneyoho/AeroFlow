@@ -10,11 +10,12 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
-      package: ['telecaller_auth', 'staff', 'student'],
+      package: ['telecaller_auth', 'staff', 'student', 'role'],
       protoPath: [
         join(__dirname, './proto/telecalling.proto'),
         join(__dirname, './proto/staff.proto'),
         join(__dirname, './proto/student.proto'),
+        join(__dirname, './proto/role.proto'),
       ],
       url: `0.0.0.0:${process.env.PORT_GRPC}`,
     },

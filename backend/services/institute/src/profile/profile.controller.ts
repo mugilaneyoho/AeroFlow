@@ -2,6 +2,8 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { Roles } from 'src/role/role.decorator';
+import { Role } from 'src/role/role.enum';
 
 @Controller('profile')
 export class ProfileController {
@@ -14,7 +16,7 @@ export class ProfileController {
 
   @Get('all')
   all() {
-    return this.insituteService.findAll()
+    return this.insituteService.findAll();
   }
 
   @Get(':uuid')

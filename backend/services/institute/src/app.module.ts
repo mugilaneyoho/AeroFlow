@@ -13,6 +13,8 @@ import { BatchModule } from './batch/batch.module';
 import { StudentModule } from './student/student.module';
 import { ConfigModule } from '@nestjs/config';
 import { StudentProfileEntity } from './entities/student.entity';
+import { RolesGuard } from './role/role.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -48,6 +50,12 @@ import { StudentProfileEntity } from './entities/student.entity';
     StudentModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

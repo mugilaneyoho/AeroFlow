@@ -26,8 +26,12 @@
     "start:all": "concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING,PAYMENT -c yellow,green,blue,red,white,gray \"npm run start:dev\" \"npm run start:auth\" \"npm run start:institute\" \"npm run start:telecalling\" \"npm run start:training\" \"npm run start:payment\" "
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.14.3",
+    "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/microservices": "^11.1.14",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
     "http-proxy-middleware": "^3.0.5",

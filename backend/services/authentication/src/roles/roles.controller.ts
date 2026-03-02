@@ -10,6 +10,7 @@ import {
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { GrpcMethod } from '@nestjs/microservices';
 
 @Controller('roles')
 export class RolesController {
@@ -38,5 +39,10 @@ export class RolesController {
   @Delete(':uuid')
   remove(@Param('uuid') uuid: string) {
     return this.rolesService.remove(uuid);
+  }
+
+  @GrpcMethod('RoleService', 'GetRoleById')
+  getroleid(data: { uuid: string }) {
+    return this.rolesService.findOne(data.uuid);
   }
 }

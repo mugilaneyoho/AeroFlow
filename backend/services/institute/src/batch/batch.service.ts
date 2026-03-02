@@ -59,6 +59,7 @@ export class BatchService {
     try {
       const batch = await this.batchRepo.findOne({
         where: { uuid, isDelete: false },
+        relations: ['students'],
       });
 
       if (!batch) {
@@ -79,6 +80,7 @@ export class BatchService {
         classStartTime: batch.classStartTime,
         classEntTime: batch.classEndTime,
         totalStudent: batch.seatsFilled,
+        students: batch.students,
       };
 
       return {

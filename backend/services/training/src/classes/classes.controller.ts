@@ -11,11 +11,14 @@ import {
 import { ClassesService } from './classes.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
+import { Roles } from 'src/role/role.decorator';
+import { Role } from 'src/role/role.enum';
 
 @Controller('classes')
 export class ClassesController {
   constructor(private readonly classService: ClassesService) {}
 
+  @Roles([Role.HOD])
   @Post('create')
   create(@Body() data: CreateClassDto) {
     return this.classService.create(data);
@@ -33,6 +36,8 @@ export class ClassesController {
   ) {
     return this.classService.findAll(query, uuid);
   }
+
+  @Roles([Role.HOD])
   @Put('update/:uuid/:mode')
   update(
     @Body() data: UpdateClassDto,
@@ -46,6 +51,7 @@ export class ClassesController {
     return this.classService.findOne(param.uuid, param.mode);
   }
 
+  @Roles([Role.HOD])
   @Delete(':uuid/:mode')
   deleteone(@Param() param: { uuid: string; mode: string }) {
     return this.classService.deleteOne(param.uuid, param.mode);

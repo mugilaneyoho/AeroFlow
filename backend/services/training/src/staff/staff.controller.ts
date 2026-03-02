@@ -12,12 +12,15 @@ import { StaffService } from './staff.service';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { UpdateStaffDto } from './dto/update-staff.dto';
+import { Roles } from 'src/role/role.decorator';
+import { Role } from 'src/role/role.enum';
 
 @ApiTags('Staff')
 @Controller('staff')
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
 
+  @Roles([Role.HOD])
   @Post('create')
   @ApiOperation({ summary: 'create new staff' })
   create(@Body() data: CreateStaffDto) {
@@ -36,6 +39,7 @@ export class StaffController {
     return this.staffService.dashboard();
   }
 
+  @Roles([Role.HOD])
   @Put(':uuid')
   @ApiOperation({ summary: 'edit staff details only' })
   update(@Param('uuid') uuid: string, @Body() data: UpdateStaffDto) {
@@ -49,6 +53,7 @@ export class StaffController {
     return this.staffService.findOne(uuid);
   }
 
+  @Roles([Role.HOD])
   @Delete(':uuid')
   @ApiOperation({ summary: 'soft delete in staff' })
   @ApiParam({ name: 'uuid', type: String })

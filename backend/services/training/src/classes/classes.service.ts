@@ -108,6 +108,17 @@ export class ClassesService implements OnModuleInit {
         where: { uuid },
       });
 
+      if (!data) {
+        return new NotFoundException('no classes available');
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const grpc_res = await lastValueFrom(
+        this.batchService.GetById({ batchid: data.batch_id }),
+      );
+
+      console.log(grpc_res, 'check');
+
       return {
         success: true,
         message: 'data fetched',
