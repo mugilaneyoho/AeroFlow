@@ -72,7 +72,9 @@ export class StaffService {
         });
       }
 
-      Object.assign(staff, data);
+      const hashpass = await PasswordUtils.hash(data.password);
+
+      Object.assign(staff, { password: hashpass });
 
       await this.staffRepo.save(staff);
 

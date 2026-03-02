@@ -1,4 +1,4 @@
 export class UpdateStaffDto {
-  email: string;
-  password: string;
+  email!: string;
+  password!: string;
 }

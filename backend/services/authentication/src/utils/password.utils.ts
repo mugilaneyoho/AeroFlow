@@ -13,3 +13,14 @@ export class PasswordUtils {
     return aragon2.verify(hash, password);
   }
 }
+
+export function GeneratedRandomPassword() {
+  const charset =
+    'abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;:<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let password = '';
+  for (let i = 0; i < 8; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+  return password;
+}
