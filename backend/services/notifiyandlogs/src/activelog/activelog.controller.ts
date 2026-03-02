@@ -10,15 +10,22 @@
 //   }
 // }
 
-import { Controller, Post, Body, Get, Put, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ActivelogService } from './activelog.service';
-import {ActivityLogEntity} from '../entity/activitylog'
+import { ActivityLogEntity } from '../entity/activitylog';
 
 @Controller('activelog')
 export class ActivelogController {
-  
   constructor(private readonly activeLogService: ActivelogService) {}
-  
+
   @Post()
   async create(@Body() body: Partial<ActivityLogEntity>) {
     return this.activeLogService.create(body);
@@ -35,7 +42,10 @@ export class ActivelogController {
   }
 
   @Put(':uuid')
-  async update(@Param('uuid') uuid: string, @Body() body: Partial<ActivityLogEntity>) {
+  async update(
+    @Param('uuid') uuid: string,
+    @Body() body: Partial<ActivityLogEntity>,
+  ) {
     return this.activeLogService.update(uuid, body);
   }
 
@@ -43,5 +53,4 @@ export class ActivelogController {
   async remove(@Param('uuid') uuid: string) {
     return this.activeLogService.remove(uuid);
   }
-
 }

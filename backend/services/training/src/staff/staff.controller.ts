@@ -20,7 +20,7 @@ import { Role } from 'src/role/role.enum';
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
 
-  @Roles([Role.HOD])
+  // @Roles([Role.HOD])
   @Post('create')
   @ApiOperation({ summary: 'create new staff' })
   create(@Body() data: CreateStaffDto) {

@@ -1,7 +1,9 @@
 import {
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  OnModuleInit,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -10,18 +12,29 @@ import { roles, rolesEntity } from 'src/entities/role.entity';
 import { StaffEntity } from 'src/entities/staff.entity';
 import { Repository } from 'typeorm';
 import { CreateStaffDto } from './dto/create-staff.dto';
-import { PasswordUtils } from 'src/utils/password.utils';
+import {
+  GeneratedRandomPassword,
+  PasswordUtils,
+} from 'src/utils/password.utils';
 import { UpdateStaffDto } from './dto/update-staff.dto';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
-export class StaffService {
+export class StaffService implements OnModuleInit {
   constructor(
     @InjectRepository(StaffEntity)
     private staffRepo: Repository<StaffEntity>,
     @InjectRepository(rolesEntity)
     private roleRepo: Repository<rolesEntity>,
     private JwtService: JwtService,
+    @Inject('mailservice')
+    private readonly MailService: ClientKafka,
   ) {}
+
+  async onModuleInit() {
+    this.MailService.subscribeToResponseOf('welcomestaff');
+    await this.MailService.connect();
+  }
 
   async create(data: CreateStaffDto) {
     try {
@@ -36,7 +49,9 @@ export class StaffService {
         });
       }
 
-      const hashpass = await PasswordUtils.hash('patron');
+      const password = GeneratedRandomPassword();
+
+      const hashpass = await PasswordUtils.hash(password);
 
       const staff = this.staffRepo.create({
         ...data,
@@ -46,6 +61,11 @@ export class StaffService {
       });
 
       await this.staffRepo.save(staff);
+
+      this.MailService.emit('welcomestaff', {
+        email: staff.email,
+        password,
+      });
 
       return {
         success: true,

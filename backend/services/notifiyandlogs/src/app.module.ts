@@ -21,8 +21,7 @@ import { NotificationEntity } from './entity/notify';
     }),
 
     ActivelogModule,
-    NotificationModule
-
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

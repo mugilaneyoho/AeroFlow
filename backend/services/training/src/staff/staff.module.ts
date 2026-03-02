@@ -7,9 +7,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { OnlineClassesEntity } from 'src/entities/OnlineClass.entity';
 import { OfflineClassesEntity } from 'src/entities/OfflineClass.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     TypeOrmModule.forFeature([
       StaffProfileEntity,
       OnlineClassesEntity,

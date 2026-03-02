@@ -10,7 +10,7 @@ async function bootstrap() {
       options: {
         client: {
           clientId: 'mailservice',
-          brokers: ['localhost:9092', 'localhost:9094'],
+          brokers: ['localhost:29092'],
         },
         consumer: {
           groupId: 'mailservice-consumer',

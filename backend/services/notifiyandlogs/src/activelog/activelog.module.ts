@@ -5,10 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ActivityLogEntity } from '../entity/activitylog';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ActivityLogEntity]), 
-  ],
+  imports: [TypeOrmModule.forFeature([ActivityLogEntity])],
   controllers: [ActivelogController],
-  providers: [ActivelogService]
+  providers: [ActivelogService],
 })
 export class ActivelogModule {}
