@@ -18,6 +18,12 @@ import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class LeadsService implements OnModuleInit {
+  static get<T>(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
+  get<T>(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(LeadsEntity)
     private leadsRepo: Repository<LeadsEntity>,
@@ -29,9 +35,23 @@ export class LeadsService implements OnModuleInit {
     private readonly kafkaActiveLog: ClientKafka,
   ) {}
 
-  async onModuleInit() {
-    this.kafkaActiveLog.subscribeToResponseOf('activelog.created');
+
+    async onModuleInit() {
     await this.kafkaActiveLog.connect();
+    console.log('Lead service Kafka connected');
+  }
+
+  async createActivity(payload: any) {
+    console.log(' Saving activity to DB', payload);
+
+    console.log(' EMITTING TO KAFKA');
+    this.kafkaActiveLog.emit('activelog.created', {
+      subject: 'Lead Activity',
+      description: 'Lead created or updated',
+      status: 'SUCCESS',
+      referenceId: payload.uuid || 'temp-id',
+      payload: payload,
+    });
   }
 
   async uploadLeads(
@@ -129,9 +149,12 @@ export class LeadsService implements OnModuleInit {
 
       this.kafkaActiveLog.emit('activelog.created', {
         subject: 'status updated',
-        userId: '',
+        userId: lead.assignedTo,
         activelogType: 'telecallers',
-        description: '',
+        description: data.status,
+        type: 'UPDATE',
+        status: 'SUCCESS',
+        referenceId: lead.uuid,
       });
 
       return {

@@ -4,7 +4,9 @@ import {
   InternalServerErrorException,
   NotFoundException,
   OnModuleInit,
+  Logger,
 } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OfflineClassesEntity } from 'src/entities/OfflineClass.entity';
 import { OnlineClassesEntity } from 'src/entities/OnlineClass.entity';
@@ -29,11 +31,52 @@ export class ClassesService implements OnModuleInit {
     private onlineRepo: Repository<OnlineClassesEntity>,
     @Inject('batch')
     private clientBatch: microservices.ClientGrpc,
-  ) {}
 
-  onModuleInit() {
-    this.batchService = this.clientBatch.getService('BatchService');
+    @Inject('KAFKA_PRODUCER_SERVICE') private readonly kafkaclient: microservices.ClientKafka,
+    private readonly logger: Logger    
+
+  ) {}     
+
+  @Cron('* * * * *')
+  async handleClassStart() {
+  const classes = await this.onlineRepo.findAll()
+  const current = Date.now();
+  const beforeTime = current + 5 * 60 * 1000
+
+  for (const classData of classes){
+    const startTime = new Date(classData.start_time).getTime()
+    if (startTime >= current && startTime <= beforeTime){ 
+
+    this.kafkaclient.emit('class started',{
+      uuid: classData.uuid,
+      subject: classData.subject,
+      batch_name: classData.batch_name,
+      start_time: classData.start_time,
+    })
+    }
   }
+}
+
+
+  
+  async onModuleInit() {
+    this.batchService = this.clientBatch.getService('BatchService');
+    try {
+      await this.kafkaclient.connect()
+      this.logger.log('kafka producer connected successfully')
+    } catch (error) {
+          this.logger.error('kafka producer connection faild', error)
+    }
+  }
+
+  async onmoduleDestroy(){
+    try {
+      await this.kafkaclient.close()
+    } catch (error) {
+      this.logger.error('kafka producer disconnect', error)
+    }
+  }     
+  
 
   selectMode(mode: string) {
     if (mode === 'ONLINE') {
