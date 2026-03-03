@@ -32,7 +32,7 @@ export class StaffService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    this.MailService.subscribeToResponseOf('welcomestaff');
+    this.MailService.subscribeToResponseOf('mailservice');
     await this.MailService.connect();
   }
 
@@ -49,7 +49,8 @@ export class StaffService implements OnModuleInit {
         });
       }
 
-      const password = GeneratedRandomPassword();
+      // const password = GeneratedRandomPassword();
+      const password = 'patron';
 
       const hashpass = await PasswordUtils.hash(password);
 
@@ -62,7 +63,7 @@ export class StaffService implements OnModuleInit {
 
       await this.staffRepo.save(staff);
 
-      this.MailService.emit('welcomestaff', {
+      this.MailService.emit('mailservice.welcomestaff', {
         email: staff.email,
         password,
       });

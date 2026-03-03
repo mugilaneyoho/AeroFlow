@@ -14,32 +14,35 @@ import { rolesEntity } from './role.entity';
 export class StudentEntity {
   @Column({ unique: true })
   @Generated('increment')
-  id: number;
+  id!: number;
 
   @PrimaryGeneratedColumn('uuid')
-  uuid: string;
+  uuid!: string;
 
   @Column({ unique: true })
-  email: string;
+  email!: string;
 
   @Column()
-  password: string;
+  password!: string;
 
   @Column('uuid')
-  role_id: string;
+  role_id!: string;
 
   @Column({ type: 'char', length: 36 })
-  profile_id: string;
+  profile_id!: string;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
   })
-  updatedAt: Date;
+  updatedAt!: Date;
+
+  @Column({ type: 'boolean', default: false })
+  setPassword!: boolean;
 
   @ManyToOne(() => rolesEntity, { eager: false })
   @JoinColumn({ name: 'role_id' })
-  role: rolesEntity;
+  role!: rolesEntity;
 }

@@ -12,6 +12,8 @@ export class AppController {
     return this.appService.sendWelcome(
       message.email,
       message.password,
+      message.name,
+      '',
       'studentwelcome',
     );
   }
@@ -21,6 +23,8 @@ export class AppController {
     return this.appService.sendWelcome(
       message.email,
       message.password,
+      message.name,
+      '',
       'studentwelcome',
     );
   }
@@ -30,6 +34,8 @@ export class AppController {
     return this.appService.sendWelcome(
       message.email,
       message.password,
+      message.name,
+      '',
       'studentwelcome',
     );
   }

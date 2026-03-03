@@ -13,7 +13,6 @@ import { rolesEntity } from './entities/role.entity';
 import { AdminEntity } from './entities/admins.entity';
 import { RolesModule } from './roles/roles.module';
 import { ConfigModule } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -41,21 +40,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       ],
       synchronize: true,
     }),
-    ClientsModule.register([
-      {
-        name: 'mailservice',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            clientId: 'mailservice',
-            brokers: ['localhost:29092'],
-          },
-          consumer: {
-            groupId: 'mailservice-consumer',
-          },
-        },
-      },
-    ]),
     StudentsModule,
     TelecallingModule,
     StaffModule,
