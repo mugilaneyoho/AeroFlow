@@ -4,17 +4,27 @@ package common;
 
 service CommonService {
     rpc GetDashBoard (Empty) returns (res);
+    rpc FetchDashBoard (Empty) returns (res);
 }
 
-message Empty {}
+message Empty {
+    string data = 1;
+}
 
-message resdata {
-    string batch_name = 1;
+message batchdata {
+    string id = 1;
+    string uuid = 2;
+    string batchName = 3;
+    string batch_mode = 4;
+    string batch_code = 5;
+    int32 seats_filled = 6;
+    int32 duration = 7;
+    string duration_type = 8;
 }
 
 message res {
     int32 TotalCourse = 1;
     int32 ActiveBatch = 2;
     int32 TotalStudent = 3;
-    repeated resdata BatchList = 4;
+    repeated batchdata BatchList = 4;
 }

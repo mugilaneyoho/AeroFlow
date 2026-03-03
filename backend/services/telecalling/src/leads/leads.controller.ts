@@ -14,12 +14,15 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { LeadsUpdateDto } from './dto/leads-update.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LeadStatus } from 'src/entities/leads.entity';
+import { Roles } from 'src/role/role.decorator';
+import { Role } from 'src/role/role.enum';
 
 @ApiTags('leads')
 @Controller('leads')
 export class LeadsController {
   constructor(private readonly leadsService: LeadsService) {}
 
+  @Roles([Role.TELEADMIN])
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   @ApiOperation({ summary: 'csv file upload url for leads' })
@@ -27,6 +30,7 @@ export class LeadsController {
     return this.leadsService.uploadLeads(file);
   }
 
+  @Roles([Role.TELEADMIN])
   @Post('assigned')
   @ApiOperation({ summary: 'leads assign by telecallers' })
   assigned(@Body('userid') userid: any[], @Body('count') count: number) {
@@ -44,6 +48,7 @@ export class LeadsController {
     return this.leadsService.update(data, uuid);
   }
 
+  @Roles([Role.TELEADMIN])
   @Get('all')
   @ApiOperation({ summary: 'get all leads' })
   findAll(@Query() query: { page: string; limit: string }) {

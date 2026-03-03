@@ -28,6 +28,7 @@ export class AppController {
       studentId: data.studentId,
       studentName: data.studentName,
       notes: data.remarks,
+      phoneNumber: data.phoneNumber,
     };
     return this.appService.createAdmission(body);
   }

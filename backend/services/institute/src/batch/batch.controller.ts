@@ -12,21 +12,26 @@ import { BatchService } from './batch.service';
 import { CreateBatchDto } from './dto/create-batch.dto';
 import { UpdateBatchDto } from './dto/update-batch.dto';
 import { GrpcMethod } from '@nestjs/microservices';
+import { Roles } from 'src/role/role.decorator';
+import { Role } from 'src/role/role.enum';
 
 @Controller('batch')
 export class BatchController {
   constructor(private readonly batchService: BatchService) {}
 
+  @Roles([Role.HOD])
   @Post('create')
   create(@Body() body: CreateBatchDto) {
     return this.batchService.create(body);
   }
 
+  @Roles([Role.HOD])
   @Get('all')
   findAll(@Query() query: { page: string; limit: string }) {
     return this.batchService.findAll(query);
   }
 
+  @Roles([Role.HOD])
   @Get('all/:courseid')
   findAllByCourse(
     @Param('courseid') courseid: string,

@@ -2,13 +2,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useGetAllTeleCallersListQuery } from "../../services/api";
 
-const options = [
-  { id: 1, value: "React" },
-  { id: 2, value: "Vue" },
-  { id: 3, value: "Angular" },
-  { id: 4, value: "Svelte" },
-];
-
 type props = {
   setSelectedProps:(data:string[] | never[])=>void
 }

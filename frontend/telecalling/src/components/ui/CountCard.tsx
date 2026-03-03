@@ -4,7 +4,7 @@ import { DashboardIcons } from '../../assets/icons/DashboardIcons';
 type props = {
     label:string;
     value:number | string;
-    icon:string;
+    icon?:string;
 }
 
 const CountCard:React.FC<props> = ({label,value,icon}) => {
@@ -14,7 +14,7 @@ const CountCard:React.FC<props> = ({label,value,icon}) => {
             <p className=' font-medium text-lg'>{label}</p>
             <p className='font-medium text-2xl'>{value}</p>
         </div>
-        <img src={DashboardIcons[icon]} alt="" />
+        <img src={DashboardIcons[icon] } alt="" />
     </div>
   )
 }

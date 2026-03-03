@@ -7,9 +7,14 @@ import { OnlineClassesEntity } from 'src/entities/OnlineClass.entity';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     TypeOrmModule.forFeature([OfflineClassesEntity, OnlineClassesEntity]),
     ClientsModule.register([
       {
@@ -18,7 +23,7 @@ import { ConfigService } from '@nestjs/config';
         options: {
           package: 'course',
           protoPath: join(__dirname, '../proto/course.proto'),
-          url: '0.0.0.0:3003',
+          url: `0.0.0.0:${process.env.INSTITUTE_GRPC}`,
         },
       },
       {
@@ -27,7 +32,7 @@ import { ConfigService } from '@nestjs/config';
         options: {
           package: 'batch',
           protoPath: join(__dirname, '../proto/batch.proto'),
-          url: '0.0.0.0:3003',
+          url: `0.0.0.0:${process.env.INSTITUTE_GRPC}`,
         },
       },
     ]),

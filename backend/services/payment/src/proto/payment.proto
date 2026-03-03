@@ -16,6 +16,7 @@ message CreatePaymentRequest {
     string studentName = 6;
     string remarks = 7;
     string telecallerId = 8;
+    string phoneNumber = 9;
 }
 
 message Empty {}
@@ -31,6 +32,8 @@ message PaymentData {
     string student_name = 8;
     string notes = 9;
     string status = 10;
+    string paymentPerpose = 11;
+    string phoneNumber = 12;
 }
 
 message CommonResponse {
@@ -39,8 +42,16 @@ message CommonResponse {
     PaymentData data = 3;
 }
 
+message metadata {
+    int32 total = 1;
+    int32 page = 2;
+    int32 limit = 3;
+    int32 totalPages = 4;
+}
+
 message GetAllPaymentResponse {
     bool success = 1;
     string message = 2;
     repeated PaymentData data = 3;
+    metadata meta = 4;
 }

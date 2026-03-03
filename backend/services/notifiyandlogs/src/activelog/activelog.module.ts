@@ -25,6 +25,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         ]), 
   ],
   controllers: [ActivelogController],
-  providers: [ActivelogService]
+  providers: [ActivelogService],
 })
 export class ActivelogModule {}

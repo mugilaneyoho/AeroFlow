@@ -3,12 +3,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { StepIndicator } from './Stepper';
 import PersonalDetails from './PersonalDetails';
 import PaymentDetails from './PaymentDetails';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ApplicationSuccess from './ApplicationSuccess';
 
-const AdmissionsForm = () => {
+const AdmissionsForm:React.FC = () => {
     const [currentStep, setCurrentStep] = useState(1);
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const formRef = useRef<any>(null)
     const [student, setstudent] = useState<any | null>(null);
     const [paymentdata,setpaymentdata] = useState<any | null>(null);

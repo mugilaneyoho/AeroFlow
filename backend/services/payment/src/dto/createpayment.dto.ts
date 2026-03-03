@@ -7,6 +7,7 @@ export class CreatePaymentDto {
   studentId!: string;
   studentName!: string;
   notes!: string;
+  phoneNumber!: string;
 }
 
 export class CreateGRPCdto {
@@ -18,4 +19,5 @@ export class CreateGRPCdto {
   studentId!: string;
   studentName!: string;
   remarks!: string;
+  phoneNumber!: string;
 }

@@ -8,7 +8,7 @@ type props = {
     handelSubmit?: () => void;
 }
 
-const AdmissionsBtn: React.FC<props> = ({ currentStep, BackStep, handelSubmit }) => {
+const AdmissionsBtn: React.FC<props> = ({ currentStep, handelSubmit }) => {
     const navigate = useNavigate()
     return (
         <div className='flex flex-row gap-5 justify-end text-xl mt-5'>

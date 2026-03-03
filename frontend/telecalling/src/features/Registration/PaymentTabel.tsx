@@ -11,20 +11,10 @@ const title = [
     'Status'
 ]
 
-const datas = {
-    studentname: 'sharma',
-    mobile: '9876543215',
-    course: 'full stack',
-    payment: 'UPI',
-    trans:'987654323457',
-    amount: 9876543,
-    date: Date(),
-    status: 'pending'
-}
 
 const PaymentTabel: React.FC = () => {
 
-    const {data,isLoading,isSuccess} = useGetAllPaymentsQuery('payment')
+    const {data} = useGetAllPaymentsQuery('payment')
 
     console.log(data)
 
@@ -45,7 +35,8 @@ const PaymentTabel: React.FC = () => {
                     </div>
                     <div className='flex h-[68vh] flex-col gap-5 mt-5 overflow-y-scroll' style={{ scrollbarWidth: 'none' }}>
                         {
-                            data?.data?.map((item, index) => (
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            data?.data?.map((item:any, index:number) => (
                                 <div className='grid grid-cols-7 bg-[#F5F5F5] justify-center items-center text-center font-medium rounded-lg hover:bg-[#E1EDFF]' key={index}>
                                     <p className='py-4 '>{item?.studentName}</p>
                                     <p className='py-4 '>{item?.Phone}</p>

@@ -38,10 +38,12 @@ services:
       context: ./services/institute
       dockerfile: Dockerfile
     ports:
-      - "3006:3006"
+      - "3004:3004"
+      - "3003:3003"
     environment:
-      - PORT=3006
+      - PORT=3004
       - PORT_GRPC=3003
+      - AUTH_GRPC=3001
       - DB_HOST=institute-db
       - DB_PORT=3306
       - DB_NAME=institute
@@ -57,9 +59,11 @@ services:
       context: ./services/telecalling
       dockerfile: Dockerfile
     ports:
-      - "3004:3004"
+      - "3006:3006"
     environment:
-      - PORT=3004
+      - PORT=3006
+      - AUTH_GRPC=3001
+      - PAY_GRPC=3011
       - DB_HOST=telecalling-db
       - DB_PORT=3306
       - DB_NAME=telecalling
@@ -67,6 +71,8 @@ services:
       - DB_PASS=123456
     depends_on:
       - telecalling-db
+      - redis
+      - kafka
     networks:
       - app-network
   
@@ -75,9 +81,11 @@ services:
       context: ./services/training
       dockerfile: Dockerfile
     ports:
-      - "3005:3005"
+      - "3008:3008"
     environment:
-      - PORT=3005
+      - PORT=3008
+      - AUTH_GRPC=3001
+      - INSTITUTE_GRPC=3003
       - DB_HOST=training-db
       - DB_PORT=3306
       - DB_NAME=training
@@ -95,7 +103,7 @@ services:
     ports:
       - "3011:3011"
     environment:
-      - PORT=3011
+      - GRPC_PORT=3011
       - DB_HOST=payment-db
       - DB_PORT=3306
       - DB_NAME=payment
@@ -169,17 +177,49 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    container_name: kafka
     ports:
-      - "9092:9092"
+    - "9092:9092"      # internal docker access
+    - "29092:29092"    # host machine access
     environment:
-      - KAFKA_PROCESS_ROLES=broker,controller
-      - KAFKA_NODE_ID=1
-      - KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
-      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
-      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
-      - KAFKA_LOG_DIRS=/tmp/kraft-combined-logs
-      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      # KRaft mode
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      # Listeners
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      # Logs
+      KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      
+  # kafka-2:
+  #   image: confluentinc/cp-kafka:latest
+  #   ports:
+  #     - "9094:9094"
+  #   environment:
+  #     - KAFKA_PROCESS_ROLES=broker,controller
+  #     - KAFKA_NODE_ID=1
+  #     - KAFKA_LISTENERS=PLAINTEXT://:9094,CONTROLLER://:9095
+  #     - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9094
+  #     - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+  #     - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka:9094
+  #     - KAFKA_LOG_DIRS=/tmp/kraft-combined-logs
+  #     - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    # volumes:
+    #   - redis-data:/data
+    # command: redis-server --appendonly yes 
+
 
 networks:
   app-network:

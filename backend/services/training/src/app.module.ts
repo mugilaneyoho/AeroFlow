@@ -15,6 +15,8 @@ import { QueueModule } from './queue/queue.module';
 import { ConfigModule } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './role/role.guard';
 
 @Module({
   imports: [
@@ -49,7 +51,7 @@ import { join } from 'path';
         options: {
           package: 'common',
           protoPath: join(__dirname, './proto/common.proto'),
-          url: '0.0.0.0:3003',
+          url: `0.0.0.0:${process.env.INSTITUTE_GRPC}`,
         },
       },
     ]),
@@ -72,6 +74,12 @@ import { join } from 'path';
     QueueModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

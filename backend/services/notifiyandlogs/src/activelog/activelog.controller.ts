@@ -10,30 +10,30 @@
 //   }
 // }
 
-import { Controller, Post, Body, Get, Put, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ActivelogService } from './activelog.service';
 import {ActivityLogEntity} from '../entity/activitylog'
 import { Ctx, EventPattern, KafkaContext, MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller('activelog')
 export class ActivelogController {
-  
   constructor(private readonly activeLogService: ActivelogService) {}
   
   @EventPattern('activelog.created')
-    async handleActivityCreated(
-    @Payload() payload: any,
-    @Ctx() context: KafkaContext,
-  ) {
-
+    async handleActivityCreated(@Payload() payload: any,@Ctx() context: KafkaContext,) {
     const message = context.getMessage();
     const rawValue = message.value;
 
-    const data = rawValue
-      ? JSON.parse(rawValue.toString())
-      : payload;
-
-    console.log('\n====================================');
+    const data = rawValue? JSON.parse(rawValue.toString()): payload;
+  
     console.log('ACTIVITY EVENT RECEIVED');
     console.log('Topic:', context.getTopic());
     console.log('Partition:', context.getPartition());
@@ -57,7 +57,10 @@ export class ActivelogController {
   }
 
   @Put(':uuid')
-  async update(@Param('uuid') uuid: string, @Body() body: Partial<ActivityLogEntity>) {
+  async update(
+    @Param('uuid') uuid: string,
+    @Body() body: Partial<ActivityLogEntity>,
+  ) {
     return this.activeLogService.update(uuid, body);
   }
 
@@ -65,5 +68,4 @@ export class ActivelogController {
   async remove(@Param('uuid') uuid: string) {
     return this.activeLogService.remove(uuid);
   }
-
 }

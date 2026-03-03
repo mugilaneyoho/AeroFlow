@@ -15,7 +15,7 @@ import { LeadsEntity } from 'src/entities/leads.entity';
         options: {
           package: 'payment',
           protoPath: join(__dirname, '../proto/payment.proto'),
-          url: '0.0.0.0:3011',
+          url: `0.0.0.0:${process.env.PAY_GRPC}`,
         },
       },
     ]),

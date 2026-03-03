@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import logo from '../../assets/icons/profile.svg'
 import close from '../../assets/closse.png'
 import {useFormik} from 'formik'
-import { useCreateTeleCallerMutation, useGetTeleCallerByUUIDQuery, useGetTeleCallerQuery, useUpdateTeleCallerMutation } from '../../services/RTKQuery/TeleCaller'
+import { useCreateTeleCallerMutation, useGetTeleCallerByUUIDQuery, useUpdateTeleCallerMutation } from '../../services/RTKQuery/TeleCaller'
 
 type props = {
   OnClose:(data:boolean)=>void;
@@ -40,6 +40,7 @@ const TeleCallerCreateForm: React.FC<props> = ({OnClose,uuid}) => {
         await CreateTelecaller(value)
       }
       OnClose(false)
+      console.log(isSuccess)
     }
   })
 

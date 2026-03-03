@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ToggleSwitch:React.FC<{onToggle:(data:boolean)=>void,checked:boolean}> = ({ onToggle,checked }) => {
+const ToggleSwitch:React.FC<{onToggle?:(data:boolean)=>void,checked:boolean}> = ({ onToggle,checked }) => {
 
   const [isChecked, setIsChecked] = useState<boolean>(checked);
 

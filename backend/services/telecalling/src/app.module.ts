@@ -10,6 +10,8 @@ import { EmployeeModule } from './employee/employee.module';
 import { EmployeEntity } from './entities/employee.entity';
 import { ConfigModule } from '@nestjs/config';
 import { PaymentModule } from './payment/payment.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './role/role.guard';
 
 @Module({
   imports: [
@@ -45,6 +47,12 @@ import { PaymentModule } from './payment/payment.module';
     PaymentModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

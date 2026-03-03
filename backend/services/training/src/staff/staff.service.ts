@@ -8,11 +8,13 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { StaffProfileEntity } from 'src/entities/staff.entity';
-import { Repository } from 'typeorm';
+import { And, LessThan, MoreThan, Repository } from 'typeorm';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { lastValueFrom, Observable } from 'rxjs';
 import * as microservices from '@nestjs/microservices';
 import { UpdateStaffDto } from './dto/update-staff.dto';
+import { OfflineClassesEntity } from 'src/entities/OfflineClass.entity';
+import { OnlineClassesEntity } from 'src/entities/OnlineClass.entity';
 
 interface staffgrpc {
   CreateStaff(data: {
@@ -28,6 +30,10 @@ export class StaffService implements OnModuleInit {
   constructor(
     @InjectRepository(StaffProfileEntity)
     private staffRepo: Repository<StaffProfileEntity>,
+    @InjectRepository(OfflineClassesEntity)
+    private offlineRepo: Repository<OfflineClassesEntity>,
+    @InjectRepository(OnlineClassesEntity)
+    private onlineRepo: Repository<OnlineClassesEntity>,
 
     @Inject('staff')
     private client: microservices.ClientGrpc,
@@ -178,6 +184,34 @@ export class StaffService implements OnModuleInit {
         success: false,
         message: 'internal server error',
       });
+    }
+  }
+
+  async dashboard() {
+    try {
+      const nowDate = new Date();
+      const dayStart = new Date(nowDate);
+      dayStart.setDate(dayStart.getDate() - 1);
+      dayStart.setHours(0, 0, 0, 0);
+      const dayEnd = new Date(nowDate);
+      dayEnd.setDate(dayEnd.getDate() - 1);
+      dayEnd.setHours(23, 59, 59, 999);
+
+      const online = await this.onlineRepo.find({
+        where: { start_date: And(MoreThan(dayStart), LessThan(dayEnd)) },
+      });
+      const offline = await this.offlineRepo.find({
+        where: { start_date: And(MoreThan(dayStart), LessThan(dayEnd)) },
+      });
+      const todayclasses = [...online, ...offline];
+      // const attendance;
+      // const materials;
+
+      return {
+        todayclasses,
+      };
+    } catch (error) {
+      console.error(error, 'staff dashboard error');
     }
   }
 }

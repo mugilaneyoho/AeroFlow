@@ -13,15 +13,16 @@ type props = {
 
 const ViewTeleCaller: React.FC<props> = ({ closeview, tabType, uuid }) => {
 
-    const {data,isLoading} = useGetTeleCallerByUUIDQuery(uuid,{
+    const {data} = useGetTeleCallerByUUIDQuery(uuid,{
         skip:!uuid
     })
 
-    const [DeletedTeleCallersApi,{data:deleteres,isSuccess}] = useDeleteTeleCallerMutation()
+    const [DeletedTeleCallersApi,{data:deleteres}] = useDeleteTeleCallerMutation()
 
     const DeleteteleCaller =async(uuid:string)=>{
         await DeletedTeleCallersApi(uuid)
         toast.success('employee deleted success')
+        console.log(deleteres)
         closeview(false)
     }
 

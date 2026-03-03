@@ -16,7 +16,7 @@ import { join } from 'path';
         options: {
           package: 'student',
           protoPath: join(__dirname, '../proto/student.proto'),
-          url: '0.0.0.0:3001',
+          url: `0.0.0.0:${process.env.AUTH_GRPC}`,
         },
       },
     ]),

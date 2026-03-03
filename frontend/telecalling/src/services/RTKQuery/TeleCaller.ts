@@ -35,7 +35,7 @@ export const TeleCallerApi = createApi({
             })
         }),
         getTeleCallerByUUID:builder.query({
-            query:(uuid:string)=>ApiLists.telecaller.getByUUID.replace(':uuid',uuid),
+            query:(uuid:string | undefined)=>ApiLists.telecaller.getByUUID.replace(':uuid', uuid as string),
             providesTags: ['telecaller']
         }),
         deleteTeleCaller:builder.mutation({

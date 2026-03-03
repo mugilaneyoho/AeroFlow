@@ -9,7 +9,7 @@ const FilteredLeads:React.FC = () => {
   const {status} = useParams()
   const uuid = GetProfileUUID()
 
-  const {data,isLoading,isSuccess} = useGetEmployeeLeadsQuery({uuid,status},{refetchOnMountOrArgChange:true})
+  const {data} = useGetEmployeeLeadsQuery({uuid,status},{refetchOnMountOrArgChange:true})
 
   console.log(data)
 
@@ -26,6 +26,7 @@ const FilteredLeads:React.FC = () => {
         </div>
       </div>
       {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         data?.map((item:any)=>(
           <FilteredCards data={item}/>
         ))
