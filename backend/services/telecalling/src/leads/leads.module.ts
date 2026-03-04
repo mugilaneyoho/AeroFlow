@@ -15,17 +15,19 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: 'activelog-service',
         transport: Transport.KAFKA,
         options: {
-          client: {
-            clientId: 'notifyandlog',
-            brokers: ['localhost:29092'],
-          },
-          consumer: {
-            groupId: 'notifyandlog-consumer',
+          Client: { 
+            clientId: 'notifyandlog', 
+            brokers: ['localhost:9092'] },
+          consumer: { 
+            groupId: 'notifyandlog-consumer' 
           },
         },
       },
     ]),
+    
+
     QueueModule,
+
   ],
   controllers: [LeadsController],
   providers: [LeadsService, LeadProcessor],

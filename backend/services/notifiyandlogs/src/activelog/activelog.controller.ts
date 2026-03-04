@@ -20,12 +20,27 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ActivelogService } from './activelog.service';
-import { ActivityLogEntity } from '../entity/activitylog';
+import {ActivityLogEntity} from '../entity/activitylog'
+import { Ctx, EventPattern, KafkaContext, MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller('activelog')
 export class ActivelogController {
   constructor(private readonly activeLogService: ActivelogService) {}
+  
+  @EventPattern('activelog.created')
+    async handleActivityCreated(@Payload() payload: any,@Ctx() context: KafkaContext,) {
+    const message = context.getMessage();
+    const rawValue = message.value;
 
+    const data = rawValue? JSON.parse(rawValue.toString()): payload;
+  
+    console.log('ACTIVITY EVENT RECEIVED');
+    console.log('Topic:', context.getTopic());
+    console.log('Partition:', context.getPartition());
+    console.log('Data:', data);
+    console.log('Status:', data?.status);
+    console.log('ReferenceId:', data?.referenceId);
+  }
   @Post()
   async create(@Body() body: Partial<ActivityLogEntity>) {
     return this.activeLogService.create(body);
@@ -37,7 +52,7 @@ export class ActivelogController {
   }
 
   @Get(':uuid')
-  async findOne(@Param(':uuid') uuid: string) {
+  async findOne(@Param('uuid') uuid: string) {
     return this.activeLogService.findOne(uuid);
   }
 

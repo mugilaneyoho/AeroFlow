@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ClassesController } from './classes.controller';
 import { ClassesService } from './classes.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,6 +6,7 @@ import { OfflineClassesEntity } from 'src/entities/OfflineClass.entity';
 import { OnlineClassesEntity } from 'src/entities/OnlineClass.entity';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { ConfigService } from '@nestjs/config';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -35,8 +36,27 @@ import { ConfigModule } from '@nestjs/config';
         },
       },
     ]),
+
+    ClientsModule.registerAsync([
+      {
+        name: "KAFKA_PRODUCER_SERVICE",
+        useFactory:(ConfigService: ConfigService) => ({
+          transport: Transport.KAFKA,
+          Option: {
+            client: {
+              clientId: 'classes_producer',
+              brokers: ConfigService.get<string>('KAFKA_BROKER')?.split(','),
+            },
+            producer: {
+              allowAutoTopicCreation: true,
+            },
+          },
+        }),
+        inject: [ConfigService]
+      }
+    ])
   ],
   controllers: [ClassesController],
-  providers: [ClassesService],
+  providers: [ClassesService, Logger],
 })
 export class ClassesModule {}
