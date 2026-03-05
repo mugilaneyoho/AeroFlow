@@ -12,10 +12,11 @@ import telecalling from "../assets/sidebar/telecalling.png"
 import ticket from "../assets/sidebar/ticket.png"
 import training from "../assets/sidebar/training.png"
 import logo from "../assets/sidebar/logo.png"
+import logout from "../assets/sidebar/logout.png"
 
 
 const menuItems = [
-    {name:'Dashboard', path:'/dashboard', icon: dasshboard},
+    {name:'Dashboard', path:'/', icon: dasshboard},
     {name:'Admission', path:'/admission', icon: doubleuser},
     {name: 'Department', path: '/department', icon: doubleuser},
     {name: 'Users & Faculty', path: '/usersandfaculty', icon: doubleuser},
@@ -37,25 +38,30 @@ interface SidebarProps{
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
 
   return (
-    <div className={`h-full flex flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
-        <div className=" md:grid items-center text-center border m-4 rounded-xl border-gray-100 bg-[#EDBF5C]">
+    <div className={`h-screen flex overflow-y-auto no-scrollbar flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
+        <div className=" md:grid items-center text-center m-4 rounded-xl border-gray-100 bg-[#EDBF5C]">
             <div className='flex items-center justify-center py-2'>
             <img src={logo} className={`w-12 h-12 mr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
             </div>
-            <h1>Training Institute</h1>
-            <h2>Master Admin Panel</h2>
+            <div>
+                <h1>Training Institute</h1>
+            </div>
+            <div className='flex gap-2 items-center justify-center py-1'>
+                <h2 className=' text-black font-bold bg-[#FFC300] px-1'>Master</h2>
+                <h2>Admin Panel</h2>
+            </div>
         </div>
 
-        <div className="flex-1 p-3 space-y-2">
+        <div className="flex-1 p-3 space-y-3">
         {menuItems.map((item) => (
           <div key={item.name} className="relative group">
             <NavLink to={item.path} className={({ isActive }) =>`flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
-            <div className=''>
+            <NavLink className={({isActive})=>`${isActive? 'bg-[#54191D] rounded-full p-2' : ''}`} to={item.path}>
                 <img src={item.icon} className="w-5 h-5 " />
-            </div>
+            </NavLink>
 
               {isOpen && (
-                <span className="text-sm">
+                <span className="text-sm font-bold">
                   {item.name}
                 </span>
               )}
@@ -68,7 +74,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
             )}
           </div>
         ))}
+        <div className='border rounded-md px-2 py-2 mt-20 my-5'>
+            <div className='flex gap-3 items-center justify-center bg-[]'>
+                <div>
+                    <img src={logout} className="w-5 h-5" />
+                </div>
+                <div>
+                    <h1>Logout</h1>
+                </div>
+            </div>
+        </div>
       </div>
+      
     </div>
   )
 }

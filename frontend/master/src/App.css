@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@layer utilities{
+    .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
