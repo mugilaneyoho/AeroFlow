@@ -18,12 +18,6 @@ import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class LeadsService implements OnModuleInit {
-  static get<T>(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
-  get<T>(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
   constructor(
     @InjectRepository(LeadsEntity)
     private leadsRepo: Repository<LeadsEntity>,
@@ -31,28 +25,27 @@ export class LeadsService implements OnModuleInit {
     @InjectQueue('lead-assign')
     private queue: Queue,
 
-    @Inject('activelog-service')
-    private readonly kafkaActiveLog: ClientKafka,
+    // @Inject('activelog-service')
+    // private readonly kafkaActiveLog: ClientKafka,
   ) {}
 
-
-    async onModuleInit() {
-    await this.kafkaActiveLog.connect();
+  onModuleInit() {
+    // await this.kafkaActiveLog.connect();
     console.log('Lead service Kafka connected');
   }
 
-  async createActivity(payload: any) {
-    console.log(' Saving activity to DB', payload);
+  // async createActivity(payload: any) {
+  //   console.log(' Saving activity to DB', payload);
 
-    console.log(' EMITTING TO KAFKA');
-    this.kafkaActiveLog.emit('activelog.created', {
-      subject: 'Lead Activity',
-      description: 'Lead created or updated',
-      status: 'SUCCESS',
-      referenceId: payload.uuid || 'temp-id',
-      payload: payload,
-    });
-  }
+  //   console.log(' EMITTING TO KAFKA');
+  //   this.kafkaActiveLog.emit('activelog.created', {
+  //     subject: 'Lead Activity',
+  //     description: 'Lead created or updated',
+  //     status: 'SUCCESS',
+  //     referenceId: payload.uuid || 'temp-id',
+  //     payload: payload,
+  //   });
+  // }
 
   async uploadLeads(
     file: Express.Multer.File,
@@ -147,15 +140,15 @@ export class LeadsService implements OnModuleInit {
 
       await this.leadsRepo.save(lead);
 
-      this.kafkaActiveLog.emit('activelog.created', {
-        subject: 'status updated',
-        userId: lead.assignedTo,
-        activelogType: 'telecallers',
-        description: data.status,
-        type: 'UPDATE',
-        status: 'SUCCESS',
-        referenceId: lead.uuid,
-      });
+      // this.kafkaActiveLog.emit('activelog.created', {
+      //   subject: 'status updated',
+      //   userId: lead.assignedTo,
+      //   activelogType: 'telecallers',
+      //   description: data.status,
+      //   type: 'UPDATE',
+      //   status: 'SUCCESS',
+      //   referenceId: lead.uuid,
+      // });
 
       return {
         success: true,

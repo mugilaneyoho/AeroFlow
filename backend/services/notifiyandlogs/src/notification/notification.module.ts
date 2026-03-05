@@ -12,11 +12,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
     ClientsModule.register([
       {
-        name: 'KAFKA_CLIENT',
+        name: 'notify',
         transport: Transport.KAFKA,
         options: {
           client: {
-            brokers: ['localhost:9092'],
+            brokers: ['localhost:29092'],
           },
           consumer: {
             groupId: 'notification-consumer',

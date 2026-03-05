@@ -17,7 +17,7 @@ Axios.interceptors.request.use(
   (config) => {
     const token = GetLocalStorage("AuthToken");
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers["Authorization"] = `${token}`;
     }
     return config;
   }

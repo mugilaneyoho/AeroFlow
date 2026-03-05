@@ -22,10 +22,10 @@ export class AppController {
     { path: '/training', target: 'http://localhost:3008' },
   ];
 
-  // @UseGuards(AuthGard)
+  @UseGuards(AuthGard)
   @All('*')
   async proxyAll(@Req() req: any, @Res() res: any) {
-    console.log('Req CLECOB', req.path);
+    console.log('Req CLECOB', req.query);
     const route = this.serviceRoutes.find((r) => req.path.startsWith(r.path));
 
     if (!route) {
@@ -43,6 +43,7 @@ export class AppController {
         req.method,
         req.body,
         req.user,
+        req.query,
       );
       return res.json(result.data);
     } catch (error: any) {

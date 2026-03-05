@@ -11,7 +11,7 @@ export class NotificationService {
   constructor(
     @InjectRepository(NotificationEntity)
     private notifyRepo: Repository<NotificationEntity>,
-    @Inject('KAFKA_CLIENT')
+    @Inject('notify')
     private readonly kafkaClient: microservices.ClientKafka,
   ) {}
 

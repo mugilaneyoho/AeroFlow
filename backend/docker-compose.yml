@@ -114,6 +114,38 @@ services:
     networks:
       - app-network
   
+  mail-service:
+    build:
+      context: ./services/mailservice
+      dockerfile: Dockerfile
+    ports:
+      - "3012:3012"
+    environment:
+      - name=value
+    networks:
+      - app-network
+
+  reception-service:
+    build:
+      context: ./services/reception
+      dockerfile: Dockerfile
+    ports:
+      - "3013:3013"
+    environment:
+      - name=value
+    networks:
+      - app-network
+
+  notifyandlogs:
+    build:
+      context: ./services/notifiyandlogs
+      dockerfile: Dockerfile
+    ports:
+      - "3015:3015"
+    environment:
+      - name=value
+    networks:
+      - app-network
 
   auth-db:
     image: mysql:9.6.0

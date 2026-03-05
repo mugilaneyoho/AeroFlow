@@ -10,24 +10,22 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 @Module({
   imports: [
     TypeOrmModule.forFeature([LeadsEntity]),
-    ClientsModule.register([
-      {
-        name: 'activelog-service',
-        transport: Transport.KAFKA,
-        options: {
-          Client: { 
-            clientId: 'notifyandlog', 
-            brokers: ['localhost:9092'] },
-          consumer: { 
-            groupId: 'notifyandlog-consumer' 
-          },
-        },
-      },
-    ]),
-    
-
+    // ClientsModule.register([
+    //   {
+    //     name: 'activelog-service',
+    //     transport: Transport.KAFKA,
+    //     options: {
+    //       Client: {
+    //         clientId: 'notifyandlog',
+    //         brokers: ['localhost:9092'],
+    //       },
+    //       consumer: {
+    //         groupId: 'notifyandlog-consumer',
+    //       },
+    //     },
+    //   },
+    // ]),
     QueueModule,
-
   ],
   controllers: [LeadsController],
   providers: [LeadsService, LeadProcessor],

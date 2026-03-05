@@ -6,7 +6,13 @@ import { firstValueFrom } from 'rxjs';
 export class AppService {
   constructor(private http: HttpService) {}
 
-  async forwardRequest(url: string, method: string, body?: any, user?: any) {
+  async forwardRequest(
+    url: string,
+    method: string,
+    body?: any,
+    user?: any,
+    query?: any,
+  ) {
     return firstValueFrom(
       this.http.request({
         url,
@@ -15,6 +21,7 @@ export class AppService {
         headers: {
           user,
         },
+        params: query,
       }),
     );
   }
