@@ -1,23 +1,22 @@
 import React, { Suspense } from 'react'
 
-const TeleCaling = () => {
-
+const ClassPage = () => {
   const loadRemote = () =>
-    import("telecaller/telecallers")
+    import("classes/classes")
       .then((module) => module)
       .catch(() => ({
-        default: () => <div>Course module unavailable</div>
+        default: () => <div>class module unavailable</div>
       }));
 
-  const TeleCaller = React.lazy(loadRemote)
+  const Classes = React.lazy(loadRemote)
 
   return (
     <>
       <Suspense fallback={<div>loading</div>}>
-        <TeleCaller />
+        <Classes />
       </Suspense>
     </>
   )
 }
 
-export default TeleCaling
+export default ClassPage

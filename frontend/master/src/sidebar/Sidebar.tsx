@@ -1,5 +1,5 @@
-import { NavLink  } from 'react-router-dom'
-import React from 'react'
+import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
 
 import dasshboard from "../assets/sidebar/dashboardicon.png"
 import doubleuser from "../assets/sidebar/doubleuser.png"
@@ -15,58 +15,117 @@ import logo from "../assets/sidebar/logo.png"
 
 
 const menuItems = [
-    {name:'Dashboard', path:'/dashboard', icon: dasshboard},
-    {name:'Admission', path:'/admission', icon: doubleuser},
-    {name: 'Department', path: '/department', icon: doubleuser},
-    {name: 'Users & Faculty', path: '/usersandfaculty', icon: doubleuser},
-    {name: 'Meeting Management', path: '/meetingmanagement', icon: doubleuser},
-    {name: 'Tele-Calling', path: '/telecalling', icon: telecalling},
-    {name: 'Training & Events', path: '/trainingmanagement', icon: training},
-    {name: 'Student Management', path: '/studentmanagement', icon: student},
-    {name: 'Finance & Fees', path: '/financeandfees' , icon:finance },
-    {name: 'Placement', path: '/placement', icon: Placement},
-    {name: 'Reports & Analytics', path: '/reportsandanalytics', icon: report},
-    {name: 'Ticket Management', path: '/ticketmanagement', icon: ticket},
-    {name: 'Notification', path: '/notification', icon: notification}
+  { name: 'Dashboard', path: '/dashboard', icon: dasshboard },
+  { name: 'Admission', path: '/admission', icon: doubleuser },
+  { name: 'Department', path: '/department', icon: doubleuser },
+  { name: 'Users & Faculty', path: '/usersandfaculty', icon: doubleuser },
+  { name: 'Meeting Management', path: '/meetingmanagement', icon: doubleuser },
+  { name: 'Tele-Calling', path: '/telecalling', icon: telecalling },
+  { name: 'Training & Events', path: '/trainingmanagement', icon: training },
+  { name: 'Student Management', path: '/studentmanagement', icon: student },
+  { name: 'Finance & Fees', path: '/financeandfees', icon: finance },
+  { name: 'Placement', path: '/placement', icon: Placement },
+  { name: 'Reports & Analytics', path: '/reportsandanalytics', icon: report },
+  { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket },
+  { name: 'Notification', path: '/notification', icon: notification }
 ]
 
-interface SidebarProps{
-    isOpen: boolean
-    setIsOpen: (open: boolean) => void
+interface SidebarProps {
+  isOpen: boolean
+  setIsOpen: (open: boolean) => void
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
+  const [trainingDropDowm, settrainingDropDowm] = useState(false);
+
+  function chagneTrainingDropdown() {
+    settrainingDropDowm(!trainingDropDowm)
+  }
 
   return (
     <div className={`h-full flex flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
-        <div className=" md:grid items-center text-center border m-4 rounded-xl border-gray-100 bg-[#EDBF5C]">
-            <div className='flex items-center justify-center py-2'>
-            <img src={logo} className={`w-12 h-12 mr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
-            </div>
-            <h1>Training Institute</h1>
-            <h2>Master Admin Panel</h2>
+      <div className=" md:grid items-center text-center border m-4 rounded-xl border-gray-100 bg-[#EDBF5C]">
+        <div className='flex items-center justify-center py-2'>
+          <img src={logo} className={`w-12 h-12 mr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
         </div>
+        <h1>Training Institute</h1>
+        <h2>Master Admin Panel</h2>
+      </div>
 
-        <div className="flex-1 p-3 space-y-2">
+      <div className="flex-1 p-3 space-y-2">
         {menuItems.map((item) => (
-          <div key={item.name} className="relative group">
-            <NavLink to={item.path} className={({ isActive }) =>`flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
-            <div className=''>
-                <img src={item.icon} className="w-5 h-5 " />
-            </div>
+          item.path === '/trainingmanagement' ?
+            <div>
+              <div className='cursor-pointer' onClick={chagneTrainingDropdown}>
+                <div className='flex flex-row gap-3 p-2 rounded-2xl transition-all duration-200 text-white hover:bg-[#EDBF5C] hover:text-[#54191D]'>
+                  <div className=''>
+                    <img src={item.icon} className="w-5 h-5 " />
+                  </div>
 
-              {isOpen && (
-                <span className="text-sm">
+                  {isOpen && (
+                    <span className="text-sm">
+                      {item.name}
+                    </span>
+                  )}
+                </div>
+              </div>
+              {
+                trainingDropDowm &&
+                <div className='flex flex-col gap-3 ml-10 *:p-3'>
+                  <NavLink to='/course' className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+                    <div className=''>
+                      <img src={item.icon} className="w-5 h-5 " />
+                    </div>
+
+                    {isOpen && (
+                      <span className="text-sm">
+                        course
+                      </span>
+                    )}
+                  </NavLink>
+                  <NavLink to='/batch' className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+                    <div className=''>
+                      <img src={item.icon} className="w-5 h-5 " />
+                    </div>
+
+                    {isOpen && (
+                      <span className="text-sm">
+                        batch
+                      </span>
+                    )}
+                  </NavLink>
+                  <NavLink to='/class' className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+                    <div className=''>
+                      <img src={item.icon} className="w-5 h-5 " />
+                    </div>
+
+                    {isOpen && (
+                      <span className="text-sm">
+                        class
+                      </span>
+                    )}
+                  </NavLink>
+                </div>
+              }
+            </div>
+            : <div key={item.name} className="relative group">
+              <NavLink to={item.path} className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+                <div className=''>
+                  <img src={item.icon} className="w-5 h-5 " />
+                </div>
+
+                {isOpen && (
+                  <span className="text-sm">
+                    {item.name}
+                  </span>
+                )}
+              </NavLink>
+
+              {!isOpen && (
+                <span className={`absolute left-14 top-1/2 -translate-y-1/2 rounded-md bg-[#EDBF5C] text-[#54191D] text-sm px-3 py-1 opacity-0 transition-all duration-300 z-50 shadow-md`}>
                   {item.name}
                 </span>
               )}
-            </NavLink>
-
-            {!isOpen && (
-              <span className={`absolute left-14 top-1/2 -translate-y-1/2 rounded-md bg-[#EDBF5C] text-[#54191D] text-sm px-3 py-1 opacity-0 transition-all duration-300 z-50 shadow-md`}>
-                {item.name}
-              </span>
-            )}
-          </div>
+            </div>
         ))}
       </div>
     </div>

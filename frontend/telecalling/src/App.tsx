@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify"
 function App() {
 
   return (
-    <>
+    <div className="fonts">
       <BrowserRouter>
         <AuthProvider>
           <AppRoute />
@@ -21,10 +21,9 @@ function App() {
             pauseOnHover
             theme="light"
           />
-
         </AuthProvider>
       </BrowserRouter>
-    </>
+    </div>
   )
 }
 

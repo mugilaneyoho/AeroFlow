@@ -14,6 +14,9 @@ import ReportAndAnalytics from '../pages/ReportAndAnalytics'
 import TicketManagement from '../pages/TicketManagement'
 import Notification from '../pages/Notification'
 import MainLayout from '../layout/MainLayout'
+import CoursePage from '../pages/CoursePage'
+import BatchPage from '../pages/BatchPage'
+import ClassPage from '../pages/ClassPage'
 
 const AppRoute = () => {
   return (
@@ -27,6 +30,9 @@ const AppRoute = () => {
         <Route path="/meetingmanagement" element={<MeetingManagement />} />
         <Route path="/telecalling" element={<TeleCaling/>}/>
         <Route path="/trainingmanagement" element={<TrainingManagement/>}/>
+        <Route path="/course" element={<CoursePage/>}/>
+        <Route path="/batch" element={<BatchPage/>}/>
+        <Route path="/class" element={<ClassPage/>}/>
         <Route path="/studentmanagement" element={<StudentManagement/>}/>
         <Route path="/financeandfees" element={<FinanceAndFees/>}/>
         <Route path="/placement" element={<Placement/>}/>
