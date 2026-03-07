@@ -4,18 +4,26 @@ import lock from "../assets/lock.png";
 import eye from "../assets/EyeOutline.png";
 import background from "../assets/loginbackground.png";
 import { useState } from "react";
+import { useLoginMutation } from "../services/globalApi";
+import { useAuth } from "../contexts/AuthUseContext";
 
-const login = () => {
+const Login = () => {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("admin@reception.com");
+    const [password, setPassword] = useState("123456");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [Login,{isLoading}] = useLoginMutation();
+    const {login} = useAuth()
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
+        const {data} = await Login({email,password})
+        if (data.success) {
+            login(data?.data)
+        }else{
+            alert('check email and password')
+        }
         setError("");
     }
 
@@ -64,9 +72,9 @@ const login = () => {
                     <button
                         type="submit"
                         className="bg-[#76153C] text-white font-medium px-30 py-3 mt-7 rounded-3xl disabled:opacity-50"
-                        disabled={loading}
+                        disabled={isLoading}
                     >
-                        {loading ? "LOGGING IN..." : "LOGIN NOW"}
+                        {isLoading ? "LOGGING IN..." : "LOGIN NOW"}
                     </button>
                 </form>
                 <button className="text-black text-xs font-medium ml-50">Forgot Password</button>
@@ -76,4 +84,4 @@ const login = () => {
     )
 }
 
-export default login;
+export default Login;

@@ -18,12 +18,13 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start:auth": "cd .. && cd services/authentication && npm i && npm run start:dev",
-    "start:institute": "cd .. && cd services/institute && npm i && npm run start:dev",
-    "start:telecalling": "cd .. && cd services/telecalling && npm i && npm run start:dev",
-    "start:training": "cd .. && cd services/training && npm i && npm run start:dev",
-    "start:payment": "cd .. && cd services/payment && npm i && npm run start:dev",
-    "start:all": "concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING,PAYMENT -c yellow,green,blue,red,white,gray \"npm run start:dev\" \"npm run start:auth\" \"npm run start:institute\" \"npm run start:telecalling\" \"npm run start:training\" \"npm run start:payment\" "
+    "start:auth": "cd .. && cd services/authentication && npm run start:dev",
+    "start:institute": "cd .. && cd services/institute && npm run start:dev",
+    "start:telecalling": "cd .. && cd services/telecalling && npm run start:dev",
+    "start:training": "cd .. && cd services/training && npm run start:dev",
+    "start:payment": "cd .. && cd services/payment && npm run start:dev",
+    "start:reception": "cd .. && cd services/reception && npm run start:dev",
+    "start:all": "concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING,PAYMENT,RECEPTION -c yellow,green,blue,red,white,gray,yellow \"npm run start:dev\" \"npm run start:auth\" \"npm run start:institute\" \"npm run start:telecalling\" \"npm run start:training\" \"npm run start:payment\" \"npm run start:reception\" "
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.14.3",
