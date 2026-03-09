@@ -29,3 +29,13 @@ export const deleteBatch = async (uuid: string) => {
   const response = await Client.batch.deleteBatch(uuid);
   return response;
 };
+
+export const CourseDropdowm = async ()=>{
+  const res = await Client.course.dropCourse();
+  return res
+}
+
+export const BatchDropdown = async(courseid:string)=>{
+  const res = await Client.batch.getDropdownByCourse(courseid)
+  return res
+}

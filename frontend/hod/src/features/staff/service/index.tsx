@@ -28,3 +28,8 @@ export const updateStaff = async (uuid: string, data: any) => {
   const response = await Client.staff.updateStaff(uuid, data);
   return response;
 };
+
+export const StaffDropdown = async()=>{
+  const res = await Client.staff.dropdown();
+  return res
+}

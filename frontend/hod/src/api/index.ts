@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpClients from "./httpClients";
 import httpEndPoints from "./httpEndPoints";
 
@@ -12,9 +13,10 @@ class Client {
       httpClients.put(httpEndPoints.staff.update.replace(':uuid', uuid), data),
     deleteStaff: (uuid: string) =>
       httpClients.delete(httpEndPoints.staff.delete.replace(':uuid', uuid)),
+    dropdown: ()=>httpClients.get(httpEndPoints.staff.dropdown),
   };
   classes = {
-    getAll: (tab:string) =>
+    getAll: (tab: string) =>
       httpClients.get(httpEndPoints.classes.getAll + `/?classtype=${tab}`),
 
     getClassById: (uuid: string, mode: string) =>
@@ -43,7 +45,7 @@ class Client {
       ),
   };
 
-   course = {
+  course = {
     getAll: () =>
       httpClients.get(httpEndPoints.course.getAll),
 
@@ -68,45 +70,47 @@ class Client {
       httpClients.delete(
         httpEndPoints.course.delete.replace(':uuid', uuid)
       ),
+
+    dropCourse: () => httpClients.get(httpEndPoints.course.dropdown)
   };
   batch = {
 
-  getAll: (page:number , limit:number ) =>
-    httpClients.get(`${httpEndPoints.batch.getAll}?page=${page}&limit=${limit}`),
+    getAll: (page: number, limit: number) =>
+      httpClients.get(`${httpEndPoints.batch.getAll}?page=${page}&limit=${limit}`),
 
-  getAllByCourse: (courseid: string) =>
-    httpClients.get(
-      httpEndPoints.batch.getAllByCourse.replace(":courseid", courseid)
-    ),
+    getAllByCourse: (courseid: string) =>
+      httpClients.get(
+        httpEndPoints.batch.getAllByCourse.replace(":courseid", courseid)
+      ),
 
-  getDropdownByCourse: (courseid: string) =>
-    httpClients.get(
-      httpEndPoints.batch.dropdownByCourse.replace(":courseid", courseid)
-    ),
-
- 
-  getBatchById: (uuid: string) =>
-    httpClients.get(
-      httpEndPoints.batch.getById.replace(":uuid", uuid)
-    ),
-
-  createBatch: (data: any) =>
-    httpClients.post(httpEndPoints.batch.create, data),
+    getDropdownByCourse: (courseid: string) =>
+      httpClients.get(
+        httpEndPoints.batch.dropdownByCourse.replace(":courseid", courseid)
+      ),
 
 
-  updateBatch: (uuid: string, data: any) =>
-    httpClients.put(
-      httpEndPoints.batch.update.replace(":uuid", uuid),
-      data
-    ),
+    getBatchById: (uuid: string) =>
+      httpClients.get(
+        httpEndPoints.batch.getById.replace(":uuid", uuid)
+      ),
 
- 
-  deleteBatch: (uuid: string) =>
-    httpClients.delete(
-      httpEndPoints.batch.delete.replace(":uuid", uuid)
-    ),
-};
-dashboard = {  
+    createBatch: (data: any) =>
+      httpClients.post(httpEndPoints.batch.create, data),
+
+
+    updateBatch: (uuid: string, data: any) =>
+      httpClients.put(
+        httpEndPoints.batch.update.replace(":uuid", uuid),
+        data
+      ),
+
+
+    deleteBatch: (uuid: string) =>
+      httpClients.delete(
+        httpEndPoints.batch.delete.replace(":uuid", uuid)
+      ),
+  };
+  dashboard = {
     getAdminDashboard: () =>
       httpClients.get(httpEndPoints.dashboard.admin),
     getStaffDashboard: (uuid: string) =>
@@ -114,20 +118,20 @@ dashboard = {
         httpEndPoints.dashboard.staff.replace(":uuid", uuid)
       ),
   };
-student = {
-    getAll: () => httpClients.get(httpEndPoints.student.getAll), 
+  student = {
+    getAll: () => httpClients.get(httpEndPoints.student.getAll),
     getStudentById: (uuid: string) =>
-        httpClients.get(httpEndPoints.student.getById.replace(":uuid", uuid)),
+      httpClients.get(httpEndPoints.student.getById.replace(":uuid", uuid)),
     createStudent: (data: any) => httpClients.post(httpEndPoints.student.create, data),
     deleteStudent: (uuid: string) =>
-        httpClients.delete(httpEndPoints.student.delete.replace(":uuid", uuid)),
-};
-admins = {
-    login:(data: {email:string; password:string}) => httpClients.post(httpEndPoints.admins.login, data),
-    createAdmin:(data: any) => httpClients.post(httpEndPoints.admins.create, data),
-    updateAdmin:(uuid: string, data: any) => httpClients.put(httpEndPoints.admins.update.replace(":uuid", uuid), data),
-    deleteAdmin:(uuid: string) => httpClients.delete(httpEndPoints.admins.delete.replace(":uuid", uuid)),
-}
+      httpClients.delete(httpEndPoints.student.delete.replace(":uuid", uuid)),
+  };
+  admins = {
+    login: (data: { email: string; password: string }) => httpClients.post(httpEndPoints.admins.login, data),
+    createAdmin: (data: any) => httpClients.post(httpEndPoints.admins.create, data),
+    updateAdmin: (uuid: string, data: any) => httpClients.put(httpEndPoints.admins.update.replace(":uuid", uuid), data),
+    deleteAdmin: (uuid: string) => httpClients.delete(httpEndPoints.admins.delete.replace(":uuid", uuid)),
+  }
 
 }
 

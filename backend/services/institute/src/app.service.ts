@@ -8,12 +8,12 @@ import { BatchEntity } from './entities/batch.entity';
 @Injectable()
 export class AppService {
   constructor(
-    @InjectRepository(CourseEntity)
-    private courseRepo: Repository<CourseEntity>,
-    @InjectRepository(StudentProfileEntity)
-    private studentRepo: Repository<StudentProfileEntity>,
-    @InjectRepository(BatchEntity)
-    private batchRepo: Repository<BatchEntity>,
+    // @InjectRepository(CourseEntity)
+    // private courseRepo: Repository<CourseEntity>,
+    // @InjectRepository(StudentProfileEntity)
+    // private studentRepo: Repository<StudentProfileEntity>,
+    // @InjectRepository(BatchEntity)
+    // private batchRepo: Repository<BatchEntity>,
   ) {}
 
   getHello(): string {
@@ -22,27 +22,27 @@ export class AppService {
 
   async getdashboard() {
     try {
-      const nowDate = new Date();
-      const TotalCourse = await this.courseRepo.count({
-        where: { is_delete: false },
-      });
-      const TotalStudent = await this.studentRepo.count({
-        where: { is_delete: false },
-      });
+      // const nowDate = new Date();
+      // const TotalCourse = await this.courseRepo.count({
+      //   where: { is_delete: false },
+      // });
+      // const TotalStudent = await this.studentRepo.count({
+      //   where: { is_delete: false },
+      // });
 
-      const [BatchList, ActiveBatch] = await this.batchRepo.findAndCount({
-        where: {
-          endDate: MoreThan(nowDate),
-          isDelete: false,
-        },
-      });
+      // const [BatchList, ActiveBatch] = await this.batchRepo.findAndCount({
+      //   where: {
+      //     endDate: MoreThan(nowDate),
+      //     isDelete: false,
+      //   },
+      // });
 
-      return {
-        TotalCourse,
-        ActiveBatch,
-        TotalStudent,
-        BatchList,
-      };
+      // return {
+      //   TotalCourse,
+      //   ActiveBatch,
+      //   TotalStudent,
+      //   BatchList,
+      // };
     } catch (error) {
       console.log(error, 'dashboard grpc error.');
       throw new InternalServerErrorException('grpc server error');

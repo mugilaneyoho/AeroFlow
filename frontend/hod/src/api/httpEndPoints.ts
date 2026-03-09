@@ -6,6 +6,7 @@ const httpEndPoints = {
     getById: "/training/staff/:uuid",
     update: "/training/staff/:uuid",
     delete: "/training/staff/:uuid",
+    dropdown: "/training/staff/dropdown",
   },
   classes: {
     create: "/training/classes/create",
