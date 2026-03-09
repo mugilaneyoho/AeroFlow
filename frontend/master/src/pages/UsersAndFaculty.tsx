@@ -92,7 +92,7 @@ const UsersAndFaculty = () => {
           <h1>ACTIONS</h1>
         </div>
 
-        <div className=' rounded-md mt-4 px-5 py-2 flex flex-col justify-between '>
+        <div className=' rounded-md mt-4 px-5 py-2 flex flex-col justify-between'>
           {FilterRole.map((data,index)=>{
             return(
               <div key={index} className='flex justify-between border-b pb-5 mb-5'>
