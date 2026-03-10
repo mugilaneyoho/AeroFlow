@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import * as microservices from '@nestjs/microservices';
+import { EventPattern } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateNotifyDto } from 'src/dto/CreateNotifyDto';
 import { UpdateNotificationDto } from 'src/dto/UpdateNotifyDto';
@@ -15,11 +16,18 @@ export class NotificationService {
     private readonly kafkaClient: microservices.ClientKafka,
   ) {}
 
+   async onModuleInit() {
+    await this.kafkaClient.connect();
+    console.log('Kafka Producer Connected')
+
+  }
+
+
   async create(dto: CreateNotifyDto) {
     try {
-      const notification = this.notifyRepo.create(dto);
-      const res = await this.notifyRepo.save(notification);
-      this.kafkaClient.emit('NotificationCreated', res);
+      const notification = this.notifyRepo.create(dto)
+      const res = await this.notifyRepo.save(notification)
+      this.kafkaClient.emit('NotificationCreated', res)
 
       return {
         success: true,

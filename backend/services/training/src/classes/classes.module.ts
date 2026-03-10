@@ -8,6 +8,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forFeature([OfflineClassesEntity, OnlineClassesEntity]),
     ClientsModule.register([
       {
@@ -42,10 +44,10 @@ import { ConfigModule } from '@nestjs/config';
         name: "KAFKA_PRODUCER_SERVICE",
         useFactory:(ConfigService: ConfigService) => ({
           transport: Transport.KAFKA,
-          Option: {
+          options: {
             client: {
               clientId: 'classes_producer',
-              brokers: ConfigService.get<string>('KAFKA_BROKER')?.split(','),
+              brokers: ConfigService.get<string>('KAFKA_BROKER')?.split(',') || ['localhost:9092'],
             },
             producer: {
               allowAutoTopicCreation: true,

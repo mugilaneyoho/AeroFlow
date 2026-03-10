@@ -26,21 +26,13 @@ import { Ctx, EventPattern, KafkaContext, MessagePattern, Payload } from '@nestj
 @Controller('activelog')
 export class ActivelogController {
   constructor(private readonly activeLogService: ActivelogService) {}
-  
-  @EventPattern('activelog.created')
-    async handleActivityCreated(@Payload() payload: any,@Ctx() context: KafkaContext,) {
-    const message = context.getMessage();
-    const rawValue = message.value;
 
-    const data = rawValue? JSON.parse(rawValue.toString()): payload;
+  @EventPattern('activelog.created')handleActivityUpdate(@Payload() message: any): void {
+  console.log('activelog received from kafka')
+  console.log(message)
+}
   
-    console.log('ACTIVITY EVENT RECEIVED');
-    console.log('Topic:', context.getTopic());
-    console.log('Partition:', context.getPartition());
-    console.log('Data:', data);
-    console.log('Status:', data?.status);
-    console.log('ReferenceId:', data?.referenceId);
-  }
+
   @Post()
   async create(@Body() body: Partial<ActivityLogEntity>) {
     return this.activeLogService.create(body);

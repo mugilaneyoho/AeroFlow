@@ -4,4 +4,6 @@ import { CreateNotifyDto } from "./CreateNotifyDto";
 
 export class UpdateNotificationDto extends PartialType(
     CreateNotifyDto
-) {}
+) {
+  value: any;
+}

@@ -13,12 +13,17 @@ import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
 import { Roles } from 'src/role/role.decorator';
 import { Role } from 'src/role/role.enum';
+import { KafkaContext } from '@nestjs/microservices/ctx-host/kafka.context';
+import { EventPattern } from '@nestjs/microservices/decorators/event-pattern.decorator';
+import { Payload } from '@nestjs/microservices/decorators/payload.decorator';
 
 @Controller('classes')
 export class ClassesController {
   constructor(private readonly classService: ClassesService) {}
 
+
   @Roles([Role.HOD])
+
   @Post('create')
   create(@Body() data: CreateClassDto) {
     return this.classService.create(data);

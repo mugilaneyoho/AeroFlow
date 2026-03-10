@@ -10,17 +10,24 @@ import {
 import { NotificationService } from './notification.service';
 import { CreateNotifyDto } from '../dto/CreateNotifyDto';
 import { UpdateNotificationDto } from 'src/dto/UpdateNotifyDto';
-import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
+import { Ctx, EventPattern, KafkaContext, MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller('notification')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
+  @Post()
+  async create(@Body() dto: CreateNotifyDto) {
+    return this.notificationService.create(dto);
 
-    @MessagePattern('NotificationCreated')
-    handleNotificationCreated(@Payload() message: any) {
-         console.log('Notification created :', message)
-    }
+  }
+  
+  @EventPattern('class_started')
+  handleNotificationCreated(@Payload() message: any) {
+  console.log(message)
+  console.log('class start')
+}
+
 
   @Get()
   async findAll() {

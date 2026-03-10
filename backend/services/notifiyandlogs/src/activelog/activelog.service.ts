@@ -12,13 +12,6 @@ export class ActivelogService {
     @InjectRepository(ActivityLogEntity)
     private logRepo: Repository<ActivityLogEntity>,
   ) {}
-  @microservices.EventPattern('activelog.created')
-    async handleActivityCreated(@microservices.Payload() message: any) {
-        console.log('activity received');
-        console.log(message);
-        console.log('Status:', message.status);
-        console.log('Reference ID:', message.referenceId);
-}
 
   async create(data: Partial<ActivityLogEntity>) {
     try {

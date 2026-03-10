@@ -41,24 +41,39 @@ export class ClassesService implements OnModuleInit {
     @Inject('KAFKA_PRODUCER_SERVICE') private readonly kafkaclient: microservices.ClientKafka,
     private readonly logger: Logger    
 
-  ) {}     
+  ) {}   
+  
+  
 
   @Cron('* * * * *')
   async handleClassStart() {
-  const classes = await this.onlineRepo.findAll()
+  console.log('cron running')
+  const classes = await this.offlineRepo.find()
   const current = Date.now();
   const beforeTime = current + 5 * 60 * 1000
+  console.log(`neww data  `,classes)
 
   for (const classData of classes){
     const startTime = new Date(classData.start_time).getTime()
+    console.log(classData.start_time)
     if (startTime >= current && startTime <= beforeTime){ 
 
-    this.kafkaclient.emit('class started',{
+      console.log('Class Started emit data');
+      console.log({
+        uuid: classData.uuid,
+        subject: classData.subject,
+        batch_name: classData.batch_name,
+        start_time: classData.start_time,
+      });
+
+    this.kafkaclient.emit('class_started',{
       uuid: classData.uuid,
       subject: classData.subject,
       batch_name: classData.batch_name,
       start_time: classData.start_time,
     })
+    console.log(`class_started uuid ${classData.uuid}`)
+    console.log
     }
   }
 }
@@ -67,6 +82,7 @@ export class ClassesService implements OnModuleInit {
   
   async onModuleInit() {
     this.batchService = this.clientBatch.getService('BatchService');
+      this.kafkaclient.subscribeToResponseOf('class_started');
     try {
       await this.kafkaclient.connect()
       this.logger.log('kafka producer connected successfully')

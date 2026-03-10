@@ -5,7 +5,8 @@ export enum NotificationType{
     INFO = 'INFO',
     SUCCESS = 'SUCCESS',
     PENDING = 'PENDING',
-    DUE_AMOUNT = 'DUE_AMOUNT'
+    DUE_AMOUNT = 'DUE_AMOUNT',
+    CLASS_STARTED = "CLASS_STARTED"
 }
 
 export enum NotificationPriority{
@@ -46,13 +47,13 @@ export class NotificationEntity{
     @Column({ type: 'enum', enum: NotificationPriority, default: NotificationPriority.MEDIUM })
     priority: NotificationPriority;
 
-    @Column({default:false})
+    @Column({type:'boolean',default:false})
     isRead: boolean
 
-    @CreateDateColumn()
+    @CreateDateColumn({type:'timestamptz',nullable:true})
     CreateAt: Date
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({type:'timestamptz',nullable:true})
     UpdateAt: Date
 
 
