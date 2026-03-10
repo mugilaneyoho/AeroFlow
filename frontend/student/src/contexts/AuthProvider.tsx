@@ -1,15 +1,15 @@
 import React, { useState, type ReactNode } from "react";
-import { GetLocalStorage, RemoveLocalStorage, StoreLocalStorage } from "../utils/LocalStorage";
+import { GetLocalStorage, RemoveLocalStorage, SetLocalStorage} from "../utils/SecureStorage";
 import { AuthContext } from "./AuthContext";
 
 export const AuthProvider:React.FC<{children:ReactNode}>=({children})=>{
     const [isAuthenticated, setisAuthenticated] = useState(()=>{
-        const token = GetLocalStorage('t_r_tk')
+        const token = GetLocalStorage('t_s_tk')
         return !!token
     });
 
     const login = (token:string)=>{
-        StoreLocalStorage("t_r_tk",token)
+        SetLocalStorage("t_s_tk",token)
         setisAuthenticated(true)
     };
 
