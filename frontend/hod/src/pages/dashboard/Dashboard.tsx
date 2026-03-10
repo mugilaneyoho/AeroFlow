@@ -87,8 +87,8 @@ console.log("Redux adminData:", adminData);
   },
 ];
 
-const onlineBatches = BatchList.filter((batch) => batch.batchMode === "ONLINE");
-const offlineBatches = BatchList.filter((batch) => batch.batchMode === "OFFLINE");
+const onlineBatches = BatchList?.filter((batch) => batch.batchMode === "ONLINE");
+const offlineBatches = BatchList?.filter((batch) => batch.batchMode === "OFFLINE");
 
   return (
      
@@ -126,11 +126,11 @@ const offlineBatches = BatchList.filter((batch) => batch.batchMode === "OFFLINE"
                 </div> 
                
                 <div className='p-2 rounded-[10px] shadow-[0px_0px_14px_0px_#2D216140] ' style={{backgroundColor:COLORS.primary_blue,color:COLORS.secondary_white}}>
-                  {onlineBatches.length} classes</div>
+                  {onlineBatches?.length} classes</div>
           </div>
 
          <div className='p-2 '>
-           {onlineBatches.length >0 ? (
+           {onlineBatches?.length >0 ? (
             onlineBatches.map((c:any, i:number) => (
           <ClassCard
             key={i}
@@ -163,7 +163,7 @@ const offlineBatches = BatchList.filter((batch) => batch.batchMode === "OFFLINE"
 
          <div className='p-2'>
           {
-              offlineBatches.length >0 ? (             
+              offlineBatches?.length >0 ? (             
             offlineBatches.map((data:any,index:number)=>(
                <ClassCard
             key={index}
