@@ -12,6 +12,7 @@ import telecalling from "../assets/sidebar/telecalling.png"
 import ticket from "../assets/sidebar/ticket.png"
 import training from "../assets/sidebar/training.png"
 import logo from "../assets/sidebar/logo.png"
+import logout from "../assets/sidebar/logout.png"
 
 
 const menuItems = [
@@ -127,7 +128,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
               )}
             </div>
         ))}
+        <div className='border rounded-md px-2 py-2 mt-20 my-5'>
+            <div className='flex gap-3 items-center justify-center bg-[]'>
+                <div>
+                    <img src={logout} className="w-5 h-5" />
+                </div>
+                <div>
+                    <h1>Logout</h1>
+                </div>
+            </div>
+        </div>
       </div>
+      
     </div>
   )
 }

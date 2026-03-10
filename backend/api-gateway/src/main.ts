@@ -20,38 +20,38 @@ async function bootstrap() {
     }),
   );
 
-  // app.use(
-  //   '/institute',
-  //   createProxyMiddleware({
-  //     target: 'http://localhost:3004',
-  //     changeOrigin: true,
-  //     pathRewrite: {
-  //       '^/institute': '',
-  //     },
-  //   }),
-  // );
+  app.use(
+    '/institute',
+    createProxyMiddleware({
+      target: 'http://localhost:3004',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/institute': '',
+      },
+    }),
+  );
 
-  // app.use(
-  //   '/telecalling',
-  //   createProxyMiddleware({
-  //     target: 'http://localhost:3006',
-  //     changeOrigin: true,
-  //     pathRewrite: {
-  //       '^/telecalling': '',
-  //     },
-  //   }),
-  // );
+  app.use(
+    '/telecalling',
+    createProxyMiddleware({
+      target: 'http://localhost:3006',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/telecalling': '',
+      },
+    }),
+  );
 
-  // app.use(
-  //   '/training',
-  //   createProxyMiddleware({
-  //     target: 'http://localhost:3008',
-  //     changeOrigin: true,
-  //     pathRewrite: {
-  //       '^/training': '',
-  //     },
-  //   }),
-  // );
+  app.use(
+    '/training',
+    createProxyMiddleware({
+      target: 'http://localhost:3008',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/training': '',
+      },
+    }),
+  );
 
   await app.listen(process.env.PORT ?? 3000);
 

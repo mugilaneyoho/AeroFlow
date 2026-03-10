@@ -42,7 +42,7 @@ export class CourseController {
     return this.courseSerivce.updateOne(uuid, body);
   }
 
-  @Delete('uuid')
+  @Delete(':uuid')
   deleteOne(@Param('uuid') uuid: string) {
     return this.courseSerivce.softDelete(uuid);
   }

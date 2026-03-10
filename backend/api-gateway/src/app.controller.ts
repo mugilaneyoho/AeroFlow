@@ -20,6 +20,7 @@ export class AppController {
     { path: '/institute', target: 'http://localhost:3004' },
     { path: '/telecalling', target: 'http://localhost:3006' },
     { path: '/training', target: 'http://localhost:3008' },
+    { path: '/reception', target: 'http://localhost:3013' },
   ];
 
   @UseGuards(AuthGard)

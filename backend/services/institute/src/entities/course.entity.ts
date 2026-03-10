@@ -29,13 +29,11 @@ export class CourseEntity {
   @Column('uuid')
   institute_id!: string;
   @ManyToOne(() => InstituteEntity, (institute) => institute.courses)
-  @JoinColumn({ name: 'institute_id' })
   institute!: InstituteEntity;
 
   @Column('uuid')
   branch_id!: string;
-  @ManyToOne(() => BranchEntity, (branch) => branch.courses)
-  @JoinColumn({ name: 'branch_id' })
+  @ManyToOne(() => BranchEntity, (branch) => branch.uuid)
   branch!: BranchEntity;
 
   @Column()
