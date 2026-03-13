@@ -28,7 +28,10 @@ export const CommonApi = createApi({
             query: (formData) => ({
                 url: ApiLists.leads.postUpload,
                 method: "POST",
-                body: formData
+                body: formData,
+                headers: {
+                    Accept: "application/json"
+                }
             })
         }),
         getAllTeleCallersList: builder.query({
