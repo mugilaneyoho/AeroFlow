@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const TeleCaling = () => {
+
+  const loadRemote = () =>
+    import("telecaller/telecallers")
+      .then((module) => module)
+      .catch(() => ({
+        default: () => <div>Course module unavailable</div>
+      }));
+
+  const TeleCaller = React.lazy(loadRemote)
+
   return (
-    <div>
-      TeleCalling
-    </div>
+    <>
+      <Suspense fallback={<div>loading</div>}>
+        <TeleCaller />
+      </Suspense>
+    </>
   )
 }
 

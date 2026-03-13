@@ -8,17 +8,19 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-
     federation({
-      name:'telecaller',
-      remotes:{
-        telecaller:'http://localhost:4173/assets/telecaller.js'
+      name: "master",
+      remotes: {
+        telecaller: "http://localhost:4174/assets/telecaller.js",
+        courses: "http://localhost:4173/assets/training.js",
+        batches: "http://localhost:4173/assets/training.js",
+        classes: "http://localhost:4173/assets/training.js",
       },
       shared: {
-        react: '^18.2.0',
-        'react-dom': '^18.2.0',
-        'react-redux': '^8.1.1',
-        '@reduxjs/toolkit': '^1.9.5',
+        react: "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-redux": "^8.1.1",
+        "@reduxjs/toolkit": "^1.9.5",
       },
     })
   ],
