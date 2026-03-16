@@ -1,17 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import ApiLists from '../ApiLists'
+import { GetLocalStorage } from '../../utils/LocalStorage'
 
 export const TeleCallerApi = createApi({
     reducerPath: 'telecallerapi',
     baseQuery: fetchBaseQuery({
         baseUrl: import.meta.env.VITE_BACKEND_URL,
-        // prepareHeaders: (headers, { getState }) => {
-        //     const token = getState().auth.token
-        //     if (token) {
-        //         headers.set('authorization', `Bearer ${token}`)
-        //     }
-        //     return headers
-        // }
+        prepareHeaders: (headers) => {
+            const token = GetLocalStorage('t_a_tk')
+            if (token) {
+                headers.set('authorization', `${token}`)
+            }
+            return headers
+        }
     }),
     tagTypes: ['telecaller'],
     endpoints: (builder) => ({

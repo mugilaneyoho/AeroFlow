@@ -8,25 +8,25 @@ export const studentStatsCard = [
     {
         id: 1,
         icon: card1,
-        value: 5,
+        value: "5",
         title: "Total Students"
     },
     {
         id: 2,
         icon: card2,
-        value: 4,
+        value: "4",
         title: "Active Students"
     },
     {
         id: 3,
         icon: card3,
-        value: 1,
+        value: "1",
         title: "Completed"
     },
     {
         id: 4,
         icon: card4,
-        value: "89%",
+        value: "89",
         title: "Avg Attendance"
     }
 ]
