@@ -5,7 +5,7 @@ export const HttpEndPoints = {
     },
 
     classes:{
-
+        get:'/training/classes/student/:classtype'
     },
 
     notes:{
@@ -18,5 +18,9 @@ export const HttpEndPoints = {
 
     fees:{
         
+    },
+
+    student:{
+        login:'/auth/students/login'
     }
 }

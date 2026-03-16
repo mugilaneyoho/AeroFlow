@@ -6,6 +6,6 @@ export const createAttendance = async (data: any) => {
 };
 
 export const getAttendanceByClassId = async (classId: string) => {
-  const response = await Client.attendance.getAttendanceByClassId(classId);
+  const response = await Client.attendance.getPendingAttendance();
   return response;
 };

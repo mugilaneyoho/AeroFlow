@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Eye, EyeOff, Square, SquareCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { LoginService } from "../feature/auth/service";
+import { useAuth } from "../contexts/AuthUseContext";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
 
@@ -9,15 +12,19 @@ const LoginForm = () => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false)
     const [remember, setRemember] = useState(true);
+    const {login} = useAuth()
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async(e: React.FormEvent) => {
         e.preventDefault();
 
-        if (userName && password) {
-            localStorage.setItem("token", "true"); 
-            navigate("/classes"); 
-        } else {
-            alert("Please enter both credentials");
+        const res = await LoginService({email:userName,password})
+
+        console.log(res)
+
+        if (res.success) {
+            login(res.data)
+        }else{
+            toast.warn("email or password is incorrect")
         }
     };
 
@@ -50,8 +57,12 @@ const LoginForm = () => {
                         </button>
                     </div>
                 </div>
+
+                <button type="submit" className="w-full text-xl text-white cursor-pointer font-semibold bg-[#008BBF] p-2 rounded-md">
+                    Login
+                </button>
             </form>
-            <div className="flex justify-between mb-5">
+            {/* <div className="flex justify-between mb-5">
                 <div className="flex gap-2">
                     <button onClick={() => setRemember(!remember)}>
                         {remember ? <SquareCheck /> : <Square />}
@@ -61,7 +72,7 @@ const LoginForm = () => {
                 <button>
                     <h2 className="text-[#2099C7]">Forgot Password</h2>
                 </button>
-            </div>
+            </div> */}
         </div>
     )
 }

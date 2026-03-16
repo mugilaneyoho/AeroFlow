@@ -1,4 +1,5 @@
 
+import { ToastContainer } from "react-toastify"
 import { AuthProvider } from "./contexts/AuthProvider"
 import AppRoute from "./routes/AppRoute"
 
@@ -8,6 +9,17 @@ function App() {
     <>
       <AuthProvider>
       <AppRoute/>
+      <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
       </AuthProvider>
     </>
   )

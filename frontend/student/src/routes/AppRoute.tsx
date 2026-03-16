@@ -16,7 +16,7 @@ const AppRoute:React.FC = () => {
     return (
         <>
             {
-                !isAuthenticated ? 
+                isAuthenticated ? 
                 <Routes>
                     <Route path='/' element={<MainLayout/>}>
                         <Route index element={<DashBoard/>}/>

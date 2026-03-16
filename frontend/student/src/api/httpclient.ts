@@ -14,7 +14,7 @@ Axios.interceptors.request.use(
   (config) => {
     const token = GetLocalStorage('t_s_tk')
     if (token) {
-      config.headers["Authorization"] = `${token}`;
+      config.headers["Authorization"] = token;
     }
     return config;
   }

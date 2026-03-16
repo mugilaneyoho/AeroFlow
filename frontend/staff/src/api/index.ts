@@ -39,6 +39,7 @@ class Client {
       httpClients.get(
         httpEndPoints.attendance.getByClassId.replace(":classId", classId)
       ),
+    getPendingAttendance:()=>httpClients.get(httpEndPoints.attendance.getpending)
   };
   staff = {
     login:(data: {email:string; password:string}) => httpClients.post(httpEndPoints.stafflogin.login, data),

@@ -14,7 +14,7 @@ export const AuthProvider:React.FC<{children:ReactNode}>=({children})=>{
     };
 
     const logout=()=>{
-        RemoveLocalStorage('t_r_tk')
+        RemoveLocalStorage('t_s_tk')
         setisAuthenticated(false)
     }
 

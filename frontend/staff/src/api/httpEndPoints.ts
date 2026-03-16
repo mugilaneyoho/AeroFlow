@@ -12,6 +12,7 @@ const httpEndPoints = {
    {
       create: "/training/attendance/create",    
       getByClassId: "/training/attendance/:classId", 
+      getpending:'/training/attendance/pending'
    },
 
    stafflogin:
