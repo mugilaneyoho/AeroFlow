@@ -43,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
   }
 
   return (
-    <div className={`h-full flex flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
+    <div className={`h-screen flex flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
       <div className=" md:grid items-center text-center border m-4 rounded-xl border-gray-100 bg-[#EDBF5C]">
         <div className='flex items-center justify-center py-2'>
           <img src={logo} className={`w-12 h-12 mr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
         <h2>Master Admin Panel</h2>
       </div>
 
-      <div className="flex-1 p-3 space-y-2">
+      <div className="flex-1 p-3 space-y-2 overflow-y-auto no-scrollbar">
         {menuItems.map((item) => (
           item.path === '/trainingmanagement' ?
             <div>
