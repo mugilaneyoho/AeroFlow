@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { createUser } from '../../features/services'
 
 
 interface CreateUserFacultyProps {
@@ -12,10 +13,21 @@ const CreateUserFaculty: React.FC<CreateUserFacultyProps> = ({setcreateshowmodel
     const [role, setrole] = useState("")
     const [password, setpassword] = useState("")
 
-    const handlchange=()=>{
+    // const handlchange=()=>{
+    //     const newuser={name, email, role, password}
+    //     adduser(newuser)
+    //     setcreateshowmodel(false) 
+    // }
+
+    const handlchange= async()=>{
         const newuser={name, email, role, password}
-        adduser(newuser)
-        setcreateshowmodel(false) 
+        try {
+            const createResponse = await createUser(newuser)
+            adduser(createResponse)
+            setcreateshowmodel(false)
+        } catch (error) {
+            console.log("error in createResponse :", error)
+        }
     }
  
     return (
@@ -59,8 +71,8 @@ const CreateUserFaculty: React.FC<CreateUserFacultyProps> = ({setcreateshowmodel
             </div>
 
             <div className='flex justify-end gap-5 **:px-4 **:p-2 **:rounded-md text-white'>
-                <button onClick={handlchange} className=' bg-[#20D432]'>Create</button>
-                <button onClick={()=>{setcreateshowmodel(false)}} className=' bg-[#D20F0F]'>Cancel</button>
+                <button type='button' onClick={handlchange} className=' bg-[#20D432]'>Create</button>
+                <button type='button' onClick={()=>{setcreateshowmodel(false)}} className=' bg-[#D20F0F]'>Cancel</button>
             </div>
         </div>
     </div>

@@ -2,10 +2,10 @@ import React from 'react'
 import {card } from '../dummyData/dashboard'
 import PendingReal from '../components/dashboard/PendingReal'
 import QuickAction from '../components/dashboard/QuickAction'
-import DepartmentPerformance from '../components/dashboard/DepartmentPerformance'
+// import DepartmentPerformance from '../components/dashboard/DepartmentPerformance'
 const Dashboard = () => {
   return (
-    <div className='h-full w-full'>
+    <div className='min-h-full w-full overflow-hidden'>
       <div className='grid gap-2 mb-5'>
         <h1 className='font-bold'>Dashboard</h1>
         <p>Welcome back! Here's on overview of our institue</p>
@@ -31,9 +31,9 @@ const Dashboard = () => {
         })}
       </div>
 
-      <div>
+      {/* <div>
         <DepartmentPerformance/>
-      </div>
+      </div> */}
 
       <div>
         <PendingReal/>

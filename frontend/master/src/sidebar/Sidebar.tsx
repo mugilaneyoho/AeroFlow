@@ -4,31 +4,31 @@ import React, { useState } from 'react'
 import dasshboard from "../assets/sidebar/dashboardicon.png"
 import doubleuser from "../assets/sidebar/doubleuser.png"
 import finance from "../assets/sidebar/finance.png"
-import notification from "../assets/sidebar/notification.png"
-import Placement from "../assets/sidebar/placement.png"
-import report from "../assets/sidebar/report.png"
+// import notification from "../assets/sidebar/notification.png"
+// import Placement from "../assets/sidebar/placement.png"
+// import report from "../assets/sidebar/report.png"
 import student from "../assets/sidebar/student.png"
 import telecalling from "../assets/sidebar/telecalling.png"
-import ticket from "../assets/sidebar/ticket.png"
+// import ticket from "../assets/sidebar/ticket.png"
 import training from "../assets/sidebar/training.png"
 import logo from "../assets/sidebar/logo.png"
 import logout from "../assets/sidebar/logout.png"
 
 
 const menuItems = [
-  { name: 'Dashboard', path: '/dashboard', icon: dasshboard },
+  { name: 'Dashboard', path: "/", icon: dasshboard },
   { name: 'Admission', path: '/admission', icon: doubleuser },
-  { name: 'Department', path: '/department', icon: doubleuser },
+  // { name: 'Department', path: '/department', icon: doubleuser },
   { name: 'Users & Faculty', path: '/usersandfaculty', icon: doubleuser },
   { name: 'Meeting Management', path: '/meetingmanagement', icon: doubleuser },
   { name: 'Tele-Calling', path: '/telecalling', icon: telecalling },
   { name: 'Training & Events', path: '/trainingmanagement', icon: training },
   { name: 'Student Management', path: '/studentmanagement', icon: student },
   { name: 'Finance & Fees', path: '/financeandfees', icon: finance },
-  { name: 'Placement', path: '/placement', icon: Placement },
-  { name: 'Reports & Analytics', path: '/reportsandanalytics', icon: report },
-  { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket },
-  { name: 'Notification', path: '/notification', icon: notification }
+  // { name: 'Placement', path: '/placement', icon: Placement },
+  // { name: 'Reports & Analytics', path: '/reportsandanalytics', icon: report },
+  // { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket },
+  // { name: 'Notification', path: '/notification', icon: notification }
 ]
 
 interface SidebarProps {
@@ -43,8 +43,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
   }
 
   return (
-    <div className={`h-full flex flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
-      <div className=" md:grid items-center text-center border m-4 rounded-xl border-gray-100 bg-[#EDBF5C]">
+    <div className={`h-screen flex flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
+      <div className=" md:grid items-center text-center m-4 rounded-xl bg-[#EDBF5C]">
         <div className='flex items-center justify-center py-2'>
           <img src={logo} className={`w-12 h-12 mr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
         </div>
@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
         <h2>Master Admin Panel</h2>
       </div>
 
-      <div className="flex-1 p-3 space-y-2">
+      <div className="flex-1 p-3 space-y-3">
         {menuItems.map((item) => (
           item.path === '/trainingmanagement' ?
             <div>
@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
                   </div>
 
                   {isOpen && (
-                    <span className="text-sm">
+                    <span className="text-md">
                       {item.name}
                     </span>
                   )}
@@ -128,8 +128,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
               )}
             </div>
         ))}
-        <div className='border rounded-md px-2 py-2 mt-20 my-5'>
-            <div className='flex gap-3 items-center justify-center bg-[]'>
+        <div className='border rounded-md px-2 py-2 mt-40 my-10'>
+            <div className='flex gap-3 items-center justify-center '>
                 <div>
                     <img src={logout} className="w-5 h-5" />
                 </div>

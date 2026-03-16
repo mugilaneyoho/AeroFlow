@@ -29,7 +29,7 @@ const handleViewDetail = (meeting: Meeting) => {
   setViewDetailModal(true)
 }
   return (
-    <div className='overflow-hidden flex flex-col gap-5'>
+    <div className='overflow-hidden min-h-full flex flex-col gap-5'>
       <div className='flex justify-between'>
         <div>
           <h1 className='font-bold text-xl'>Meeting Management</h1>

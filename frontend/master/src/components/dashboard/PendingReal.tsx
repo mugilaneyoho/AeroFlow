@@ -7,7 +7,7 @@ import clock from "../../assets/dashboard/clock.png"
 const PendingReal = () => {
   return (
     <div className='flex gap-5 mt-5'>
-        <div className='w-[40%] shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl p-2 grid gap-4 bg-[#FFFFFF]'>
+        <div className='xl:w-[40%] w-full shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl p-2 grid gap-4 bg-[#FFFFFF]'>
             <div className='flex gap-2'>
                 <h1 className='font-bold'>
                     <img src={clock} className='w-5 h-5 mt-1'/>
@@ -45,7 +45,7 @@ const PendingReal = () => {
                 })}
             </div>
         </div>
-        <div className='w-[60%] rounded-xl p-2 grid gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] bg-[#FFFFFF]'>
+        <div className='xl:w-[60%] w-full rounded-xl p-2 grid gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] bg-[#FFFFFF]'>
             <div className='flex gap-2'>
                 <h1 className='font-bold'>Real - Time Activity Feed</h1>
             </div>
@@ -53,7 +53,7 @@ const PendingReal = () => {
                {ActivityFeed.map((data,index)=>{
                 return(
                     <div key={index} className='flex gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl p-4 py-4'>
-                        <div className={`flex items-center gap-3 rounded-md px-2 ${data.icon === dollar ? "bg-[#DCFCE7]" : data.icon === "calendar" ? "bg-[91A810]/20" : "bg-[#FFEEDA]"}`}>
+                        <div className={`flex items-center justify-center text-center gap-3 rounded-md px-1 md:px-2 ${data.icon === dollar ? "bg-[#DCFCE7]" : data.icon === "calendar" ? "bg-[91A810]/20" : "bg-[#FFEEDA]"}`}>
                             <img src={data.icon} className='w-6 h-6'/>
                         </div>
                         <div>
