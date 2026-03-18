@@ -27,6 +27,8 @@
     "start:all": "concurrently -n GATEWAY,AUTH,INSTITUTE,TELECALLING,TRAINING,PAYMENT,RECEPTION -c yellow,green,blue,red,white,gray,yellow \"npm run start:dev\" \"npm run start:auth\" \"npm run start:institute\" \"npm run start:telecalling\" \"npm run start:training\" \"npm run start:payment\" \"npm run start:reception\" "
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1005.0",
+    "@aws-sdk/s3-request-presigner": "^3.1005.0",
     "@grpc/grpc-js": "^1.14.3",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
