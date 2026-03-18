@@ -9,6 +9,10 @@ class Client {
     classes = {
         get:(classtype:string)=>httpclient.get(HttpEndPoints.classes.get.replace(":classtype",classtype))
     }
+
+    dashboard = {
+        get:()=>httpclient.get(HttpEndPoints.dashboard.get),
+    }
 }
 
 export default new Client()

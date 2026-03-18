@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import  ClassStore  from "../feature/classes/redux/slice"
+import DashboardSlice from "../feature/dashboard/redux/slice"
 
 const store = configureStore({
     reducer:{
-        classes: ClassStore
+        classes: ClassStore,
+        dashboard: DashboardSlice,
     }
 })
 

@@ -1,7 +1,7 @@
 
 export const HttpEndPoints = {
     dashboard:{
-
+        get:'/institute/student/dashboard'
     },
 
     classes:{
