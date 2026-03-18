@@ -1,0 +1,51 @@
+version: "1.0.0"
+services:
+    hod:
+      build: ./hod
+      container_name: hod
+      ports:
+        - "5173:5173"
+      networks:
+        - frontend
+    
+    master:
+      build: ./master
+      container_name: master
+      ports:
+        - "5174:5174"
+      networks:
+        - frontend
+    
+    reception:
+      build: ./reception
+      container_name: reception
+      ports:
+        - "5175:5175"
+      networks:
+        - frontend
+    
+    staff:
+      build: ./staff
+      container_name: staff
+      ports:
+        - "5176:5176"
+      networks:
+        - frontend
+    
+    student: 
+      build: ./student
+      container_name: student
+      ports:
+        - "5177:5177"
+      networks:
+        - frontend
+
+    telecalling:
+      build: ./telecalling
+      container_name: telecalling
+      ports:
+        - "5173:5178"
+      networks:
+        - frontend
+networks:
+  frontend:

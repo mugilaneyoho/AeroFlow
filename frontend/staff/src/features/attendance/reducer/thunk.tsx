@@ -1,5 +1,5 @@
 import type{ AppDispatch } from "../../../store/store";
-import { createAttendance, getAttendanceByClassId } from "../services/index";
+import { createAttendance, getAttendanceByAll } from "../services/index";
 import { setLoading, setSuccess, setError, setData } from "./attenSlice";
 
 export const createAttendanceThunk = (payload: any) => async (dispatch: AppDispatch) => {
@@ -16,12 +16,12 @@ export const createAttendanceThunk = (payload: any) => async (dispatch: AppDispa
 };
 
 
-export const getAttendanceByClassIdThunk = (classId: string) => async (dispatch: AppDispatch) => {
+export const getAttendanceByAllThunk = () => async (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
   dispatch(setError(null));
   try {
-    const data = await getAttendanceByClassId(classId);
-    dispatch(setData(data));
+    const res = await getAttendanceByAll();
+    dispatch(setData(res.data));
   } catch (err: any) {
     dispatch(setError(err.message || "Error fetching attendance"));
   } finally {

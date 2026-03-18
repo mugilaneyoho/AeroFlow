@@ -35,7 +35,7 @@ class Client {
     createAttendance: (data: any) =>
       httpClients.post(httpEndPoints.attendance.create, data),
 
-    getAttendanceByClassId: (classId: string) =>
+    getAttendanceByAll: (classId: string) =>
       httpClients.get(
         httpEndPoints.attendance.getByClassId.replace(":classId", classId)
       ),
