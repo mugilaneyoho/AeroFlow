@@ -16,7 +16,7 @@ import logout from "../assets/sidebar/logout.png"
 
 
 const menuItems = [
-  { name: 'Dashboard', path: '/dashboard', icon: dasshboard },
+  { name: 'Dashboard', path: '/', icon: dasshboard },
   { name: 'Admission', path: '/admission', icon: doubleuser },
   { name: 'Department', path: '/department', icon: doubleuser },
   { name: 'Users & Faculty', path: '/usersandfaculty', icon: doubleuser },
