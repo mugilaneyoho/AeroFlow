@@ -46,6 +46,8 @@ const Ongoing = () => {
     return `${hours}:${minutes} ${ampm}`;
   };
 
+  const nowDate = new Date()
+
   return (
     <div
       className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3 p-1 rounded-[10px] w-full pt-4"
@@ -53,6 +55,8 @@ const Ongoing = () => {
     >
       {classes?.map((item: any, index: number) => {
         const isLive = liveIndex === index
+
+        const isOngoing = (new Date(item?.start_time) < nowDate && new Date(item?.end_time) > nowDate ) ? true : false
 
         return (
           <div key={index}
@@ -76,7 +80,7 @@ const Ongoing = () => {
                   style={{
                     backgroundColor: isLive
                       ? COLORS.bg_light_green
-                      : (item.status || "").toLowerCase() === 'offline'
+                      : (item.class_mode || "").toLowerCase() === 'offline'
                         ? COLORS.bg_red
                         : COLORS.bg_dark_green,
 
@@ -84,7 +88,7 @@ const Ongoing = () => {
                   }}
                 >
                   {isLive && <span className="w-2 h-2 bg-white rounded-full" />}
-                  {isLive ? 'Live' : item.status === 'Online' ? 'Online' : 'Offline'}
+                  {isLive ? 'Live' : item.class_mode === 'online' ? 'Online' : 'Offline'}
                 </span>
               </div>
 
@@ -93,13 +97,13 @@ const Ongoing = () => {
                   className="px-3 py-1 rounded-full text-sm"
                   style={{
                     backgroundColor:
-                      item.update === 'Ongoing'
+                       isOngoing
                         ? COLORS.bg_ongoing_green
                         : COLORS.bg_upcoming_blue,
                     color: COLORS.secondary_white,
                   }}
                 >
-                  {item.update}
+                  {isOngoing ? 'Ongoing' : 'Upcoming'}
                 </span>
               </div>
             </div>
@@ -115,12 +119,12 @@ const Ongoing = () => {
 
               <div className="flex flex-col justify-center">
                 <p style={{ color: COLORS.bg_dark_gray }} className='text-sm'>Students</p>
-                <p>{item.total_students ?? 0}</p>
+                <p>{item.total_students ?? 0} enrolled</p>
               </div>
 
               <div className="flex flex-col justify-center">
                 <p style={{ color: COLORS.bg_dark_gray }} className='text-sm'>Class Link</p>
-                <p className="break-all">{item.link}</p>
+                <p className="break-all">{item.location}</p>
               </div>
             </div>
 

@@ -9,3 +9,8 @@ export const getAttendanceByAll = async (classid:string,mode:string) => {
   const response = await Client.attendance.getPendingAttendance(classid,mode);
   return response;
 };
+
+export const getAttendanceView = async(classid:string)=>{
+  const res = await Client.attendance.getAttendanceByAll(classid)
+  return res
+}

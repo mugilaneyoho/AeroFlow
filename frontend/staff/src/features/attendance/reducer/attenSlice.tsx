@@ -5,6 +5,7 @@ interface AttendanceState {
   success: boolean;
   error: string | null;
   data: any;
+  view:any;
 }
 
 const initialState: AttendanceState = {
@@ -12,6 +13,7 @@ const initialState: AttendanceState = {
   success: false,
   error: null,
   data: null,
+  view:null,
 };
 
 const attendanceSlice = createSlice({
@@ -30,8 +32,11 @@ const attendanceSlice = createSlice({
     setData: (state, action) => {
       state.data = action.payload;
     },
+    setView:(state,action)=>{
+      state.view = action.payload;
+    }
   },
 });
 
-export const { setLoading, setSuccess, setError, setData } = attendanceSlice.actions;
+export const { setLoading, setSuccess, setError, setData, setView } = attendanceSlice.actions;
 export default attendanceSlice.reducer;
