@@ -99,11 +99,11 @@ const OngoingClass: React.FC<OngoingClassProps> = ({ classes, handleDelete }) =>
 
 
   return (
-    <div className=' '>
+    <div className=''>
       <div className='shadow-[0px_0px_14px_0px_#2D216140] p-2 rounded-[10px]'>
         <div className='flex justify-between'>
           <p className='text-sm'>Wednesday, January 21,2026</p>
-          <p className='text-sm'>{classes.length} Classes</p>
+          <p className='text-sm'>{classes?.length} Classes</p>
         </div>
 
         <div className='p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2  rounded-[10px]  bg-white text-sm'>
@@ -179,7 +179,7 @@ const OngoingClass: React.FC<OngoingClassProps> = ({ classes, handleDelete }) =>
                       <div>
                         <div className='flex justify-between pb-1'>
                           <p>Total student Present</p>
-                          <p>N/A</p>
+                          <p>{cls?.total_student}</p>
                         </div>
                         <div className="rounded w-full h-2 bg-[#D9D9D9]">
                           <div

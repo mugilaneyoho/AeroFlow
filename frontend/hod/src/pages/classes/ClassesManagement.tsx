@@ -84,15 +84,15 @@ const ClassesManagement = () => {
     };
 
 
-    const ongoingClasses = classes.filter((cls: ClassType) => isOngoing(cls));
-    const completedClasses = classes.filter((cls: ClassType) => !isOngoing(cls));
+    const ongoingClasses = classes?.filter((cls: ClassType) => isOngoing(cls));
+    const completedClasses = classes?.filter((cls: ClassType) => !isOngoing(cls));
 
-    const filteredOngoing = ongoingClasses.filter((cls: ClassType) =>
+    const filteredOngoing = ongoingClasses?.filter((cls: ClassType) =>
         cls?.subject?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
         cls?.batch_name?.toLowerCase().includes(searchTerm?.toLowerCase())
     );
 
-    const filteredCompleted = completedClasses.filter((cls: ClassType) =>
+    const filteredCompleted = completedClasses?.filter((cls: ClassType) =>
         cls.subject?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         cls.batch_name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -100,7 +100,7 @@ const ClassesManagement = () => {
     const displayedClasses = activeTab === 'ongoing' ? filteredOngoing : filteredCompleted;
 
     const totalPages = Math.ceil(
-        (activeTab === 'ongoing' ? filteredOngoing.length : filteredCompleted.length) / cardsPerPage
+        (activeTab === 'ongoing' ? filteredOngoing?.length : filteredCompleted?.length) / cardsPerPage
     ) || 1;
 
     const handleDelete = async (cls: ClassType) => {
