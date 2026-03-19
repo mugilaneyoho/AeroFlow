@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Today from './Today';
 import Upcoming from "./Upcoming";
 import Completed from "./Completed";
+import { GetAllClassThunks } from "../feature/classes/redux/thunks";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/store";
 
 const ViewMyClasses = () => {
 
-    const [activeTab, setActiveTab] = useState("Today");
+    const [activeTab, setActiveTab] = useState<string>("Today");
+    const dispatch = useDispatch<AppDispatch>()
 
     const getButtonClass = (tabName: string) => {
 
@@ -15,6 +19,10 @@ const ViewMyClasses = () => {
 
         return `${baseStyles} ${activeTab === tabName ? activeStyles : inactiveStyles}`;
     }
+
+    useEffect(() => {
+        dispatch(GetAllClassThunks(activeTab))
+    }, [activeTab, dispatch]);
 
 
     return (

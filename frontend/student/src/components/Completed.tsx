@@ -1,6 +1,6 @@
 import { Calendar } from "lucide-react";
 import { Clock } from "lucide-react";
-import { DockIcon } from "lucide-react";
+// import { DockIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Course } from "../types/courseInterface";
 import { classService } from "../services/classService";
@@ -8,7 +8,7 @@ import { classService } from "../services/classService";
 const Completed = () => {
 
     const [courses, setCourses] = useState<Course[]>([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {

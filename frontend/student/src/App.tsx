@@ -1,25 +1,27 @@
-import { Routes, Route, } from "react-router-dom"
-import Classes from "./pages/classes"
-import Syllabus from "./pages/syllabus"
-import Attendace from "./pages/attendance"
-import Fees from "./pages/fees"
-import LoginPage from "./pages/loginPage"
-import ProtectedRoute from "./components/ProtectedRoute"
+
+import { ToastContainer } from "react-toastify"
+import { AuthProvider } from "./contexts/AuthProvider"
+import AppRoute from "./routes/AppRoute"
 
 function App() {
 
   return (
-
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route >
-        <Route path="/classes" element={<Classes />} />
-        <Route path="/syllabus" element={<Syllabus />} />
-        <Route path="/attendance" element={<Attendace />} />
-        <Route path="/fees" element={<Fees />} />
-      </Route>
-    </Routes>
-
+    <>
+      <AuthProvider>
+      <AppRoute/>
+      <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+      </AuthProvider>
+    </>
   )
 }
 

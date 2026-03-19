@@ -1,36 +1,40 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Calendar } from "lucide-react";
 import { Clock } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { classService } from "../services/classService";
 import { useEffect, useState } from "react";
 import type { Course } from "../types/courseInterface";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 const Today = () => {
 
     const [courses, setCourses] = useState<Course[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const classes = useSelector((state:RootState)=>state.classes.data)
 
-    useEffect(() => {
-        const fetchClasses = async () => {
-            try {
-                const data = await classService.getTodayClasses();
-                setCourses(data);
-            } catch (err) {
-                console.error("Failed to fetch the classes:", err);
-                setError("Unable to load classes");
-            } 
-        };
+    // useEffect(() => {
+    //     const fetchClasses = async () => {
+    //         try {
+    //             const data = await classService.getTodayClasses();
+    //             setCourses(data);
+    //         } catch (err) {
+    //             console.error("Failed to fetch the classes:", err);
+    //             setError("Unable to load classes");
+    //         } 
+    //     };
 
-        fetchClasses();
-    }, []);
+    //     fetchClasses();
+    // }, []);
 
     if (error) return <div className="text-red-500">{error}</div>;
 
 
     return (
         <div>
-            {courses.map((item) => (
-                <div key={item.subject} className="shadow-[0px_0px_10px_0px_#00000026] p-3 rounded-2xl my-2">
+            {classes.map((item: any) => (
+                <div key={item.uuid} className="shadow-[0px_0px_10px_0px_#00000026] p-3 rounded-2xl my-2">
                     <div className="flex justify-between">
                         <div>
                             <div className="flex gap-10">

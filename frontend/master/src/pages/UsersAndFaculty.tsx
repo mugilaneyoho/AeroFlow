@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {UserCard} from "../dummyData/userfaculty"
 import plus from "../assets/userfaculty/plus.png"
 import CreateUserFaculty from '../components/userFaculty/CreateUserFaculty'
@@ -8,6 +8,12 @@ import deleteicon from "../assets/userfaculty/delete.png"
 import viewicon from "../assets/userfaculty/view.png"
 import search from "../assets/userfaculty/search.png"
 
+import { type AppDispatch} from '../store/store'
+import {useDispatch, useSelector} from "react-redux"
+import {getUserThunk} from "../features/reducer/userthunk"
+import {selectUser} from "../features/reducer/userselector"
+
+
 const UsersAndFaculty = () => {
   const [createshowmodel, setcreateshowmodel] = useState(false)
   const [user, setuser] = useState(UserDetail)
@@ -16,12 +22,15 @@ const UsersAndFaculty = () => {
     setuser([...user, newuser])
   }
 
-  const [selectRole, setselectRole] = useState("ALL ROLES")
-  const FilterRole = user.filter((ListUserData)=>{
-    const MatchRole = selectRole == "ALL ROLES" || ListUserData.role.toUpperCase() === selectRole.toUpperCase()
-    const MatchSearch =ListUserData.name.toLowerCase().includes(searchTerm.toLowerCase()) || ListUserData.email.toLowerCase().includes(searchTerm.toLowerCase())
-    return MatchRole && MatchSearch
-  })
+  
+  const dispatch = useDispatch<AppDispatch>()
+  const userselector = useSelector(selectUser)
+  // console.log("selector data: ", userselector)
+
+
+  useEffect(()=>{
+    dispatch(getUserThunk())
+  }, [dispatch])
 
   return (
     <div className='overflow-hidden flex flex-col gap-5'>
@@ -39,7 +48,7 @@ const UsersAndFaculty = () => {
       </div>
 
       <div className='grid sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-5'>
-        {UserCard.map((data,index)=>{
+        {UserCard?.map((data:any,index:any)=>{
           return(
             <div key={index} className=' bg-[#FFFFFF] shadow-[0_0_15px_rgba(0,0,0,0.1)] p-4 grid gap-2 rounded-xl'>
               <div className='flex justify-between gap-3'>
@@ -73,7 +82,7 @@ const UsersAndFaculty = () => {
             <div>
               <h1 className='font-bold'>All Rolls</h1>
             </div>
-            <select value={selectRole} onChange={(e)=>setselectRole(e.target.value)} className='border border-[#4A5565]  rounded-md p-2'>
+            <select  className='border border-[#4A5565]  rounded-md p-2'>
               <option value="ALL ROLES">All roles</option>
               <option value="HOD">HOD</option>
               <option value="STAFF">Staff</option>
@@ -92,13 +101,13 @@ const UsersAndFaculty = () => {
           <h1>ACTIONS</h1>
         </div>
 
-        <div className=' rounded-md mt-4 px-5 py-2 flex flex-col justify-between '>
-          {FilterRole.map((data,index)=>{
+        <div className=' rounded-md mt-4 px-5 py-2 flex flex-col justify-between'>
+          {userselector.map((data:any,index:any)=>{
             return(
               <div key={index} className='flex justify-between border-b pb-5 mb-5'>
                   <p className='text-sm'>{data.name}</p>
                   <p className='text-sm'>{data.email}</p>
-                  <p className='text-sm'>{data.role}</p>
+                  <p className='text-sm'>{data.role?.role}</p>
                 <div className='flex gap-2'>
                   <div className='rounded-md p-1 bg-[#008BBF]'>
                     <img src={editicon} className='w-4 h-4'/>

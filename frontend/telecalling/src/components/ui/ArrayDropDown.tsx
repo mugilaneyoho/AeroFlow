@@ -9,7 +9,7 @@ type props = {
 const ArrayDropDown:React.FC<props> = ({setSelectedProps})=> {
   const [selected, setSelected] = useState([]);
   const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setSelectedProps?.(selected)
@@ -27,8 +27,8 @@ const ArrayDropDown:React.FC<props> = ({setSelectedProps})=> {
   };
 
   useEffect(() => {
-    const close = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
+    const close = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
