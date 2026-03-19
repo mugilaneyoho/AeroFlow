@@ -22,6 +22,13 @@ export const httpEndPoints = {
         post: '/master/meeting/create',
         update: '/master/meeting/:uuid'
     },
+    student:
+    {
+        create:'/student/create',
+        get:'/student/all',
+        getbyId:'/student/{uuid}',
+        delete:'/student/{uuid}'
+    }
 
 }
 

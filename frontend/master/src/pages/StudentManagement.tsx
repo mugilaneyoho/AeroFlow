@@ -1,8 +1,7 @@
 import { Plus } from 'lucide-react'
 import StudentSearch from '../components/common/StudentSearch'
 import StudentInfo from '../components/studentManagement/StudentInfo'
-import TopStatsGallery from '../components/common/TopStats'
-import { studentStatsCard } from '../dummyData/studentManagement'
+import StudentStats from '../components/studentManagement/StudentsStats'
 
 const StudentManagement = () => {
   return (
@@ -17,7 +16,7 @@ const StudentManagement = () => {
           <h2 className='text-md'> Schedule class </h2>
         </button>
       </div>
-      <TopStatsGallery data={studentStatsCard} />
+      <StudentStats />
       <StudentSearch />
       <StudentInfo />
     </div>
