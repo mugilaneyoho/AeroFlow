@@ -1,6 +1,4 @@
 import { COLORS } from '../../constant'
-import markselect from '../../assets/classesimg/markcorrecticon.png'
-import markwrong from '../../assets/classesimg/markwrongicon.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAttendanceThunk, getAttendanceByAllThunk } from '../../features/attendance/reducer/thunk'
 import type { AppDispatch } from '../../store/store'
@@ -8,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { selectAttendanceData } from '../../features/attendance/reducer/selector'
 import calendar from '../../assets/classesimg/calendarWhite.png'
 import AttendanceCard from '../../component/Attendance/AttendanceCard'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 
 
@@ -16,25 +15,25 @@ const Attendance = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [studentList, setStudentList] = useState<any[]>([]);
   const attendanceData = useSelector(selectAttendanceData);
-  const classId = "127e4145-b1c5-4758-9aed-b930243cde5a";
-
-  console.log(attendanceData,"checking api fetch")
-
+  const navigate = useNavigate()
+  
+  const location = useLocation()
+  const classData = location.state?.classData
 
   useEffect(() => {
-    dispatch(getAttendanceByAllThunk());
-  }, [classId, dispatch]);
+    dispatch(getAttendanceByAllThunk({classId: classData?.uuid,mode:classData?.class_mode}));
+  }, [classData?.class_mode, classData?.uuid, dispatch]);
 
   const handleSubmit = (classId:string,class_mode:string) => {
     const payload = {
       classId,
       class_mode,
-      date: "2026-02-26 10:30:00",
+      date: classData?.start_date,
       records: studentList,
     };
 
     dispatch(createAttendanceThunk(payload));
-    dispatch(getAttendanceByAllThunk());
+    navigate(-1)
   };
 
   const handleCheckboxChange = (uuid: string) => {
@@ -63,12 +62,12 @@ const Attendance = () => {
         <div className='rounded py-2 px-1' style={{ background: COLORS.primary_violet }}>
           <button className='flex items-center justify-center gap-2 py-1 rounded text-white'>
             <img src={calendar} alt="calendar" className='w-6 h-6 ' />
-            <span>January 22nd, 2026</span>
+            <span>{new Date(classData?.start_date).toLocaleDateString('IND')}</span>
           </button>
         </div>
       </div>
 
-      <div >
+      {/* <div >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium">
@@ -91,7 +90,7 @@ const Attendance = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
 
       {

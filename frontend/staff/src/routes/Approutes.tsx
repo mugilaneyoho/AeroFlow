@@ -26,9 +26,9 @@ const Approutes:React.FC = () => {
           <Route path='/' element={<MainLayout />} >
             <Route index element={<Dashboard />} /> 
             <Route path='/classes' element={<Classes />} />
-            <Route path='/markattendance' element={<MarkAttendance />} /> 
+            <Route path='/markattendance' element={<Attendance/>} /> 
             <Route path='/ViewAttendance'  element={<ViewAttendance />} />       
-            <Route path='/attendance' element={<Attendance />} />
+            {/* <Route path='/attendance' element={<Attendance />} /> */}
             <Route path='/syllabus' element={<Syllabus />} />
         </Route>
         </Route>

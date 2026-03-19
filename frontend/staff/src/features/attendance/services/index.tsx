@@ -5,7 +5,7 @@ export const createAttendance = async (data: any) => {
   return response;
 };
 
-export const getAttendanceByAll = async () => {
-  const response = await Client.attendance.getPendingAttendance();
+export const getAttendanceByAll = async (classid:string,mode:string) => {
+  const response = await Client.attendance.getPendingAttendance(classid,mode);
   return response;
 };
