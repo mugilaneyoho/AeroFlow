@@ -2,8 +2,9 @@ import FeeDetails from "./FeeDetails";
 import PaymentHistory from "./PaymentHistory";
 import { useEffect, useState } from "react";
 import { IndianRupee, DockIcon, Smartphone, Building2, X } from "lucide-react";
-import { feeService } from "../services/feeService";
+import { feeService } from "../features/services/index";
 import type { Payment } from "../types/feeInterface";
+// import { feeService } from "../features/services/index"
 
 const Fees = () => {
 
@@ -19,7 +20,9 @@ const Fees = () => {
     useEffect(() => {
         const fetchFees = async () => {
             try {
-                const data = await feeService.getAllFees("feeId");
+                const data = await feeService();
+                console.log(`fees : ${data}`)
+                if(!data) return
                 setTotalFees(data.totalFees);
                 setPaidAmount(data.paidAmount);
                 setPendingAmount(data.pendingAmount);

@@ -1,22 +1,7 @@
 
 export const HttpEndPoints = {
-    dashboard:{
-
-    },
-
-    classes:{
-
-    },
-
-    notes:{
-
-    },
-
-    attendance:{
-
-    },
 
     fees:{
-        
+        getAll: '/student/:uuid/fees'
     }
 }

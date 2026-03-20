@@ -4,7 +4,7 @@ import { ClearLocalStorage, GetLocalStorage } from "../utils/SecureStorage";
 
 
 const Axios = axios.create({
- baseURL: "http://localhost:3000",
+ baseURL: "http://localhost:3004",
 
   timeout: 500000,
   headers: { "Content-Type": "application/json" },
@@ -14,7 +14,7 @@ Axios.interceptors.request.use(
   (config) => {
     const token = GetLocalStorage('t_s_tk')
     if (token) {
-      config.headers["Authorization"] = `${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`
     }
     return config;
   }
@@ -42,6 +42,7 @@ Axios.interceptors.response.use(
 class HttpClient {
   async get(url: string, params?: any) {
     const response = await Axios.get(url, { params });
+    console.log(`http datas : ${response} and ${response.data}`)
     return response.data;
   }
 
