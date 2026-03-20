@@ -1,18 +1,18 @@
-import api from "./api";
-import type { Payment } from "../types/feeInterface";
+// import api from "./api";
+// import type { Payment } from "../types/feeInterface";
 
-export interface FeeSummary {
+// export interface FeeSummary {
 
-    paymentHistory: Payment[];
-    totalFees: number;
-    paidAmount: number;
-    pendingAmount: number;
-    admissionFees: number;
-}
+//     paymentHistory: Payment[];
+//     totalFees: number;
+//     paidAmount: number;
+//     pendingAmount: number;
+//     admissionFees: number;
+// }
 
-export const feeService = {
-    getAllFees: async (feeId: string): Promise<FeeSummary> => {
-        const { data } = await api.get<FeeSummary>(`/api/fees/${feeId}`);
-        return data;
-    }
-};
+// export const feeService = {
+//     getAllFees: async (): Promise<FeeSummary> => {
+//         const { data } = await api.get<FeeSummary>(`/api/fees`);
+//         return data;
+//     }
+// };

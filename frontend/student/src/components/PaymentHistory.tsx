@@ -8,11 +8,12 @@ interface PaymentHistoryProps {
 
 const PaymentHistory = (props: PaymentHistoryProps) => {
     const { payments } = props;
+    console.log(payments)
 
     return (
         <div className="flex-1 shadow-[0px_0px_15px_0px_#00000040] p-3 rounded-2xl">
             <h2 className="font-bold text-2xl">Payment History</h2>
-            {payments.map((item) => (
+            {payments?.map((item) => (
                 <div className="shadow-[0px_0px_15px_0px_#00000040] flex-1 p-4 rounded-2xl m-4">
                     <div className="flex justify-between">
                         <div className="flex flex-col gap-2">

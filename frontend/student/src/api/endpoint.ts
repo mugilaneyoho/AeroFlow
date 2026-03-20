@@ -16,11 +16,11 @@ export const HttpEndPoints = {
 
     },
 
-    fees:{
-        
-    },
-
     student:{
         login:'/auth/students/login'
+    },
+    
+    fees:{
+        getAll: '/student/:uuid/fees'
     }
 }

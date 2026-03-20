@@ -13,6 +13,10 @@ class Client {
     dashboard = {
         get:()=>httpclient.get(HttpEndPoints.dashboard.get),
     }
+    
+    fees={
+        GetAll: () => httpclient.get(HttpEndPoints.fees.getAll)
+    }
 }
 
 export default new Client()
