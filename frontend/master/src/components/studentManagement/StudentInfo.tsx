@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../store/store";
@@ -35,23 +36,16 @@ const StudentInfo = () => {
     const students = useSelector(selectStudents) as Student[];
     const selectedStudent = useSelector(selectStudent) as Student;
 
-    useEffect(() => {
-         dispatch(getStudentsThunk())
-    }, [dispatch]);
-
-
-
     const handleViewStudent = (student:Student) => {
     dispatch(getStudentByIdThunk(student.uuid));
-    
-  };
+    };
 
     return (
         <div className="flex gap-2 flex-wrap my-4">
-            {students?.map((student) => (
-                <div key={student.id} className="shadow-[0px_0px_15px_0px_#EDBF5C_inset] p-2 rounded-md">
-                    <div className="w-60 mx-auto shadow-[0px_0px_15px_0px_#0000001A] p-3 rounded-md">
-                        <div className="flex gap-5 justify-center py-3">
+            {students?.map((student:any) => (
+                <div key={student.uuid} className="shadow-[0px_0px_15px_0px_#EDBF5C_inset] p-2 w-80 rounded-md">
+                    <div className="w-full mx-auto shadow-[0px_0px_15px_0px_#0000001A] p-3 rounded-md">
+                        <div className="flex gap-5 justify-between py-3">
                             <img src={student.student_name} alt={student.student_name} className="w-12 h-12" />
                             <div>
                                 <h1 className="text-[#565656] text-xl">{student.student_name}</h1>
@@ -86,7 +80,7 @@ const StudentInfo = () => {
                             </div>
                             <div className="text-right">
                                 <h2 className="text-[#565656] text-sm">Batch</h2>
-                                <h1 className="text-sm font-medium">{student.batch_id}</h1>
+                                <h1 className="text-sm font-medium">{student.batch.batchCode}</h1>
                             </div>
                         </div>
                         <div className="flex-1 bg-[#54191D] text-[#EDBF5C] rounded-lg my-2">

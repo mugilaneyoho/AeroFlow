@@ -2,8 +2,17 @@ import { Plus } from 'lucide-react'
 import StudentSearch from '../components/common/StudentSearch'
 import StudentInfo from '../components/studentManagement/StudentInfo'
 import StudentStats from '../components/studentManagement/StudentsStats'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import type { AppDispatch } from '../store/store'
+import { getStudentsThunk } from '../features/student/reducer/thunk'
 
 const StudentManagement = () => {
+   const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+      dispatch(getStudentsThunk());
+    }, [dispatch]);
   return (
     <div>
       <div className='flex justify-between'>

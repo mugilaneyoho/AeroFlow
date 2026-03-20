@@ -13,21 +13,24 @@ export const httpEndPoints = {
     },
 
     usersfaculty:{
-        getAll: '/admins/all',
-        post: '/admins/create',
+        getAll: '/auth/admins/all',
+        post: '/auth/admins/create',
     },
 
     meeting:{
-        getAll: '/master/meeting/all',
-        post: '/master/meeting/create',
-        update: '/master/meeting/:uuid'
+        getAll: '/reception/meeting/all',
+        post: '/reception/meeting/create',
+        update: '/reception/meeting/:uuid'
     },
     student:
     {
-        create:'/student/create',
-        get:'/student/all',
-        getbyId:'/student/{uuid}',
-        delete:'/student/{uuid}'
+        create:'/institute/student/create',
+        get:'/institute/student/all',
+        getbyId:'/institute/student/{uuid}',
+        delete:'/institute/student/{uuid}',
+    },
+    auth:{
+        login:'/auth/admins/login'
     }
 
 }

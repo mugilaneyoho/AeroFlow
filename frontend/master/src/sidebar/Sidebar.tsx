@@ -12,7 +12,8 @@ import telecalling from "../assets/sidebar/telecalling.png"
 // import ticket from "../assets/sidebar/ticket.png"
 import training from "../assets/sidebar/training.png"
 import logo from "../assets/sidebar/logo.png"
-import logout from "../assets/sidebar/logout.png"
+import logoutimg from "../assets/sidebar/logout.png"
+import { useAuth } from '../contexts/AuthUseContext'
 
 
 const menuItems = [
@@ -37,6 +38,7 @@ interface SidebarProps {
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
   const [trainingDropDowm, settrainingDropDowm] = useState(false);
+  const {logout} = useAuth()
 
   function chagneTrainingDropdown() {
     settrainingDropDowm(!trainingDropDowm)
@@ -129,9 +131,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
             </div>
         ))}
         <div className='border rounded-md px-2 py-2 mt-40 my-10'>
-            <div className='flex gap-3 items-center justify-center '>
+            <div className='flex gap-3 items-center justify-center cursor-pointer' onClick={()=>logout()}>
                 <div>
-                    <img src={logout} className="w-5 h-5" />
+                    <img src={logoutimg} className="w-5 h-5" />
                 </div>
                 <div>
                     <h1>Logout</h1>

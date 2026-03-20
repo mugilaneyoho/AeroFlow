@@ -6,50 +6,44 @@ import { getStudentsThunk } from "../../features/student/reducer/thunk";
 import { selectStudents } from "../../features/student/reducer/selector";
 
 interface Student {
-  id: number;
-  uuid: string;
-  course_id: string;
-  batch_id: string;
-  admittedBy: string;
-  student_name: string;
-  student_id: string;
-  email: string;
-  phone_number: string;
-  alter_number?: string;
-  gender: string;
-  address: string;
-  city: string;
-  state: string;
-  pincode: string;
-  qualification: string;
-  admission_date: string;
-  is_active: boolean;
-  is_delete: boolean;
+    id: number;
+    uuid: string;
+    course_id: string;
+    batch_id: string;
+    admittedBy: string;
+    student_name: string;
+    student_id: string;
+    email: string;
+    phone_number: string;
+    alter_number?: string;
+    gender: string;
+    address: string;
+    city: string;
+    state: string;
+    pincode: string;
+    qualification: string;
+    admission_date: string;
+    is_active: boolean;
+    is_delete: boolean;
 }
 const StudentSearch = () => {
-      
-    const dispatch = useDispatch<AppDispatch>()
-    const students = useSelector(selectStudents) as Student[]
+
+    let students = useSelector(selectStudents) as Student[]
     const [searchText, setSearchText] = useState("")
-    const [course,setCourse] = useState("All Courses")
+    const [course, setCourse] = useState("All Courses")
     const [status, setStatus] = useState("All Status")
- const [filtered, setFiltered] = useState<Student[]>([]);
+    const [filtered, setFiltered] = useState<Student[]>([]);
 
- 
-  useEffect(() => {
-    dispatch(getStudentsThunk());
-  }, [dispatch]);
 
- 
-  useEffect(() => {
-    if (searchText) {
-      students = students.filter(
-        (s) =>
-          s.student_name.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
-    setFiltered(students);
-  }, [searchText]);
+    useEffect(() => {
+        if (searchText) {
+            students = students?.filter(
+                (s) =>
+                    s.student_name.toLowerCase().includes(searchText.toLowerCase())
+            );
+        }
+        setFiltered(students);
+    }, [searchText]);
 
 
     return (
@@ -62,14 +56,14 @@ const StudentSearch = () => {
                 <input type="text"
                     placeholder="Search by name,email,phone, or student ID..."
                     value={searchText}
-                    onChange={(e)=>setSearchText(e.target.value)}
+                    onChange={(e) => setSearchText(e.target.value)}
                     className="pl-10 border border-black rounded-lg py-2 px-4 focus:outline-none w-120 my-2" />
             </div>
             <div className="flex-1">
                 <h1 className="font-bold text-black">Course</h1>
                 <select value={course}
-                onChange={(e)=> setCourse(e.target.value)}
-                className="border border-black rounded-lg py-2 px-4 focus:outline-none my-2 cursor-pointer">
+                    onChange={(e) => setCourse(e.target.value)}
+                    className="border border-black rounded-lg py-2 px-4 focus:outline-none my-2 cursor-pointer">
                     <option>All Courses</option>
                     <option>Course 1</option>
                     <option>Course 2</option>
@@ -78,14 +72,14 @@ const StudentSearch = () => {
             <div className="flex-1">
                 <h1 className="font-bold text-black">Status</h1>
                 <select value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="border border-black rounded-lg py-2 px-4 focus:outline-none my-2 cursor-pointer">
+                    onChange={(e) => setStatus(e.target.value)}
+                    className="border border-black rounded-lg py-2 px-4 focus:outline-none my-2 cursor-pointer">
                     <option>All Status</option>
                     <option>Active</option>
                     <option>Inactive</option>
                 </select>
             </div>
-            
+
         </div>
     )
 }

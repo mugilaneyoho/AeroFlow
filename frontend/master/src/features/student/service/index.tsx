@@ -2,7 +2,7 @@ import Client from "../../../api/index";
 
 export const fetchAllStudents = async () => {
     const response = await Client.student.get();
-    return response.data.data; 
+    return response.data; 
 };
 
 export const createStudent = async (data: any) => {

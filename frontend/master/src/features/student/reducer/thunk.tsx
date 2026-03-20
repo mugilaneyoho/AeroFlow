@@ -5,7 +5,6 @@ export const getStudentsThunk = () => async (dispatch: any) => {
     try {
         const data = await fetchAllStudents();
         dispatch(getAllStudents(data));
-        console.log(data,"datainthunk")
     } catch (error) {
         console.log("GET ALL ERROR:", error);
     }

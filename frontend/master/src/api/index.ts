@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {httpEndPoints} from "./httpEndPoints"
 import HttpClient from "./httpclient";
 
@@ -10,8 +11,11 @@ class Client{
         student={
            create: (data: any) => HttpClient.post(httpEndPoints.student.create, data),
            get: () => HttpClient.get(httpEndPoints.student.get),
-           getById: (uuid: string) => HttpClient.get(`/student/${uuid}`),
-           delete: (uuid: string) => HttpClient.delete(`/student/${uuid}`)
+           getById: (uuid: string) => HttpClient.get(`/institute/student/${uuid}`),
+           delete: (uuid: string) => HttpClient.delete(`/institute/student/${uuid}`)
+        };
+        auth={
+            login:(data:any)=>HttpClient.post(httpEndPoints.auth.login,data),
         }
 
 }
