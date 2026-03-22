@@ -1,9 +1,32 @@
 import { Plus } from 'lucide-react'
 import StudentSearch from '../components/common/StudentSearch'
 import StudentInfo from '../components/studentManagement/StudentInfo'
-import StudentStats from '../components/studentManagement/StudentsStats'
+
+import { useEffect, useState } from 'react'
+import StudentStats from '../components/studentManagement/StudentsStats';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectStudents } from '../features/student/reducer/selector';
+import type { StudentType } from '../types/studentTypes';
+import type { AppDispatch } from '../store/store';
+import { getStudentsThunk } from '../features/student/reducer/thunk';
+
 
 const StudentManagement = () => {
+  
+  const [filteredStudents, setFilteredStudents] = useState<StudentType[]>([]); 
+
+  const students = useSelector(selectStudents)as StudentType[];
+
+  const dispatch =useDispatch<AppDispatch>()
+
+ useEffect(() => {
+         dispatch(getStudentsThunk())
+    }, [dispatch]);
+
+    
+useEffect(() => {
+  setFilteredStudents(students);
+}, [students]);
   return (
     <div>
       <div className='flex justify-between'>
@@ -17,8 +40,8 @@ const StudentManagement = () => {
         </button>
       </div>
       <StudentStats />
-      <StudentSearch />
-      <StudentInfo />
+      <StudentSearch setFiltered={setFilteredStudents}/>
+      <StudentInfo students={filteredStudents} />
     </div>
   )
 }

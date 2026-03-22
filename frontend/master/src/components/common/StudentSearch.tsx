@@ -1,55 +1,46 @@
 import { Search } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch } from "../../store/store";
-import { useEffect, useState } from "react";
-import { getStudentsThunk } from "../../features/student/reducer/thunk";
-import { selectStudents } from "../../features/student/reducer/selector";
+import { useSelector } from "react-redux";
 
-interface Student {
-  id: number;
-  uuid: string;
-  course_id: string;
-  batch_id: string;
-  admittedBy: string;
-  student_name: string;
-  student_id: string;
-  email: string;
-  phone_number: string;
-  alter_number?: string;
-  gender: string;
-  address: string;
-  city: string;
-  state: string;
-  pincode: string;
-  qualification: string;
-  admission_date: string;
-  is_active: boolean;
-  is_delete: boolean;
-}
-const StudentSearch = () => {
+import { useEffect, useState } from "react";
+
+import { selectStudents } from "../../features/student/reducer/selector";
+import type { StudentType } from "../../types/studentTypes";
+
+
+const StudentSearch = ({ setFiltered }: { setFiltered: (data: StudentType[]) => void }) => {
       
-    const dispatch = useDispatch<AppDispatch>()
-    const students = useSelector(selectStudents) as Student[]
+    
+    const students = useSelector(selectStudents) as StudentType[]
     const [searchText, setSearchText] = useState("")
     const [course,setCourse] = useState("All Courses")
     const [status, setStatus] = useState("All Status")
- const [filtered, setFiltered] = useState<Student[]>([]);
+ 
+
+  useEffect(() => {
+  let result = students;
+
+  if (searchText.trim() !== "") {
+    result = result.filter((s) =>
+      s.student_name.toLowerCase().includes(searchText.toLowerCase()) ||
+      s.email.toLowerCase().includes(searchText.toLowerCase()) ||
+      s.phone_number.includes(searchText) ||
+      s.student_id.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+
+  if (course !== "All Courses") {
+    result = result.filter((s) => s.course_id === course);
+  }
 
  
-  useEffect(() => {
-    dispatch(getStudentsThunk());
-  }, [dispatch]);
+  if (status !== "All Status") {
+    result = result.filter((s) =>
+      status === "Active" ? s.is_active : !s.is_active
+    );
+  }
 
- 
-  useEffect(() => {
-    if (searchText) {
-      students = students.filter(
-        (s) =>
-          s.student_name.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
-    setFiltered(students);
-  }, [searchText]);
+  setFiltered(result);
+}, [searchText, course, status, students]);
 
 
     return (
