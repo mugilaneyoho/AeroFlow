@@ -5,7 +5,7 @@ import StudentReducer from "../features/student/reducer/studentSlice"
 export const store = configureStore({
     reducer:{
         UserSlice: UserSlice,
-        student: StudentReducer
+        student: StudentReducer,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(),
