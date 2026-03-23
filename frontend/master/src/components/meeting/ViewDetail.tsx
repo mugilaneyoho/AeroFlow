@@ -3,16 +3,9 @@ import person from "../../assets/meeting/person.png"
 import doubleperson from "../../assets/meeting/doubleperson.png"
 import phone from "../../assets/meeting/phone.png"
 import clock from "../../assets/meeting/clock.png"
+import type { Meeting } from "../../types/meetingTypes"
 
-interface Meeting {
-    meetingId: number
-    visitorName: string
-    phone: number
-    purpose: string
-    time: string
-    priority: string
-    status: string
-}
+
 
 interface ViewDetailProps {
     meeting: Meeting
@@ -22,16 +15,16 @@ interface ViewDetailProps {
 const ViewDetail: React.FC<ViewDetailProps> = ({ meeting, closeModal }) => {
     return (
         <div className="fixed inset-0 flex justify-center items-center ">
-            <div className="bg-white rounded-xl p-6 w-[400px] shadow-lg">
+            <div className="bg-white rounded-xl p-6 w-100 shadow-lg">
                 <h2 className=" font-bold mb-4">Visitor Details</h2>
                 <div className="flex gap-3 items-center text-center mb-5">
                     <img src={person} className="w-4 h-4 "/>
-                    <h1>{meeting.visitorName}</h1>
+                    <h1>{meeting.visitor}</h1>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <p className="text-md font-semibold">Visitor Name</p>
-                        <p className="text-sm">{meeting.visitorName}</p>
+                        <p className="text-sm">{meeting.visitor}</p>
                     </div>
                     <div>
                         <p className=" text-md font-semibold">Status</p>
@@ -55,7 +48,7 @@ const ViewDetail: React.FC<ViewDetailProps> = ({ meeting, closeModal }) => {
                         <p className="text-md font-semibold">Purpose</p>
                         <div className="flex gap-2">
                             <img src={doubleperson} className="w-4 h-4"/>
-                            <p className="text-sm">{meeting.purpose}</p>
+                            <p className="text-sm">{meeting.purposeOfMeeting}</p>
                         </div>
                     </div>
                     <div>

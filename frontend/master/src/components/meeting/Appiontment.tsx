@@ -1,26 +1,21 @@
 import React from 'react'
 import calendar from "../../assets/meeting/calendar.png"
-import { Appointments } from '../../dummyData/meeting'
+
 import person from "../../assets/meeting/person.png"
 import doubleperson from "../../assets/meeting/doubleperson.png"
 import phone from "../../assets/meeting/phone.png"
 import clock from "../../assets/meeting/clock.png"
 import view from "../../assets/meeting/view.png"
+import type { Meeting } from '../../types/meetingTypes'
 
-interface Meeting {
-  meetingId: number
-  visitorName: string
-  purpose: string
-  time: string
-  priority: string
-  status: string
-}
+
 interface AppointmentProps {
   meeting: Meeting[]
   onViewDetail: (meeting: Meeting) => void
 }
 
 const Appiontment:React.FC<AppointmentProps> = ({meeting, onViewDetail}) => {
+
     return (
         <div>
             <div className=' bg-[#FFFFFF] shadow-[0_0_15px_rgba(0,0,0,0.1)] p-2'>
@@ -30,29 +25,29 @@ const Appiontment:React.FC<AppointmentProps> = ({meeting, onViewDetail}) => {
                 </div>
                 <div>
                     <div className=' p-2 flex flex-cols gap-4'>
-                        {Appointments.map((data, index) => {
+                        {meeting.map((m) => {
                             return (
-                                <div key={index} className="shadow-[inset_0px_0px_14px_0px_#EDBF5C] rounded-xl p-4 bg-white ">
+                                <div key={m.id} className="shadow-[inset_0px_0px_14px_0px_#EDBF5C] rounded-xl p-4 bg-white ">
                                     <div className="grid grid-cols-2 gap-4 mb-3">
                                         <div className="flex items-center gap-2">
                                             <img src={person} className="w-4 h-4" />
-                                            <h1 className="font-bold text-md">{data.name}</h1>
+                                            <h1 className="font-bold text-md">{m.visitor}</h1>
                                         </div>
-                                        <span className={`${data.status === "Ongoing"? "bg-[#599E2E]": data.status === "Scheduled"? "bg-[#008BBF]" : "" } text-white px-3 py-1 rounded-full`}>{data.status}</span>
+                                        <span className={`${m.status === "Ongoing"? "bg-[#599E2E]": m.status === "Scheduled"? "bg-[#008BBF]" : "" } text-white px-3 py-1 rounded-full`}>{m.priority}</span>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4 mb-3">
                                         <div>
                                             <p className="text-md">Mobile Number</p>
                                             <div className="flex items-center gap-2">
                                                 <img src={phone} className="w-4 h-4" />
-                                                <p className='text-sm'>{data.Phone}</p>
+                                                <p className='text-sm'>{m.mobileNumber || "N/A"}</p>
                                             </div>
                                         </div>
                                         <div>
                                             <p className="text-md">Priority</p>
                                             <div className="flex items-center gap-2">
                                                 <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-                                                <p className='text-sm'>{data.priority}</p>
+                                                <p className='text-sm'>{m.priority}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -62,20 +57,20 @@ const Appiontment:React.FC<AppointmentProps> = ({meeting, onViewDetail}) => {
                                             <p className="text-md">Purpose</p>
                                             <div className="flex items-center gap-2">
                                                 <img src={doubleperson} className="w-4 h-4" />
-                                                <p className='text-sm'>{data.purpose}</p>
+                                                <p className='text-sm'>{m.purposeOfMeeting}</p>
                                             </div>
                                         </div>
                                         <div>
                                             <p className="text-md">Time</p>
                                             <div className="flex items-center gap-2">
                                                 <img src={clock} className="w-4 h-4" />
-                                                <p className='text-sm'>{data.Time}</p>
+                                                <p className='text-sm'>{m.time}</p>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className='rounded-full p-1 border cursor-pointer'>
-                                        <div onClick={() =>onViewDetail({meetingId: index,visitorName: data.name,purpose: data.purpose,time: data.Time,priority: data.priority,status: data.status})} className='flex items-center justify-center text-center cursor-pointer gap-2'>
+                                        <div onClick={() =>onViewDetail(m)} className='flex items-center justify-center text-center cursor-pointer gap-2'>
                                            <img src={view} className='w-5 h-5'/>
                                            <p>View Detail</p>
                                         </div>
@@ -99,18 +94,18 @@ const Appiontment:React.FC<AppointmentProps> = ({meeting, onViewDetail}) => {
                 </div>
 
                 <div className='rounded-md mt-4 px-4 py-2 flex flex-col'>
-                    {meeting.map((data, index) => {
+                    {meeting.map((m, index) => {
                         return (
                             <div key={index} className='grid grid-cols-7 gap-4 border-b pb-4 mb-4 items-center'>
-                                <p className='text-md'>{data.meetingId}</p>
-                                <p className='text-md'>{data.visitorName}</p>
-                                <p className='text-md'>{data.purpose}</p>
-                                <p className='text-md'>{data.time}</p>
-                                <p className={`border px-2 rounded-full w-[65px] ${data.priority === "High"? "bg-[#FB2C361A] border-[#FB2C36]" : "bg-[#5956561A] border-[#595656]"}`}>{data.priority}</p>
-                                <p className={`text-sm border px-2 rounded-full w-[65px] ${data.status === "Ongoing"? "bg-[#1F67BB1A] border-[#1F67BB]" : data.status === "Pending"? "bg-[#D16E0B1A] border-[#D16E0B]" : "bg-[#00A63E1A] border-[#00A63E]"}`}>{data.status}</p>
+                                <p className='text-md'>{m.id}</p>
+                                <p className='text-md'>{m.visitor}</p>
+                                <p className='text-md'>{m.purposeOfMeeting}</p>
+                                <p className='text-md'>{m.time}</p>
+                                <p className={`border px-2 rounded-full w-16 ${m.priority === "High"? "bg-[#FB2C361A] border-[#FB2C36]" : "bg-[#5956561A] border-[#595656]"}`}>{m.priority}</p>
+                                <p className={`text-sm border px-2 rounded-full w-16 ${m.status === "Ongoing"? "bg-[#1F67BB1A] border-[#1F67BB]" : m.status === "Pending"? "bg-[#D16E0B1A] border-[#D16E0B]" : "bg-[#00A63E1A] border-[#00A63E]"}`}>{m.status}</p>
                                 <div className='flex gap-2 cursor-pointer'>
                                     <div className='rounded-md p-1 border border-[#595656] bg-[#5956561A] cursor-pointer'>
-                                        <button onClick={() =>onViewDetail({meetingId: index,visitorName: data.visitorName, purpose: data.purpose,time: data.time, priority: data.priority,status: data.status})} className='cursor-pointer'>View Details</button>
+                                        <button onClick={() =>onViewDetail(m)} className='cursor-pointer'>View Details</button>
                                     </div>
                                 </div>
                             </div>

@@ -29,24 +29,20 @@ const StudentSlice = createSlice({
         getAllStudents: (state, action) => {
             state.data = action.payload;
         },
-
-       
         getStudentById: (state, action) => {
             state.selectedStudent = action.payload;
         },
-
         addStudent: (state, action) => {
             state.data.push(action.payload);
         },
-
         removeStudent: (state, action) => {
             state.data = state.data.filter(
                 (student) => student.uuid !== action.payload
             );
         },
         clearSelectedStudent: (state) => {
-  state.selectedStudent = null;
-}
+              state.selectedStudent = null;
+           }
     }
 });
 

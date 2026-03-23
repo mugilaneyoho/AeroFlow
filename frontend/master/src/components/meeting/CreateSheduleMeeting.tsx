@@ -23,10 +23,20 @@ const CreateSheduleMeeting: React.FC<CreateMeetingProps>= ({setCreateMeetingMode
     const [status, setstatus] = useState("")
 
     const handlechange = () => {
-    const newmeeting = {meetingId: Date.now(), visitorName: visitorname,purpose,time,date,priority,status}
-    addmeeting(newmeeting)
-    setCreateMeetingModel(false)
-}
+   const newMeeting: Meeting = {
+    meetingId: Date.now(),       
+    visitorName: visitorname,
+    purpose: purpose,
+    time: time,
+    date: date,
+    priority: priority || "Normal",
+    status: status || "Pending",
+  };
+
+  addmeeting(newMeeting);
+  setCreateMeetingModel(false);
+};
+
   return (
     <div className='fixed inset-0 flex items-center justify-center mt-20'>
         <div className='w-130 h-140 bg-[#FFFFFF] shadow-[0_0_15px_rgba(0,0,0,0.1)] p-4 flex flex-col gap-5'>

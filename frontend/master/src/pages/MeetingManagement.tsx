@@ -1,26 +1,29 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import plus from "../assets/userfaculty/plus.png"
 import search from "../assets/userfaculty/search.png"
 import Appiontment from '../components/meeting/Appiontment'
 import CreateSheduleMeeting from '../components/meeting/CreateSheduleMeeting'
-import { OverAllData } from '../dummyData/meeting'
 import ViewDetail from '../components/meeting/ViewDetail'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectMeetings } from '../features/meeting/reducer/selector'
+import { createMeetingThunk, getMeetingsThunk } from '../features/meeting/reducer/thunk'
+import type { AppDispatch } from '../store/store'
+import type { Meeting } from '../types/meetingTypes'
 
-interface Meeting {
-  meetingId: number
-  visitorName: string
-  purpose: string
-  time: string
-  date: string
-  priority: string
-  status: string
-}
+
 const MeetingManagement = () => {
   const [CreateMeetingModel, setCreateMeetingModel] = useState(false)
-  const [meeting, setmeeting] = useState<Meeting[]>(OverAllData)
-  const addmeeting = (newmeeting:Meeting) =>{
-    setmeeting([...meeting, newmeeting])
-  }
+
+  const dispatch = useDispatch<AppDispatch>();
+  const meeting = useSelector(selectMeetings);
+
+   useEffect(() => {
+     dispatch(getMeetingsThunk());
+    }, [dispatch]);
+
+const addmeeting = (data: any) => {
+  dispatch(createMeetingThunk(data));
+};
   const [viewDetailModal, setViewDetailModal] = useState(false)
   const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null)
 
@@ -28,6 +31,17 @@ const handleViewDetail = (meeting: Meeting) => {
   setSelectedMeeting(meeting)
   setViewDetailModal(true)
 }
+
+const mappedMeeting: Meeting[] = meeting.map((m: any) => ({
+  id: m.id,
+  visitor: m.visitor,
+  purposeOfMeeting: m.purposeOfMeeting,
+  time: m.requestedTime,    
+  date: m.date,
+  priority: m.priority,
+  status: m.status,
+  mobileNumber: m.mobileNumber ?? undefined
+}));
   return (
     <div className='overflow-hidden min-h-full flex flex-col gap-5'>
       <div className='flex justify-between'>
@@ -72,7 +86,7 @@ const handleViewDetail = (meeting: Meeting) => {
       </div>
 
       <div>
-        <Appiontment meeting={meeting} onViewDetail={handleViewDetail}/>
+        <Appiontment meeting={mappedMeeting} onViewDetail={handleViewDetail}/>
       </div>
 
       <div>

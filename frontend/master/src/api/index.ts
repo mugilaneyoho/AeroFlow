@@ -12,7 +12,12 @@ class Client{
            get: () => HttpClient.get(httpEndPoints.student.get),
            getById: (uuid: string) => HttpClient.get(`/student/${uuid}`),
            delete: (uuid: string) => HttpClient.delete(`/student/${uuid}`)
-        }
+        };
+       meeting = {
+            getAll: () => HttpClient.get(httpEndPoints.meeting.getAll),
+            create: (data: any) =>HttpClient.post(httpEndPoints.meeting.post, data),
+            update: (id: number, data: any) =>HttpClient.patch(`/meetings/${id}`, data),
+        };
 
 }
 
