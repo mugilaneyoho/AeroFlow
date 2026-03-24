@@ -14,7 +14,7 @@ interface ViewDetailProps {
 
 const ViewDetail: React.FC<ViewDetailProps> = ({ meeting, closeModal }) => {
     return (
-        <div className="fixed inset-0 flex justify-center items-center ">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">
             <div className="bg-white rounded-xl p-6 w-100 shadow-lg">
                 <h2 className=" font-bold mb-4">Visitor Details</h2>
                 <div className="flex gap-3 items-center text-center mb-5">
@@ -34,7 +34,7 @@ const ViewDetail: React.FC<ViewDetailProps> = ({ meeting, closeModal }) => {
                         <p className="text-md font-semibold">Mobile Number</p>
                         <div className="flex gap-2">
                             <img src={phone} className="w-4 h-4"/>
-                            <p className="text-sm">67548936456</p>
+                            <p className="text-sm">{meeting.mobileNumber}</p>
                         </div>
                     </div>
                     <div>
@@ -55,7 +55,7 @@ const ViewDetail: React.FC<ViewDetailProps> = ({ meeting, closeModal }) => {
                         <p className="text-md font-semibold">Time</p>
                         <div className="flex gap-2">
                             <img src={clock} className="w-4 h-4"/>
-                            <p className="text-sm">{meeting.time}</p>
+                            <p className="text-sm">{meeting.requestedTime}</p>
                         </div>
                     </div>
                 </div>

@@ -18,9 +18,9 @@ export const httpEndPoints = {
     },
 
     meeting:{
-        getAll: '/meetings',
-        post: '/meetings',
-        update: '/meetings/id'
+        getAll: '/reception/meetings',
+        post: '/reception/meetings',
+        update: '/reception/meetings/id'
     },
     student:
     {

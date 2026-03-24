@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface Meeting {
     id: number;
@@ -27,16 +27,16 @@ const MeetingSlice = createSlice({
     name: "meeting",
     initialState,
     reducers: {
-        getAllMeetings: (state, action) => {
+        getAllMeetings: (state, action:PayloadAction<Meeting[]>) => {
             state.data = action.payload;
         },
-        getMeetingById: (state, action) => {
+        getMeetingById: (state, action:PayloadAction<Meeting>) => {
             state.selectedMeeting = action.payload;
         },
-        createMeeting: (state, action) => {
+        createMeeting: (state, action:PayloadAction<Meeting>) => {
             state.data.push(action.payload);
         },
-        updateMeetingState: (state, action) => {
+        updateMeetingState: (state, action:PayloadAction<Meeting>) => {
             const index = state.data.findIndex(
                 (m) => m.id === action.payload.id
             );

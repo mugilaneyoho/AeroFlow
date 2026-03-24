@@ -24,8 +24,9 @@ const Appiontment:React.FC<AppointmentProps> = ({meeting, onViewDetail}) => {
                     <h1>Today's Appointments</h1>
                 </div>
                 <div>
-                    <div className=' p-2 flex flex-cols gap-4'>
-                        {meeting.map((m) => {
+                    <div className=' p-2 grid grid-cols-1 sm:grid-cols-4 gap-4'>
+                        {meeting?.map((m) => {
+                            if(!m || !m.id) return null
                             return (
                                 <div key={m.id} className="shadow-[inset_0px_0px_14px_0px_#EDBF5C] rounded-xl p-4 bg-white ">
                                     <div className="grid grid-cols-2 gap-4 mb-3">
@@ -64,7 +65,7 @@ const Appiontment:React.FC<AppointmentProps> = ({meeting, onViewDetail}) => {
                                             <p className="text-md">Time</p>
                                             <div className="flex items-center gap-2">
                                                 <img src={clock} className="w-4 h-4" />
-                                                <p className='text-sm'>{m.time}</p>
+                                                <p className='text-sm'>{m.requestedTime}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -94,13 +95,14 @@ const Appiontment:React.FC<AppointmentProps> = ({meeting, onViewDetail}) => {
                 </div>
 
                 <div className='rounded-md mt-4 px-4 py-2 flex flex-col'>
-                    {meeting.map((m, index) => {
+                    {meeting.map((m) => {
+                         if (!m || !m.id) return null;
                         return (
-                            <div key={index} className='grid grid-cols-7 gap-4 border-b pb-4 mb-4 items-center'>
+                            <div key={m.id} className='grid grid-cols-7 gap-4 border-b pb-4 mb-4 items-center'>
                                 <p className='text-md'>{m.id}</p>
                                 <p className='text-md'>{m.visitor}</p>
                                 <p className='text-md'>{m.purposeOfMeeting}</p>
-                                <p className='text-md'>{m.time}</p>
+                                <p className='text-md'>{m.requestedTime}</p>
                                 <p className={`border px-2 rounded-full w-16 ${m.priority === "High"? "bg-[#FB2C361A] border-[#FB2C36]" : "bg-[#5956561A] border-[#595656]"}`}>{m.priority}</p>
                                 <p className={`text-sm border px-2 rounded-full w-16 ${m.status === "Ongoing"? "bg-[#1F67BB1A] border-[#1F67BB]" : m.status === "Pending"? "bg-[#D16E0B1A] border-[#D16E0B]" : "bg-[#00A63E1A] border-[#00A63E]"}`}>{m.status}</p>
                                 <div className='flex gap-2 cursor-pointer'>
