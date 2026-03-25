@@ -1,8 +1,10 @@
 export const httpEndPoints = {
     
     admission:{
-        getAll: '/master/admission/student/all',
-        getByUUID: '/master/admission/student/:uuid'
+        // getAll: '/institute/student/all',
+        // getByUUID: '/institute/student/:uuid'
+        getAll: '/student/all',
+        getByUUID: '/student/:uuid'
     },
 
     departent:{
@@ -24,10 +26,10 @@ export const httpEndPoints = {
     },
     student:
     {
-        create:'/student/create',
+        create:'/institute/student/create',
         get:'/student/all',
-        getbyId:'/student/{uuid}',
-        delete:'/student/{uuid}'
+        getbyId:'/institute/student/{uuid}',
+        delete:'/institute/student/{uuid}'
     }
 
 }

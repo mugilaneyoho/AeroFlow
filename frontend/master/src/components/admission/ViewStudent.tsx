@@ -7,13 +7,17 @@ type ViewStudentProps = {
     open:any
     setOpen:React.Dispatch<React.SetStateAction<any>>
 }
+
+
+
 const ViewStudent = ({ open , setOpen }:ViewStudentProps) => {
+      
   return (
     <div>
   
-    <div className="fixed inset-0 bg-black/50 z-40" onClick={()=>setOpen(null)} />
+    <div className="fixed inset-0 bg-black/50 z-40 " onClick={()=>setOpen(null)} />
     <div className="fixed inset-0 flex justify-center items-center z-50">
-     <div className='bg-white p-6 rounded shadow-lg w-[40%] h-[90%] relative pointer-events-auto overflow-y-auto'>
+     <div className='bg-white p-6 rounded shadow-lg min-w-65 max-w-150 h-[90%] relative pointer-events-auto overflow-y-auto no-scrollbar'>
          <div className="flex justify-between items-start">
         <div>
           <h1 className='font-semibold text-xl'>View student details</h1>
@@ -22,8 +26,8 @@ const ViewStudent = ({ open , setOpen }:ViewStudentProps) => {
         
       </div>
 
-      <div className="flex justify-around p-2  rounded-[10px] shadow-[0px_0px_14px_0px_#2D216140] mt-4">
-      <div>
+      <div className="flex flex-col sm:flex-row justify-around p-2  rounded-[10px] shadow-[0px_0px_14px_0px_#2D216140] mt-4">
+      <div className="flex flex-col">
         <h1 className='pb-2 font-semibold'>Personal Details</h1> 
         <p className='pb-2 text-sm'>View Student Image*</p>
        <div className="relative inline-block">
@@ -31,8 +35,8 @@ const ViewStudent = ({ open , setOpen }:ViewStudentProps) => {
         <img src={eyeicon} className="absolute bottom-4 right-5  cursor-pointer"/>
         </div> 
         </div>  
-        <div className="flex  flex-col gap-2 justify-center">
-          <p className='flex gap-5 justify-between'>Student Name:  <strong>{open.student_name}</strong> </p>
+        <div className="flex  flex-col gap-2 justify-center whitespace-nowrap">
+          <p className='flex gap-5 justify-between '>Student Name:  <strong>{open.student_name}</strong> </p>
           <p className='flex gap-5 justify-between'>Student ID: <strong>{open.student_id}</strong></p>
           <p className='flex gap-5 justify-between'>Email: <strong>{open.email}</strong></p>
           <p className='flex gap-5 justify-between'>mobile no: <strong>{open.phone_number}</strong></p>

@@ -18,6 +18,11 @@ class Client{
             create: (data: any) =>HttpClient.post(httpEndPoints.meeting.post, data),
             update: (id: number, data: any) =>HttpClient.patch(`/meetings/${id}`, data),
         };
+        admission={
+            create: (data: any) => HttpClient.post(httpEndPoints.student.create, data),
+            get: () => HttpClient.get(httpEndPoints.student.get),
+            getById: (uuid: string) => HttpClient.get(`/student/${uuid}`),
+        }
 
 }
 
