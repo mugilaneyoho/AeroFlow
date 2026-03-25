@@ -3,8 +3,8 @@ import Today from './Today';
 import Upcoming from "./Upcoming";
 import Completed from "./Completed";
 import { GetAllClassThunks } from "../feature/classes/redux/thunks";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../store/store";
 
 const ViewMyClasses = () => {
 
@@ -19,6 +19,8 @@ const ViewMyClasses = () => {
 
         return `${baseStyles} ${activeTab === tabName ? activeStyles : inactiveStyles}`;
     }
+
+    const classes = useSelector((state:RootState)=>state.classes.data)
 
     useEffect(() => {
         dispatch(GetAllClassThunks(activeTab))
@@ -48,9 +50,9 @@ const ViewMyClasses = () => {
                 </div>
 
                 <div className="mt-5">
-                    {activeTab === "Today" && <Today />}
+                    {activeTab === "Today" && <Today classes={classes}/>}
                     {activeTab === "Upcoming" && <Upcoming />}
-                    {activeTab === "Completed" && <Completed />}
+                    {activeTab === "Completed" && <Completed classes={classes}/>}
                 </div>
             </div>
         </div>

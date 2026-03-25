@@ -13,7 +13,7 @@ export const HttpEndPoints = {
     },
 
     attendance:{
-
+        get:'/training/attendance/student'
     },
 
     student:{

@@ -17,6 +17,10 @@ class Client {
     fees={
         GetAll: () => httpclient.get(HttpEndPoints.fees.getAll)
     }
+
+    attendance = {
+        get:(data:{date:string})=>httpclient.get(HttpEndPoints.attendance.get,data)
+    }
 }
 
 export default new Client()

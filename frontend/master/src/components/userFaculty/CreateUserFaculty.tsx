@@ -60,6 +60,7 @@ const CreateUserFaculty: React.FC<CreateUserFacultyProps> = ({setcreateshowmodel
                             <option value="SUBADMIN">sub-admin</option>
                             <option value="TELEADMIN">telecaller admin</option>
                             <option value="HOD">HOD</option>
+                            <option value="RECEPTION">reception</option>
                         </select>
                         {/* <input type='text' id='role' placeholder='Enter role' className='border p-2' onChange={(e)=>setrole(e.target.value)}/> */}
                     </div>
