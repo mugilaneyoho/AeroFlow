@@ -1,33 +1,59 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import plus from "../assets/userfaculty/plus.png"
 import search from "../assets/userfaculty/search.png"
 import Appiontment from '../components/meeting/Appiontment'
 import CreateSheduleMeeting from '../components/meeting/CreateSheduleMeeting'
-import { OverAllData } from '../dummyData/meeting'
 import ViewDetail from '../components/meeting/ViewDetail'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectMeetings } from '../features/meeting/reducer/selector'
+import { getMeetingsThunk } from '../features/meeting/reducer/thunk'
+import type { AppDispatch } from '../store/store'
+import type { Meeting } from '../types/meetingTypes'
 
-interface Meeting {
-  meetingId: number
-  visitorName: string
-  purpose: string
-  time: string
-  date: string
-  priority: string
-  status: string
-}
+
 const MeetingManagement = () => {
-  const [CreateMeetingModel, setCreateMeetingModel] = useState(false)
-  const [meeting, setmeeting] = useState<Meeting[]>(OverAllData)
-  const addmeeting = (newmeeting:Meeting) =>{
-    setmeeting([...meeting, newmeeting])
-  }
-  const [viewDetailModal, setViewDetailModal] = useState(false)
-  const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null)
 
-const handleViewDetail = (meeting: Meeting) => {
-  setSelectedMeeting(meeting)
-  setViewDetailModal(true)
-}
+            const [CreateMeetingModel, setCreateMeetingModel] = useState(false)
+            const [searchTerm , setSearchTerm] = useState("")
+            const [statusFilter, setStatusFilter] =useState("")
+            const [viewDetailModal, setViewDetailModal] = useState(false)
+            const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null)
+
+            const dispatch = useDispatch<AppDispatch>();
+                    const meeting = useSelector(selectMeetings);
+
+                      useEffect(() => {
+                        dispatch(getMeetingsThunk());
+                    }, [dispatch]);
+
+                    const handleViewDetail = (meeting: Meeting) => {
+                        setSelectedMeeting(meeting)
+                        setViewDetailModal(true)
+                    }
+                    console.log("meeting from redux:", meeting);
+                
+        const mappedMeeting: Meeting[] = (meeting || []).map((m: any) => ({
+              id: m.id,
+              visitor: m.visitor,
+              purposeOfMeeting: m.purposeOfMeeting,
+              requestedTime: m.requestedTime,    
+              date: m.date,
+              priority: m.priority,
+              status: m.status,
+              mobileNumber: m.mobileNumber,
+              meetingId: null
+          }));
+
+const filteredMeetings = mappedMeeting.filter((m) => {
+        const matchesSearch = 
+           m.visitor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           m.purposeOfMeeting.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           m.date.includes(searchTerm); 
+
+  const matchesStatus = statusFilter ? m.status === statusFilter : true;
+
+  return matchesSearch && matchesStatus;
+});
   return (
     <div className='overflow-hidden min-h-full flex flex-col gap-5'>
       <div className='flex justify-between'>
@@ -52,7 +78,9 @@ const handleViewDetail = (meeting: Meeting) => {
             <div className='border border-[#4A5565] rounded-xl flex gap-2 p-2'>
               <img src={search} className='w-4 h-4 mt-1'/>
               <div className=' rounded-md flex gap-1 w-full'>
-                <input type="text" name="search" placeholder="Search by name, purpose or date" className="outline-none w-full" />
+                <input type="text" placeholder="Search by name, purpose or date" value={searchTerm}
+                 onChange={(e) => setSearchTerm(e.target.value)}
+                 className="outline-none w-full"/>
             </div>
             </div>
           </div>
@@ -60,24 +88,25 @@ const handleViewDetail = (meeting: Meeting) => {
             <div>
               <h1 className='font-bold'>All Status</h1>
             </div>
-            <select className='border border-[#4A5565] p-1 rounded-xl '>
-              <option value="ALL ROLES">All Status</option>
-              <option value="HOD">Ongoing</option>
-              <option value="STAFF">Pending</option>
-              <option value="TELECALLER">Approved</option>
-              <option value="RECEPTIONIST">completed</option>
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}
+                   className='border border-[#4A5565] p-1 rounded-xl '>
+              <option value="">All Status</option>
+              <option value="Ongoing">Ongoing</option>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="completed">completed</option>
             </select>
           </div>
         </div>
       </div>
 
       <div>
-        <Appiontment meeting={meeting} onViewDetail={handleViewDetail}/>
+        <Appiontment meeting={filteredMeetings} onViewDetail={handleViewDetail}/>
       </div>
 
       <div>
         {CreateMeetingModel &&
-        <CreateSheduleMeeting setCreateMeetingModel={setCreateMeetingModel} addmeeting={addmeeting}/>
+        <CreateSheduleMeeting setCreateMeetingModel={setCreateMeetingModel} />
         }
       </div>
 

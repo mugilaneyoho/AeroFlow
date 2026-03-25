@@ -2,8 +2,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../store/store";
-import { getStudentByIdThunk, getStudentsThunk } from "../../features/student/reducer/thunk";
-import { selectStudent, selectStudents } from "../../features/student/reducer/selector";
+import { getStudentByIdThunk} from "../../features/student/reducer/thunk";
+import { selectStudent} from "../../features/student/reducer/selector";
 import { clearSelectedStudent } from "../../features/student/reducer/studentSlice";
 
 
@@ -30,12 +30,11 @@ interface Student {
 }
 
 
-const StudentInfo = () => {
-
+const StudentInfo = ({ students }: { students: Student[] }) => {   
+    
+    const selectedStudent = useSelector(selectStudent) as Student; 
     const dispatch =useDispatch<AppDispatch>()
-    const students = useSelector(selectStudents) as Student[];
-    const selectedStudent = useSelector(selectStudent) as Student;
-
+    
     const handleViewStudent = (student:Student) => {
     dispatch(getStudentByIdThunk(student.uuid));
     };

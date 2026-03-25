@@ -17,6 +17,11 @@ class Client{
         auth={
             login:(data:any)=>HttpClient.post(httpEndPoints.auth.login,data),
         }
+       meeting = {
+            getAll: () => HttpClient.get(httpEndPoints.meeting.getAll),
+            create: (data: any) =>HttpClient.post(httpEndPoints.meeting.post, data),
+            update: (id: number, data: any) =>HttpClient.patch(`/meetings/${id}`, data),
+        };
 
 }
 
