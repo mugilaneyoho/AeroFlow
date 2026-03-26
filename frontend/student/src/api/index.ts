@@ -2,7 +2,7 @@ import { HttpEndPoints } from "./endpoint"
 import httpclient from "./httpclient"
 class Client {
     fees={
-        GetAll: () => httpclient.get(HttpEndPoints.fees.getAll)
+        GetAll: (uuid: string) => httpclient.get(HttpEndPoints.fees.getAll(uuid))
     }
 }
 

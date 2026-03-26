@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { IndianRupee, DockIcon, Smartphone, Building2, X } from "lucide-react";
 import { feeService } from "../features/services/index";
 import type { Payment } from "../types/feeInterface";
-// import { feeService } from "../features/services/index"
+
+const STUDENT_UUID = "03e86acf-105b-4e0c-a36e-27a9bfb24ff1";
 
 const Fees = () => {
-
     const [isOpen, setIsOpen] = useState(false);
     const [totalFees, setTotalFees] = useState(0);
     const [paidAmount, setPaidAmount] = useState(0);
@@ -20,30 +20,25 @@ const Fees = () => {
     useEffect(() => {
         const fetchFees = async () => {
             try {
-                const data = await feeService();
-                console.log(`fees : ${data}`)
-                if(!data) return
-                setTotalFees(data.totalFees);
-                setPaidAmount(data.paidAmount);
-                setPendingAmount(data.pendingAmount);
-                setAdmissionFees(data.admissionFees);
-                setPaymentHistory(data.paymentHistory);
-            }
-            catch (err) {
+                const data = await feeService(STUDENT_UUID);
+                if (!data) return;
+                setTotalFees(data.total_fees);
+                setPaidAmount(data.paid_amount);
+                setPendingAmount(data.pending_amount);
+                setAdmissionFees(data.admission_fees);
+                setPaymentHistory(data.records);
+            } catch (err) {
                 console.log("failed to fetch fees:", err);
                 setError("Unable to Load files");
-            }
-            finally {
+            } finally {
                 setLoading(false);
             }
-        }
+        };
         fetchFees();
-
     }, [])
 
     if (loading) return <div className="text-center py-10">Loading...</div>;
     if (error) return <div className="text-red-500 text-center py-10">{error}</div>;
-
 
     return (
         <div className="p-5 relative">
@@ -76,7 +71,7 @@ const Fees = () => {
                         <div className="flex justify-between">
                             <div className="mb-3 flex flex-col gap-3">
                                 <h1 className="text-xl font-medium">Select Payment Method</h1>
-                                <h3 className="text-[#7C7C7C]">Choose how you want to pay Rs.15,000</h3>
+                                <h3 className="text-[#7C7C7C]">Choose how you want to pay Rs.{pendingAmount}</h3>
                             </div>
                             <X onClick={() => setIsOpen(false)} />
                         </div>
