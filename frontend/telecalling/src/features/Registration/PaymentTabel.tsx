@@ -16,8 +16,6 @@ const PaymentTabel: React.FC = () => {
 
     const {data} = useGetAllPaymentsQuery('payment')
 
-    console.log(data)
-
     return (
         <div>
             <div className='flex flex-col gap-5 shadow-[0px_4px_14px_0px_#00000040] rounded-lg p-4'>
@@ -39,7 +37,7 @@ const PaymentTabel: React.FC = () => {
                             data?.data?.map((item:any, index:number) => (
                                 <div className='grid grid-cols-7 bg-[#F5F5F5] justify-center items-center text-center font-medium rounded-lg hover:bg-[#E1EDFF]' key={index}>
                                     <p className='py-4 '>{item?.studentName}</p>
-                                    <p className='py-4 '>{item?.Phone}</p>
+                                    <p className='py-4 '>{item?.phoneNumber}</p>
                                     {/* <p className='py-4 '>{item?.course}</p> */}
                                     <p className='py-4 '>{item?.paymentMode}UPI</p>
                                     <p className='py-4 '>{item?.transactionId}</p>
