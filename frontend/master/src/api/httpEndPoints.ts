@@ -1,8 +1,10 @@
 export const httpEndPoints = {
     
     admission:{
-        getAll: '/master/admission/student/all',
-        getByUUID: '/master/admission/student/:uuid'
+        // getAll: '/institute/student/all',
+        // getByUUID: '/institute/student/:uuid'
+        getAll: '/student/all',
+        getByUUID: '/student/:uuid'
     },
 
     departent:{
