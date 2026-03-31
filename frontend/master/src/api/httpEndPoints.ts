@@ -33,6 +33,10 @@ export const httpEndPoints = {
     },
     auth:{
         login:'/auth/admins/login'
+    },
+
+    fees:{
+        getAll: '/student/feesgetall'
     }
 
 }

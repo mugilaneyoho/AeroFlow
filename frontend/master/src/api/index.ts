@@ -26,7 +26,11 @@ class Client{
             create: (data: any) => HttpClient.post(httpEndPoints.student.create, data),
             get: () => HttpClient.get(httpEndPoints.student.get),
             getById: (uuid: string) => HttpClient.get(`/student/${uuid}`),
+        };
+        fees={
+            getAll:() =>HttpClient.get(httpEndPoints.fees.getAll)
         }
+
 
 }
 

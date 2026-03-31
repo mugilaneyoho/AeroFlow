@@ -4,7 +4,7 @@ import { ClearLocalStorage, GetLocalStorage } from "../utils/SecureStorage";
 
 const Axios = axios.create({
 //  baseURL: "http://localhost:3004",
- baseURL: "http://localhost:3000",
+ baseURL: "http://localhost:3004",
 
   timeout: 500000,
   headers: { "Content-Type": "application/json" },
