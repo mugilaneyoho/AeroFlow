@@ -15,7 +15,7 @@ class Client {
     }
     
     fees={
-        GetAll: () => httpclient.get(HttpEndPoints.fees.getAll)
+        GetAll: (uuid: string) => httpclient.get(HttpEndPoints.fees.getAll(uuid))
     }
 
     attendance = {

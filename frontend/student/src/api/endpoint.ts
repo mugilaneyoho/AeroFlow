@@ -21,6 +21,6 @@ export const HttpEndPoints = {
     },
     
     fees:{
-        getAll: '/institute/student/:uuid/fees'
+        getAll: (uuid: string) => `/institute/student/${uuid}/fees`
     }
 }
