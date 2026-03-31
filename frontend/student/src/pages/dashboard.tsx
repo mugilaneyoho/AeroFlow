@@ -1,11 +1,19 @@
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+
 import Progress from "../components/Progress";
 import Schedule from "../components/Schedule";
 import Notifications from "../components/Notifications";
 import PaymentMessage from "../components/PaymentMessage";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/store";
+import { useEffect } from "react";
+import { DashBoardThunks } from "../feature/dashboard/redux/thunks";
 
 const DashBoard = () => {
+    const dispatch = useDispatch<AppDispatch>()
+
+    useEffect(() => {
+        dispatch(DashBoardThunks())
+    }, [dispatch]);
 
     return (
         <div className="flex flex-col flex-1">

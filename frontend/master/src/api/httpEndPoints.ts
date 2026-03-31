@@ -1,8 +1,10 @@
 export const httpEndPoints = {
     
     admission:{
-        getAll: '/master/admission/student/all',
-        getByUUID: '/master/admission/student/:uuid'
+        // getAll: '/institute/student/all',
+        // getByUUID: '/institute/student/:uuid'
+        getAll: '/student/all',
+        getByUUID: '/student/:uuid'
     },
 
     departent:{
@@ -13,15 +15,29 @@ export const httpEndPoints = {
     },
 
     usersfaculty:{
-        getAll: '/admins/all',
-        post: '/admins/create',
+        getAll: '/auth/admins/all',
+        post: '/auth/admins/create',
     },
 
     meeting:{
-        getAll: '/master/meeting/all',
-        post: '/master/meeting/create',
-        update: '/master/meeting/:uuid'
+        getAll: '/reception/meetings',
+        post: '/reception/meetings',
+        update: '/reception/meetings/id'
     },
+    student:
+    {
+        create:'/institute/student/create',
+        get:'/institute/student/all',
+        getbyId:'/institute/student/{uuid}',
+        delete:'/institute/student/{uuid}',
+    },
+    auth:{
+        login:'/auth/admins/login'
+    },
+
+    fees:{
+        getAll: '/student/feesgetall'
+    }
 
 }
 

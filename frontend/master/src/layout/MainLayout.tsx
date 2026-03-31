@@ -8,9 +8,11 @@ const MainLayout = () => {
   return (
     <div className='flex h-screen overflow-hidden'>
       <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
-      <main className="flex-1 bg-gray-50 p-4 overflow-y-auto no-scrollbar">
+      <main className="flex-1 bg-gray-50 p-2 overflow-y-auto no-scrollbar">
         <Navbar/>
+       <div className='p-2'>
         <Outlet/>
+        </div> 
       </main>
     </div>
   )

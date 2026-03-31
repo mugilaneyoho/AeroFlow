@@ -12,7 +12,8 @@ import telecalling from "../assets/sidebar/telecalling.png"
 // import ticket from "../assets/sidebar/ticket.png"
 import training from "../assets/sidebar/training.png"
 import logo from "../assets/sidebar/logo.png"
-import logout from "../assets/sidebar/logout.png"
+import logoutimg from "../assets/sidebar/logout.png"
+import { useAuth } from '../contexts/AuthUseContext'
 
 
 const menuItems = [
@@ -37,6 +38,7 @@ interface SidebarProps {
 }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
   const [trainingDropDowm, settrainingDropDowm] = useState(false);
+  const {logout} = useAuth()
 
   function chagneTrainingDropdown() {
     settrainingDropDowm(!trainingDropDowm)
@@ -44,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
 
   return (
     <div className={`h-screen flex flex-col border transition-all duration-300 ${isOpen ? 'w-64' : 'w-16'} bg-[#54191D] text-white`}>
-      <div className=" md:grid items-center text-center m-4 rounded-xl bg-[#EDBF5C]">
+      <div className=" md:grid items-center text-center border m-4 rounded-xl border-gray-100 bg-[#EDBF5C]">
         <div className='flex items-center justify-center py-2'>
           <img src={logo} className={`w-12 h-12 mr-2 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
         </div>
@@ -52,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
         <h2>Master Admin Panel</h2>
       </div>
 
-      <div className="flex-1 p-3 space-y-3">
+      <div className="flex-1 p-3 space-y-2 overflow-y-auto no-scrollbar">
         {menuItems.map((item) => (
           item.path === '/trainingmanagement' ?
             <div>
@@ -129,9 +131,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
             </div>
         ))}
         <div className='border rounded-md px-2 py-2 mt-40 my-10'>
-            <div className='flex gap-3 items-center justify-center '>
+            <div className='flex gap-3 items-center justify-center cursor-pointer' onClick={()=>logout()}>
                 <div>
-                    <img src={logout} className="w-5 h-5" />
+                    <img src={logoutimg} className="w-5 h-5" />
                 </div>
                 <div>
                     <h1>Logout</h1>

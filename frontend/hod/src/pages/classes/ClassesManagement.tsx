@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { COLORS, FONTS } from '../../constant';
 import searchicon from '../../assets/icons/searchicon.png';
@@ -27,7 +28,7 @@ interface ClassType {
 
 const ClassesManagement = () => {
     const dispatch = useDispatch<any>();
-    const classes = useSelector(GetAllClasses) ?? [];
+    const classes = useSelector(GetAllClasses ?? []);
 
     const [activeTab, setActiveTab] = useState<'ongoing' | 'completed'>('ongoing');
     const [openCreate, setOpenCreate] = useState(false);
@@ -36,7 +37,7 @@ const ClassesManagement = () => {
     const [startDate, setStartDate] = useState('');
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
-    const [mode, setMode] = useState('offline');
+    // const [mode, setMode] = useState('OFFLINE');
     const [selectedStaff, setSelectedStaff] = useState('');
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -83,15 +84,15 @@ const ClassesManagement = () => {
     };
 
 
-    const ongoingClasses = classes.filter((cls: ClassType) => isOngoing(cls));
-    const completedClasses = classes.filter((cls: ClassType) => !isOngoing(cls));
+    const ongoingClasses = classes?.filter((cls: ClassType) => isOngoing(cls));
+    const completedClasses = classes?.filter((cls: ClassType) => !isOngoing(cls));
 
-    const filteredOngoing = ongoingClasses.filter((cls: ClassType) =>
+    const filteredOngoing = ongoingClasses?.filter((cls: ClassType) =>
         cls?.subject?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
         cls?.batch_name?.toLowerCase().includes(searchTerm?.toLowerCase())
     );
 
-    const filteredCompleted = completedClasses.filter((cls: ClassType) =>
+    const filteredCompleted = completedClasses?.filter((cls: ClassType) =>
         cls.subject?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         cls.batch_name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -99,7 +100,7 @@ const ClassesManagement = () => {
     const displayedClasses = activeTab === 'ongoing' ? filteredOngoing : filteredCompleted;
 
     const totalPages = Math.ceil(
-        (activeTab === 'ongoing' ? filteredOngoing.length : filteredCompleted.length) / cardsPerPage
+        (activeTab === 'ongoing' ? filteredOngoing?.length : filteredCompleted?.length) / cardsPerPage
     ) || 1;
 
     const handleDelete = async (cls: ClassType) => {
@@ -130,7 +131,7 @@ const ClassesManagement = () => {
             start_date: startDate,
             start_time: new Date(`${startDate}T${startTime}`).toISOString(),
             end_time: new Date(`${startDate}T${endTime}`).toISOString(),
-            mode: mode.toUpperCase(),
+            // mode: mode.toUpperCase(),
         };
 
         dispatch(CreateClassThunk(payload));

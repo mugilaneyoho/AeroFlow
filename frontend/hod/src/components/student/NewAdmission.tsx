@@ -9,56 +9,7 @@ interface Props {
 }
 
 const NewAdmission: React.FC<Props> = ({ students }) => {
-  // const [students] = useState<Student[]>([
-  //   {
-  //     id: 'IMS001',
-  //     name: 'Ragul',
-  //     email: 'ragul@gmail.com',
-  //     batch: 'Evening',
-  //     course: 'Full Stack Development',
-  //     classMode: 'Online',
-  //     timing: '02:00PM-04:00PM',
-  //     mobileno:"9876543210",
-  //      paidPercentage: 2
-      
-  //   },
-  //   {
-  //     id: 'IMS002',
-  //     name: 'Rajesh',
-  //     email: 'rajesh@gmail.com',
-  //     batch: 'Morning',
-  //     course: 'UI/UX Designer',
-  //     classMode: 'Offline',
-  //     timing: '10:00AM-12:00PM',
-  //      paidPercentage: 2,
-  //       mobileno:"9876543210",
-  //   },
-  //   {
-  //     id: 'IMS003',
-  //     name: 'Suresh',
-  //     email: 'suresh@gmail.com',
-  //     batch: 'Evening',
-  //     course: 'Digital Marketing',
-  //     classMode: 'Online',
-  //     timing: '04:00PM-06:00PM',
-  //     paidPercentage: 5,
-  //      mobileno:"9876543210",
-  //   },
-  //   {
-  //     id: 'IMS004',
-  //     name: 'Ram',
-  //     email: 'ram@gmail.com',
-  //     batch: 'Morning',
-  //     course: 'Digital Marketing Data Analysts',
-  //     classMode: 'Offline',
-  //     timing: '09:00AM-11:00AM',
-  //      paidPercentage: 2,
-  //       mobileno:"9876543210",
-  //   },
-  // ]);
-
  
-  // const [open, setOpen] = useState<Student | null>(null);
     const [open, setOpen] = useState<any>(null);
 
 
@@ -95,10 +46,10 @@ const NewAdmission: React.FC<Props> = ({ students }) => {
                     <td className='p-3 rounded-l-[10px]'>{student.student_id}</td>
                     <td className='p-3'>{student.student_name}</td>
                     <td className='p-3'>{student.email}</td>
-                    <td className='p-3'>{student.batch_id}</td>
+                    <td className='p-3'>{student.batch.batchCode}</td>
                     <td className='p-3'>{student.qualification}</td>
-                    <td className='p-3'>{student.classMode}</td>
-                    <td className='p-3'>{student.timing}</td>
+                    <td className='p-3'>{student.batch.batchMode}</td>
+                    <td className='p-3'>{new Date(student.batch.classStartTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(student.batch.classEndTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                     <td className='p-3 rounded-r-[10px]'>
                       <div className='flex gap-2 items-center'>
                         <button className='rounded bg-[#008BBF] text-white px-3 py-1'>

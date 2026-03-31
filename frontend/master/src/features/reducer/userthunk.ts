@@ -4,7 +4,6 @@ import {addUser, getAllUser} from "../reducer/userslice"
 export const getUserThunk = () => async(dispatch:any)=>{
     try{
         const data = await fetchAll()
-        console.log("api data: ", data)
         dispatch(getAllUser(data))
         return data
     }catch(error){

@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Today from './Today';
 import Upcoming from "./Upcoming";
 import Completed from "./Completed";
+import { GetAllClassThunks } from "../feature/classes/redux/thunks";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../store/store";
 
 const ViewMyClasses = () => {
 
-    const [activeTab, setActiveTab] = useState("Today");
+    const [activeTab, setActiveTab] = useState<string>("Today");
+    const dispatch = useDispatch<AppDispatch>()
 
     const getButtonClass = (tabName: string) => {
 
@@ -15,6 +19,12 @@ const ViewMyClasses = () => {
 
         return `${baseStyles} ${activeTab === tabName ? activeStyles : inactiveStyles}`;
     }
+
+    const classes = useSelector((state:RootState)=>state.classes.data)
+
+    useEffect(() => {
+        dispatch(GetAllClassThunks(activeTab))
+    }, [activeTab, dispatch]);
 
 
     return (
@@ -40,9 +50,9 @@ const ViewMyClasses = () => {
                 </div>
 
                 <div className="mt-5">
-                    {activeTab === "Today" && <Today />}
+                    {activeTab === "Today" && <Today classes={classes}/>}
                     {activeTab === "Upcoming" && <Upcoming />}
-                    {activeTab === "Completed" && <Completed />}
+                    {activeTab === "Completed" && <Completed classes={classes}/>}
                 </div>
             </div>
         </div>

@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { createUser } from '../../features/services'
+import { useDispatch } from 'react-redux'
+import type { AppDispatch } from '../../store/store'
+import { getUserThunk } from '../../features/reducer/userthunk'
 
 
 interface CreateUserFacultyProps {
@@ -12,19 +15,16 @@ const CreateUserFaculty: React.FC<CreateUserFacultyProps> = ({setcreateshowmodel
     const [email, setemail] = useState("")
     const [role, setrole] = useState("")
     const [password, setpassword] = useState("")
+    const dispatch = useDispatch<AppDispatch>()
 
-    // const handlchange=()=>{
-    //     const newuser={name, email, role, password}
-    //     adduser(newuser)
-    //     setcreateshowmodel(false) 
-    // }
-
+    
     const handlchange= async()=>{
         const newuser={name, email, role, password}
         try {
             const createResponse = await createUser(newuser)
             adduser(createResponse)
             setcreateshowmodel(false)
+            dispatch(getUserThunk())
         } catch (error) {
             console.log("error in createResponse :", error)
         }
@@ -55,7 +55,14 @@ const CreateUserFaculty: React.FC<CreateUserFacultyProps> = ({setcreateshowmodel
                     </div>
                     <div className='grid w-[50%]'>
                         <label htmlFor="role">Role</label>
-                        <input type='text' id='role' placeholder='Enter role' className='border p-2' onChange={(e)=>setrole(e.target.value)}/>
+                        <select name="" id="role" className='border p-2' onChange={(e)=>setrole(e.target.value)}>
+                            <option value="">selecte role</option>
+                            <option value="SUBADMIN">sub-admin</option>
+                            <option value="TELEADMIN">telecaller admin</option>
+                            <option value="HOD">HOD</option>
+                            <option value="RECEPTION">reception</option>
+                        </select>
+                        {/* <input type='text' id='role' placeholder='Enter role' className='border p-2' onChange={(e)=>setrole(e.target.value)}/> */}
                     </div>
                 </div>
                 <div className='flex flex-2 gap-3'>

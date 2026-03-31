@@ -13,47 +13,6 @@ import { useDispatch } from 'react-redux'
 // import { GetAllClasses } from '../../features/classess/reduce/selector'
 import { GetAllClassesThunk } from '../../features/classess/reduce/thunk'
 
-
-
-// const stats = [
-//     {
-//         topic:"React Fundamentals",
-//         batch:"FSWD-JAN-2026",
-//         available:"Completed",
-//         username:"Prof.Priya Sharma",
-//         status:"online",
-//         date:"2026-21-1",
-//         time:"10.00 AM - 1.00 PM",
-//         attenStatus:"Attendance Completed",
-//         present:"25/30",
-//         absent:"5 Absent"
-//     },
-//     {
-//         topic:"SEO Optimization",
-//         batch:"DM-JAN-2026",
-//         available:"Completed",
-//         username:"Ms. Neha Gupta",
-//         status:"Offline",
-//         date:"2026-21-1",
-//         time:"11.00 AM - 03.00 PM",
-//         attenStatus:"Attendance Pending",
-//         present:"0/30",
-//         absent:"0 Absent"
-//     },
-//     {
-//         topic:"Node.js Backend",
-//         batch:"FSWD-JAN-2026",
-//         available:"Completed",
-//         username:"Dr. Vikram Singh",
-//         status:"online",
-//         date:"2026-21-1",
-//         time:"11.00 AM - 03.00 PM",
-//         attenStatus:"Attendance Pending",
-//         present:"0/30",
-//         absent:"0 Absent"
-//     },
-
-// ]
 interface CompletedClassProps {
   classes: any[];
 }
@@ -82,10 +41,8 @@ const CompletedClass: React.FC<CompletedClassProps> = ({ classes }) => {
 
         <div className='p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2  rounded-[10px]  bg-white text-sm'>
           {classes?.map((data: any) => {
-
-            const [present, total] = data.present?.split("/") || [0, 0];
             const percentage =
-              total > 0 ? (Number(present) / Number(total)) * 100 : 0;
+              data.total_student > 0 ? (Number(data.present_studnet) / Number(data.total_student)) * 100 : 0;
             return (
               <div key={data.uuid} className='shadow-[0px_0px_14px_0px_#2D216140] p-2 rounded-[10px] flex flex-col h-full'>
                 <div >
@@ -100,18 +57,14 @@ const CompletedClass: React.FC<CompletedClassProps> = ({ classes }) => {
                     <div>
                       <p className="px-2 py-1 rounded-full text-xs text-white w-fit"
                         style={{
-                          background:
-                            data.available === "Completed"
-                              ? COLORS.bg_ongoing_green
-                              : COLORS.bg_gray,
-                        }}>
-                        {data.available}</p>
+                          background: COLORS.bg_ongoing_green
+                        }}>completed</p>
                     </div>
                   </div>
                   <div className='p-4 grid grid-cols-1 sm:grid-cols-2 gap-2'>
                     <div className='flex gap-2 items-center '>
                       <img src={usericon} alt='usericon' className='w-4 h-4' />
-                      <p className='text-[#008BBF]'>{data.username}</p>
+                      <p className='text-[#008BBF]'>{data.staff.staff_name}</p>
                     </div>
 
                     <div className='flex gap-2 items-center'>
@@ -120,13 +73,13 @@ const CompletedClass: React.FC<CompletedClassProps> = ({ classes }) => {
                         className="px-2 py-1 rounded text-xs "
                         style={{
 
-                          color: data.status === "online" ? COLORS.text_green : COLORS.bg_red,
-                          boxShadow: data.status === "online"
+                          color: data.class_mode === "online" ? COLORS.text_green : COLORS.bg_red,
+                          boxShadow: data.class_mode === "online"
                             ? "0px 0px 14px 0px #20D4324D inset"
                             : "0px 0px 14px 0px #D20F0F4D inset",
                         }}
                       >
-                        {data.status}
+                        {data.class_mode}
                       </p>
                     </div>
 
@@ -143,21 +96,21 @@ const CompletedClass: React.FC<CompletedClassProps> = ({ classes }) => {
 
 
                     <div className='flex gap-2 items-center pt-2 pb-2 col-span-2'>
-                      <img src={data.attenStatus === "Attendance Completed" ? attendancegreen : attendancered} className='w-4 h-4' />
+                      <img src={data.attendance ? attendancegreen : attendancered} className='w-4 h-4' />
                       <p className="text-sm font-medium"
                         style={{
                           color:
-                            data.attenStatus === "Attendance Completed"
+                            data.attendance
                               ? COLORS.text_green
                               : COLORS.bg_red,
-                        }}>{data.attenStatus}</p>
+                        }}>{data.attendance ? "Attendance Completed" : "Attendance Pending" }</p>
                     </div>
                   </div>
 
                   <div>
                     <div className='flex justify-between pb-1'>
                       <p>Total student Present</p>
-                      <p>{data.present}</p>
+                      <p>{data.present_student}</p>
                     </div>
                     <div className="rounded w-full h-2 bg-[#D9D9D9]">
                       <div

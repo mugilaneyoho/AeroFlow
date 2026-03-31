@@ -1,6 +1,10 @@
-import { paymentData as payments } from "../../dummyData/financeAndFees";
-
+import { useSelector } from "react-redux";
+// import { paymentData as payments } from "../../dummyData/financeAndFees";
+import {selectFees} from "../../features/fees/reducer/selector"
+import type { FeesType } from "../../types/feesTypes";
 const FeesStatus = () => {
+    const feesState = useSelector(selectFees)
+    const payments = feesState.data 
 
     return (
         <div className="shadow-[0px_0px_15px_0px_#0000001A] rounded-md my-3">
@@ -16,7 +20,9 @@ const FeesStatus = () => {
                 <h2 className="flex-2">Actions</h2>
             </div>
             <div className="p-4">
-                {payments.map((payment) => (
+                {payments.map((payment: FeesType) => {
+                    const action = payment.actions ?? (payment.status.toLowerCase() === 'paid' ? 'view' : 'collect');
+                    return (
                     <div key={payment.studentID}>
                         <div className="flex flex-11 my-3 gap-2 text-[#4A5565]">
                             <div className="flex-1">
@@ -57,16 +63,16 @@ const FeesStatus = () => {
                                 </div>
                             </div>
                             <div className="flex-1">
-                                <h2>{payment.lastPayment}</h2>
+                                <h2>{payment.lastPayment === '-' ? '-' : new Date(payment.lastPayment).toLocaleDateString('en-IN')}</h2>
                             </div>
                             <div className="flex-2 flex gap-1">
                                 <div className="w-fit">
-                                    {payment.actions.toLowerCase() === 'view' && (
+                                    {action === 'view' && (
                                         <div className="text-white bg-[#3CA7FF] border rounded-md text-center p-1">
                                             view
                                         </div>
                                     )}
-                                    {payment.actions.toLowerCase() === 'collect' && (
+                                    {action === 'collect' && (
                                         <div className="text-white bg-[#20D432] rounded-md text-center p-1">
                                             collect
                                         </div>
@@ -81,11 +87,10 @@ const FeesStatus = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-[#A7A7A7] h-1 w-full">
-
-                        </div>
+                        <div className="bg-[#A7A7A7] h-1 w-full"></div>
                     </div>
-                ))}
+                    );
+                })}
             </div>
 
         </div>

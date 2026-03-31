@@ -1,0 +1,19 @@
+import { configureStore } from '@reduxjs/toolkit';
+
+import classesReducer from '../features/classes/reducer/classesSlice';
+import attendanceReducer from '../features/attendance/reducer/attenSlice';
+import loginReducer from '../features/login/reducer/authSlice';
+import dashboardReducer from '../features/dashboard/reducer/dashboadSlice';
+const store = configureStore({
+	reducer: {
+        classes: classesReducer, 
+		attendance: attendanceReducer,
+        login:loginReducer,
+		dashboard:dashboardReducer,
+	},
+});
+
+export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

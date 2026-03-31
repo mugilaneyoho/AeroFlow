@@ -8,9 +8,14 @@ import { CreateBatchThunk, GetAllBatchThunk } from "../../features/batchpage/red
 import type { AppDispatch } from "../../store/store"
 import { CourseDropdowm } from "../../features/batchpage/services"
 
+type props = {
+  open:boolean;
+  setOpen:(data:boolean)=>void;
+  page:number;
+  limit:number;
+}
 
-
-const CreateBatch:React.FC = (props: any) => {
+const CreateBatch:React.FC<props> = (props) => {
   const { open, setOpen, page, limit } = props
 
   const dispatch = useDispatch<AppDispatch>();

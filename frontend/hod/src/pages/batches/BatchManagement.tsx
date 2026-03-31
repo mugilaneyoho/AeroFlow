@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react'
 import { COLORS, FONTS } from '../../constant'
 import plusicon from '../../assets/Dashboard/plus.png'
@@ -97,10 +98,11 @@ const Batchmanagement: React.FC = () => {
                 <div className='shadow-[0px_0px_14px_0px_#2D216140] p-2 rounded-[5px] w-full'>
                   <p className='flex flex-col sm:flex-row gap-2 text-sm'><img src={timeicon} alt='time' className='w-5 ' />Timing</p>
                   <p>{data.classStartTime ? new Date(data.classStartTime).toLocaleTimeString() : "-"}</p>
+                  <p>{data.classEndTime ? new Date(data.classEndTime).toLocaleTimeString() : "-"}</p>
                 </div>
                 <div className='shadow-[0px_0px_14px_0px_#2D216140] p-2 rounded-[5px] w-full'>
                   <p className='flex flex-col sm:flex-row gap-2 text-sm'><img src={duration} alt='time' className='w-5 ' />Duration</p>
-                  <p>{data.classEndTime ? new Date(data.classEndTime).toLocaleTimeString() : "-"}</p>
+                  <p>{data.duration ? `${data.duration} - ${data.durationType}` : "-"}</p>
                 </div>
               </div>
 
