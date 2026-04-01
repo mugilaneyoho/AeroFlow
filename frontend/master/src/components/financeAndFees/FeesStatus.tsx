@@ -1,10 +1,5 @@
-import { useSelector } from "react-redux";
-// import { paymentData as payments } from "../../dummyData/financeAndFees";
-import {selectFees} from "../../features/fees/reducer/selector"
 import type { FeesType } from "../../types/feesTypes";
-const FeesStatus = () => {
-    const feesState = useSelector(selectFees)
-    const payments = feesState.data 
+const FeesStatus = ({ payments }: { payments: FeesType[] }) => {
 
     return (
         <div className="shadow-[0px_0px_15px_0px_#0000001A] rounded-md my-3">

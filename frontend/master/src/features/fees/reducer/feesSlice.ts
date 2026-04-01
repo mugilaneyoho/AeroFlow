@@ -14,13 +14,22 @@ interface Fees{
     
 }
 
+interface Stats {
+    todayCollection: number
+    totalCollected: number
+    totalPending: number
+    overdueStudents: number
+}
+
 interface FeesState{
-    data: Fees[]
+    payments: Fees[]
+    stats: Stats | null
     selectedFees: Fees | null
 }
 
 const initialState: FeesState ={
-    data: [],
+    payments: [],
+    stats: null,
     selectedFees: null
 }
 const FeesSlice = createSlice({
@@ -28,7 +37,8 @@ const FeesSlice = createSlice({
     initialState,
     reducers:{
         getAllFees:(state, action)=>{
-            state.data = action.payload
+            state.payments = action.payload.data
+            state.stats = action.payload.stats
         }
     }
 })
