@@ -4,6 +4,7 @@ import StudentReducer from "../features/student/reducer/studentSlice"
 import meetingReducer from "../features/meeting/reducer/meetingSlice"
 import admissionReducer from "../features/admission/reducer/admissionSlice"
 import fees from "../features/fees/reducer/feesSlice"
+import dashboardactivity from "../features/dashboard/reducer/dashboardSlice"
 
 export const store = configureStore({
     reducer:{
@@ -11,7 +12,8 @@ export const store = configureStore({
         student: StudentReducer,
         meeting:meetingReducer,
         admission:admissionReducer,
-        fees: fees
+        fees: fees,
+        dashboardactivity:dashboardactivity
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(),

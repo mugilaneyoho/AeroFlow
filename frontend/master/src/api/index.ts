@@ -29,6 +29,9 @@ class Client{
         };
         fees={
             getAll:() =>HttpClient.get(httpEndPoints.fees.getAll)
+        };
+        dashboard={
+            getActivity:()=>HttpClient.get(httpEndPoints.dashboard.getAll)
         }
 
 

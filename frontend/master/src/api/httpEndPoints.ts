@@ -37,6 +37,10 @@ export const httpEndPoints = {
 
     fees:{
         getAll: '/student/feesgetall'
+    },
+
+    dashboard:{
+        getAll: '/activelog'
     }
 
 }
