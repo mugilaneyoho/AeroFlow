@@ -1,0 +1,21 @@
+import React, { Suspense } from 'react'
+
+const ClassWindow = () => {
+
+    const loadRemote = ()=> import('onlineclass/callservice')
+      // .then((module) => module)
+      // .catch(() => ({
+      //   default: () => <div>Course module unavailable</div>
+      // }));
+
+    const OnlineClass = React.lazy(loadRemote)
+  return (
+    <>
+        <Suspense fallback={<div>loading</div>}>
+            <OnlineClass/>
+        </Suspense>
+    </>
+  )
+}
+
+export default ClassWindow
