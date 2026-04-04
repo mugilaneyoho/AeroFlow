@@ -8,18 +8,20 @@ import markviolet from '../../../assets/classesimg/markiconviolet.png'
 import endclasswhite from '../../../assets/classesimg/endclasswhite.png'
 import markwhite from '../../../assets/classesimg/markiconWhite.png'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import UploadMaterial from './UploadMaterial'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch } from '../../../store/store'
 import { GetAllClassesThunk } from '../../../features/classes/reducer/thunk'
 import { GetAllClasses } from '../../../features/classes/reducer/selector'
+import { GetLocalStorage } from '../../../utils/helpers'
 
 const Ongoing = () => {
   const [liveIndex, setLiveIndex] = useState<number | null>(null)
   const [openUpload, setOpenUpload] = useState(false)
   const [activeIcon, setActiveIcon] = useState<{ [key: number]: string }>({})
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const navigate = useNavigate()
 
 
   const dispatch = useDispatch<AppDispatch>()
@@ -45,6 +47,11 @@ const Ongoing = () => {
     hours = hours % 12 || 12;
     return `${hours}:${minutes} ${ampm}`;
   };
+
+  const handelStartClass = (classid:string) =>{
+    const token = GetLocalStorage("AuthToken")
+    window.open(`/onlineclass?classId=${classid}&token=${token}`, '_blank', 'noopener,noreferrer');
+  }
 
   const nowDate = new Date()
 
@@ -152,7 +159,8 @@ const Ongoing = () => {
               <div className="flex gap-2 items-center">
                 <button
                   className="flex gap-2 text-sm items-center justify-center px-2 py-2 rounded-[10px] whitespace-nowrap"
-                  onClick={() => setLiveIndex(isLive ? null : index)}
+                  // onClick={() => setLiveIndex(isLive ? null : index)}
+                  onClick={() => handelStartClass(item?.uuid)}
                   style={{
                     backgroundColor: isLive ? COLORS.bg_red : COLORS.secondary_white,
                     color: isLive ? COLORS.secondary_white : COLORS.primary_violet,

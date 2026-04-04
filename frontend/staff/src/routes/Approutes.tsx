@@ -11,28 +11,31 @@ import Syllabus from '../pages/syllabus/Syllabus'
 import LoginPage from '../pages/login/LoginPage'
 import PublicRoute from './PublicRoutes'
 import ProtectedRoute from './Protectedroutes'
+import ClassWindow from '../pages/classes/ClassWindow'
 
 
-const Approutes:React.FC = () => {
+const Approutes: React.FC = () => {
   return (
-  <>
-    <Routes> 
+    <>
+      <Routes>
 
-      <Route element={<PublicRoute/>}>
-       <Route path="/login" element={<LoginPage />} />
-      </Route>
-      
-      <Route element={<ProtectedRoute />} >
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path='/onlineclass' element={<ClassWindow />} />
+        </Route>
+
+        <Route element={<ProtectedRoute />} >
           <Route path='/' element={<MainLayout />} >
-            <Route index element={<Dashboard />} /> 
+            <Route index element={<Dashboard />} />
             <Route path='/classes' element={<Classes />} />
-            <Route path='/markattendance' element={<Attendance/>} /> 
-            <Route path='/ViewAttendance'  element={<ViewAttendance />} />       
+            <Route path='/markattendance' element={<Attendance />} />
+            <Route path='/ViewAttendance' element={<ViewAttendance />} />
             {/* <Route path='/attendance' element={<Attendance />} /> */}
             <Route path='/syllabus' element={<Syllabus />} />
+          </Route>
+            {/* <Route path='/onlineclass' element={<ClassWindow />} /> */}
         </Route>
-        </Route>
-    </Routes>
+      </Routes>
     </>
   )
 }

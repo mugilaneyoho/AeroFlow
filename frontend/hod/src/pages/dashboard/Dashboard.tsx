@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../store/store';
 import { selectAdminDashboard, selectDashboardLoading } from '../../features/dashboards/reducers/selector';
 import { GetAdminDashboardThunk } from '../../features/dashboards/reducers/thunk';
+import { getNotificationThunk } from '../../features/notification/reducers/thunks';
 import type { Batch } from '../../types/dashboard';
 
 
@@ -40,6 +41,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     dispatch(GetAdminDashboardThunk())
+    dispatch(getNotificationThunk())
   }, [dispatch]);
 
   if (loading || !adminData) return <div>Loading...</div>;

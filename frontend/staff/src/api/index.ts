@@ -50,6 +50,9 @@ class Client {
     getStaffDashboard: () =>
       httpClients.get(httpEndPoints.dashboard.staff),
   };
+  notification={
+    getAllNotification:()=>httpClients.get(httpEndPoints.notification.getAll)
+  }
   }
 
 export default new Client();
