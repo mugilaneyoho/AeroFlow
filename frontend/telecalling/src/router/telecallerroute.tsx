@@ -3,6 +3,7 @@ import MainLayout from "../layout/MainLayout";
 import LeadsCallerPage from "../pages/telecaller/LeadsCallerPage";
 import FilteredLeads from "../pages/telecaller/FilteredLeads";
 import AdmissionsForm from "../features/Admissions/AdmissionsForm";
+import TicketManagement from "../pages/tickets/TicketManagement";
 
 const TelecallerRoute = () => (
     <Routes>
@@ -10,6 +11,7 @@ const TelecallerRoute = () => (
             <Route index element={<LeadsCallerPage/>}/>
             <Route path="/leadlist/:status" element={<FilteredLeads/>}/>
             <Route path="/admit/:uuid" element={<AdmissionsForm/>}/>
+            <Route path="/ticket" element={<TicketManagement/>}/>
             <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
     </Routes>

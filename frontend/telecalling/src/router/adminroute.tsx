@@ -4,6 +4,7 @@ import LeadsAllocation from "../pages/admin/LeadsAllocation";
 import RegisterFees from "../pages/admin/RegisterFees";
 import Telecaller from "../pages/admin/Telecallers";
 import MainLayout from "../layout/MainLayout";
+import TicketManagement from "../pages/tickets/TicketManagement";
 
 const AdminRoute = () => (
     <Routes>
@@ -12,6 +13,7 @@ const AdminRoute = () => (
             <Route path="/leads" element={<LeadsAllocation/>}/>
             <Route path="/registerfee" element={<RegisterFees/>}/>
             <Route path="/telecallers" element={<Telecaller/>}/>
+            <Route path="/ticket" element={<TicketManagement/>}/>
             <Route path="*" element={<Navigate to='/' replace/>}/>
         </Route>
     </Routes>

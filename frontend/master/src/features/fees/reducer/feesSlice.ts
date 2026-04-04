@@ -9,7 +9,7 @@ interface Fees{
     paidAmount: number
     pendingAmount: number
     status: string
-    lastPayment: string
+    lastPayment?: string
     actions?: string
     
 }
@@ -37,8 +37,8 @@ const FeesSlice = createSlice({
     initialState,
     reducers:{
         getAllFees:(state, action)=>{
-            state.payments = action.payload.data
-            state.stats = action.payload.stats
+            state.payments = action.payload?.data
+            state.stats = action.payload?.stats
         }
     }
 })

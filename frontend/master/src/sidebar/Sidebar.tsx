@@ -9,7 +9,7 @@ import finance from "../assets/sidebar/finance.png"
 // import report from "../assets/sidebar/report.png"
 import student from "../assets/sidebar/student.png"
 import telecalling from "../assets/sidebar/telecalling.png"
-// import ticket from "../assets/sidebar/ticket.png"
+import ticket from "../assets/sidebar/ticket.png"
 import training from "../assets/sidebar/training.png"
 import logo from "../assets/sidebar/logo.png"
 import logoutimg from "../assets/sidebar/logout.png"
@@ -26,9 +26,9 @@ const menuItems = [
   { name: 'Training & Events', path: '/trainingmanagement', icon: training },
   { name: 'Student Management', path: '/studentmanagement', icon: student },
   { name: 'Finance & Fees', path: '/financeandfees', icon: finance },
+  { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket },
   // { name: 'Placement', path: '/placement', icon: Placement },
   // { name: 'Reports & Analytics', path: '/reportsandanalytics', icon: report },
-  // { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket },
   // { name: 'Notification', path: '/notification', icon: notification }
 ]
 

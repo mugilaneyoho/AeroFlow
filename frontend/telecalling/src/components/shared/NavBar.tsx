@@ -42,7 +42,7 @@ const NavBar:React.FC = () => {
                 <TbReportSearch/>
                 <p>Admitted Leads</p>
               </div>
-              <div className={`flex flex-row gap-2 border border-solid border-[#2516F8] lg:text-sm hover:bg-[#2516F8] hover:text-white cursor-pointer hover:shadow-[0px_4px_4px_0px_#1E2DFA80] px-4 py-2 rounded-2xl items-center font-medium ${ path === '' ? 'shadow-[0px_4px_4px_0px_#1E2DFA80] bg-[#2516F8] text-white' :'shadow-[0px_0px_14px_0px_#1E2DFA80_inset] bg-white' }`}>
+              <div onClick={()=>navigate('/ticket')} className={`flex flex-row gap-2 border border-solid border-[#2516F8] lg:text-sm hover:bg-[#2516F8] hover:text-white cursor-pointer hover:shadow-[0px_4px_4px_0px_#1E2DFA80] px-4 py-2 rounded-2xl items-center font-medium ${ path === '' ? 'shadow-[0px_4px_4px_0px_#1E2DFA80] bg-[#2516F8] text-white' :'shadow-[0px_0px_14px_0px_#1E2DFA80_inset] bg-white' }`}>
                 <LuTicket/>
                 <p>Suppot tickets</p>
               </div>

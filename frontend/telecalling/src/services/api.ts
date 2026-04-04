@@ -63,6 +63,9 @@ export const CommonApi = createApi({
         }),
         getAllPayments: builder.query({
             query: () => ApiLists.common.getAllpayment
+        }),
+        getAllActivity: builder.query({
+            query:() => ApiLists.common.getAllActivity
         })
     })
 })
@@ -78,4 +81,5 @@ export const {
     useGetActiveEmployeeQuery,
     useGetRecentAdmissionQuery,
     useGetAllPaymentsQuery,
+    useGetAllActivityQuery,
 } = CommonApi

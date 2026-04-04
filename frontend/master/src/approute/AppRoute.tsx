@@ -11,7 +11,7 @@ import StudentManagement from '../pages/StudentManagement'
 import FinanceAndFees from '../pages/FinanceAndFees'
 // import Placement from '../pages/Placement'
 // import ReportAndAnalytics from '../pages/ReportAndAnalytics'
-// import TicketManagement from '../pages/TicketManagement'
+import TicketManagement from '../pages/TicketManagement'
 // import Notification from '../pages/Notification'
 import MainLayout from '../layout/MainLayout'
 import CoursePage from '../pages/CoursePage'
@@ -41,9 +41,9 @@ const AppRoute = () => {
               <Route path="/studentmanagement" element={<StudentManagement />} />
               <Route path="/financeandfees" element={<FinanceAndFees />} />
               {/* <Route path="/placement" element={<Placement/>}/>
-              <Route path="/reportsandanalytics" element={<ReportAndAnalytics/>}/>
+              <Route path="/reportsandanalytics" element={<ReportAndAnalytics/>}/> */}
               <Route path="/ticketmanagement" element={<TicketManagement/>}/>
-              <Route path="/notification" element={<Notification/>}/> */}
+              {/* <Route path="/notification" element={<Notification/>}/> */}
             </Route>
             :
             <Route path='/' element={<LoginPage />} />

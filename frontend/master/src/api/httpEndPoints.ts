@@ -36,7 +36,7 @@ export const httpEndPoints = {
     },
 
     fees:{
-        getAll: '/student/feesgetall'
+        getAll: '/institute/student/feesgetall'
     },
 
     dashboard:{

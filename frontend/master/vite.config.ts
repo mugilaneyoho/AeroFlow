@@ -15,6 +15,7 @@ export default defineConfig({
         courses: "http://localhost:4173/assets/training.js",
         batches: "http://localhost:4173/assets/training.js",
         classes: "http://localhost:4173/assets/training.js",
+        ticketsystem:"http://localhost:4173/assets/ticketsystem.js"
       },
       shared: {
         react: "^18.2.0",

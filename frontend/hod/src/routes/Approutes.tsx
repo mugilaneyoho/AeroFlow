@@ -11,6 +11,7 @@ import ClassesManagement from '../pages/classes/ClassesManagement'
 import LoginPage from '../pages/login/LoginPage'
 import PublicRoute from './PublicRoute'
 import ProtectedRoute from './ProtectedRoute'
+import TicketsManagement from '../pages/ticket/TicketsManagement'
 
 const Approutes:React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const Approutes:React.FC = () => {
       <Route path="/student" element={<Student />} />
       <Route path="/batches" element={<Batchmanagement />} />
       <Route path="/classes" element={<ClassesManagement />} />
+      <Route path="/ticket" element={<TicketsManagement/>} />
     </Route>
   </Route>
 

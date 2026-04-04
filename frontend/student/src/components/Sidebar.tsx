@@ -45,10 +45,7 @@ const Sidebar = () => {
                         icon={[sidebar4,sidebar5e]}
                         name="fees"
                     />
-                    {/* <button className="flex justify-center">
-                        <img src={sidebar5} alt="sidebar5" className="h-6 w-6" />
-                    </button>
-                    <button className="flex justify-center mb-3">
+                    {/* <button className="flex justify-center mb-3">
                         <img src={sidebar6} alt="sidebar6" className="h-6 w-6" />
                     </button> */}
                 </div>

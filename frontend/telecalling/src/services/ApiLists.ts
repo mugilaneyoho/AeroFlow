@@ -22,7 +22,8 @@ class ApiLists {
         getAllTele:'/telecalling/employee/lists',
         getactiveemp:'/telecalling/employee/active-emp',
         getrecetamit:'/telecalling/leads/temp-recent-admit',
-        getAllpayment:'/telecalling/payment/all'
+        getAllpayment:'/telecalling/payment/all',
+        getAllActivity: '/notifylog/activelog'
     }
 
     login = {

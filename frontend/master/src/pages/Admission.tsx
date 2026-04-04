@@ -21,36 +21,38 @@ const Admission = () => {
   const dispatch = useDispatch<AppDispatch>();
     const admission = useSelector(selectAdmissions);
 
+    console.log(admission,"checingob ")
+
     useEffect(() => {
-        if (!admission.length) {
+        if (!admission?.length) {
             dispatch(getAdmissionThunk());
         }
-    }, [dispatch, admission.length]);
+    }, [dispatch, admission?.length]);
 
     const stats = [
         {
             id: 1,
             icon: card1,
             title: "Total Students",
-            value: admission.length.toString()
+            value: admission?.length.toString()
         },
         {
             id: 2,
             icon: card2,
             title: "Active Students",
-            value: admission.filter(s => s.is_active).length.toString()
+            value: admission?.filter(s => s.is_active).length.toString()
         },
         {
             id: 3,
             icon: card3,
             title: "Completed",
-            value: admission.filter(s => !s.is_active).length.toString()
+            value: admission?.filter(s => !s.is_active).length.toString()
         },
         {
             id: 4,
             icon: card4,
             title: "Avg Attendance",
-            value: admission.length.toString()
+            value: admission?.length.toString()
         }
     ];
 
@@ -68,7 +70,7 @@ const Admission = () => {
         <p className='text-gray-600'>Review and approve student admissions</p>
       </div>
       <div className='grid sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-5 '>
-            {stats.map((data,index)=>{
+            {stats?.map((data,index)=>{
                      return(
                        <div key={index} className=' bg-[#FFFFFF] shadow-[0_0_15px_rgba(0,0,0,0.1)] p-4 grid gap-2 rounded-xl'>
                          <div className='flex justify-between gap-3'>
@@ -91,7 +93,7 @@ const Admission = () => {
           <p>All New Admission Reviews</p>
          </h2>
          <div className='grid sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-5 p-2'>
-            {admission.map((data,index)=>{
+            {admission?.map((data,index)=>{
               return(
                 <div key={index} className='bg-[#FFFFFF] shadow-[0_0_15px_rgba(0,0,0,0.1)] p-4 rounded-xl border border-[#008BBF] flex flex-col justify-between'>
                <div className='flex flex-col justify-center items-center gap-1 mb-3'>

@@ -21,6 +21,15 @@ export default defineConfig({
       "react-redux": "^8.1.1",
       "@reduxjs/toolkit": "^1.9.5",
     },
+  }),
+  federation({
+    name:'ticketsystem',
+    remotes:{
+      ticketsystem:"http://localhost:4173/assets/ticketsystem.js"
+    },
+    shared: {
+        react: "^18.2.0",
+    },
   })
   ],
   build: {

@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
 
-const TicketManagement:React.FC = () => {
+const TicketSystem: React.FC = () => {
+
   const loadRemote = () => import('ticketsystem/ticketsystem')
     .then((module) => module)
     .catch(() => ({
@@ -16,4 +17,4 @@ const TicketManagement:React.FC = () => {
   )
 }
 
-export default TicketManagement
+export default TicketSystem

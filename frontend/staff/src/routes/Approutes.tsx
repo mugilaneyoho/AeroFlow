@@ -12,6 +12,7 @@ import LoginPage from '../pages/login/LoginPage'
 import PublicRoute from './PublicRoutes'
 import ProtectedRoute from './Protectedroutes'
 import ClassWindow from '../pages/classes/ClassWindow'
+import TicketSystem from '../pages/ticket/TicketSystem'
 
 
 const Approutes: React.FC = () => {
@@ -32,6 +33,7 @@ const Approutes: React.FC = () => {
             <Route path='/ViewAttendance' element={<ViewAttendance />} />
             {/* <Route path='/attendance' element={<Attendance />} /> */}
             <Route path='/syllabus' element={<Syllabus />} />
+            <Route path='/ticket' element={<TicketSystem/>} />
           </Route>
             <Route path='/onlineclass' element={<ClassWindow />} />
         </Route>
