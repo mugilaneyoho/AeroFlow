@@ -2,9 +2,12 @@ import React from 'react'
 import { Pending, ActivityFeed } from '../../dummyData/dashboard'
 import approved from "../../assets/dashboard/approved.png"
 import rejected from "../../assets/dashboard/reject.png"
-import dollar from "../../assets/dashboard/dollar.png"
 import clock from "../../assets/dashboard/clock.png"
+
+import { selectDashboardActivity } from '../../features/dashboard/reducer/selector'
+import { useSelector } from 'react-redux'
 const PendingReal = () => {
+    const activityData = useSelector (selectDashboardActivity)
   return (
     <div className='flex gap-5 mt-5'>
         <div className='xl:w-[40%] w-full shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl p-2 grid gap-4 bg-[#FFFFFF]'>
@@ -45,20 +48,21 @@ const PendingReal = () => {
                 })}
             </div>
         </div>
-        <div className='xl:w-[60%] w-full rounded-xl p-2 grid gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] bg-[#FFFFFF]'>
+        <div className='xl:w-[50%] w-full rounded-xl p-2 grid gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] bg-[#FFFFFF]'>
             <div className='flex gap-2'>
                 <h1 className='font-bold'>Real - Time Activity Feed</h1>
             </div>
-            <div className='grid gap-6'>
-               {ActivityFeed.map((data,index)=>{
+            <div className='flex flex-col gap-4'>
+               {activityData.map((data,index)=>{
                 return(
-                    <div key={index} className='flex gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl p-4 py-4'>
-                        <div className={`flex items-center justify-center text-center gap-3 rounded-md px-1 md:px-2 ${data.icon === dollar ? "bg-[#DCFCE7]" : data.icon === "calendar" ? "bg-[91A810]/20" : "bg-[#FFEEDA]"}`}>
-                            <img src={data.icon} className='w-6 h-6'/>
-                        </div>
+                    <div key={index} className='flex justify-between gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl p-4 py-4'>
                         <div>
-                            <h2 className="font-semibold text-sm">{data.title}</h2>
-                            <p className="">{data.para}</p>
+                            <h1 className='font-bold'>{data.performedBy}</h1>
+                            <p>{data.description}</p>
+                            <p>{data.createdAt && new Date(data.createdAt).toLocaleTimeString()}</p>
+                        </div>
+                        <div className={`px-2 rounded-xl h-8 ${data.status === "SUCCESS"? "bg-[#599E2E] text-white" : data.status === "FAILED"? "bg-[#D20F0F] text-white" : data.status === "PENDING"? "bg-[#D08700] text-white" : ""}`}>
+                            {data.status}
                         </div>
                     </div>
                 )

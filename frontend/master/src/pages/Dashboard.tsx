@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {card } from '../dummyData/dashboard'
 import PendingReal from '../components/dashboard/PendingReal'
 import QuickAction from '../components/dashboard/QuickAction'
 // import DepartmentPerformance from '../components/dashboard/DepartmentPerformance'
+
+import { getActivityLogThunk } from '../features/dashboard/reducer/thunks'
+import { useDispatch } from 'react-redux'
+
 const Dashboard = () => {
+  const dispatch = useDispatch<any>()
+
+  useEffect(()=>{
+    dispatch(getActivityLogThunk())
+  }, [dispatch])
   return (
     <div className='min-h-full w-full overflow-hidden'>
       <div className='grid gap-2 mb-5'>
