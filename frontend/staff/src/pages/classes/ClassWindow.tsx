@@ -3,10 +3,10 @@ import React, { Suspense } from 'react'
 const ClassWindow = () => {
 
     const loadRemote = ()=> import('onlineclass/callservice')
-      // .then((module) => module)
-      // .catch(() => ({
-      //   default: () => <div>Course module unavailable</div>
-      // }));
+      .then((module) => module)
+      .catch(() => ({
+        default: () => <div>Video Confrence module unavailable</div>
+      }));
 
     const OnlineClass = React.lazy(loadRemote)
   return (

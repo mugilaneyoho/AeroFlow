@@ -8,30 +8,32 @@ import Attendace from '../components/Attendance'
 import Fees from '../components/Fees'
 import { useAuth } from '../contexts/AuthUseContext'
 import MainLayout from '../layout/MainLayout'
+import CallerWindow from '../pages/CallerWindow'
 
-const AppRoute:React.FC = () => {
+const AppRoute: React.FC = () => {
 
-    const {isAuthenticated} = useAuth()
+    const { isAuthenticated } = useAuth()
 
     return (
         <>
             {
-                isAuthenticated ? 
-                <Routes>
-                    <Route path='/' element={<MainLayout/>}>
-                        <Route index element={<DashBoard/>}/>
-                        <Route path='/classes' element={<Classes/>}/>
-                        <Route path='/syllabus' element={<Syllabus/>}/>
-                        <Route path='/attendace' element={<Attendace/>}/>
-                        <Route path='/fees' element={<Fees/>}/>
-                        <Route path='*' element={<Navigate to='/'/>}/>
-                    </Route>
-                </Routes>
-                :
-                <Routes>
-                    <Route path='/login' element={<LoginPage/>}/>
-                    <Route path='*' element={<Navigate to='/login'/>}/>
-                </Routes>
+                isAuthenticated ?
+                    <Routes>
+                        <Route path='/' element={<MainLayout />}>
+                            <Route index element={<DashBoard />} />
+                            <Route path='/classes' element={<Classes />} />
+                            <Route path='/syllabus' element={<Syllabus />} />
+                            <Route path='/attendace' element={<Attendace />} />
+                            <Route path='/fees' element={<Fees />} />
+                            <Route path='*' element={<Navigate to='/' />} />
+                        </Route>
+                        <Route path='/confrence' element={<CallerWindow />} />
+                    </Routes>
+                    :
+                    <Routes>
+                        <Route path='/login' element={<LoginPage />} />
+                        <Route path='*' element={<Navigate to='/login' />} />
+                    </Routes>
             }
         </>
     )

@@ -48,9 +48,10 @@ const Ongoing = () => {
     return `${hours}:${minutes} ${ampm}`;
   };
 
-  const handelStartClass = (classid:string) =>{
+  const handelStartClass = (classid: string) => {
     const token = GetLocalStorage("AuthToken")
     window.open(`/onlineclass?classId=${classid}&token=${token}`, '_blank', 'noopener,noreferrer');
+    // navigate(`/onlineclass?classId=${classid}&token=${token}`)
   }
 
   const nowDate = new Date()
@@ -63,7 +64,7 @@ const Ongoing = () => {
       {classes?.map((item: any, index: number) => {
         const isLive = liveIndex === index
 
-        const isOngoing = (new Date(item?.start_time) < nowDate && new Date(item?.end_time) > nowDate ) ? true : false
+        const isOngoing = (new Date(item?.start_time) < nowDate && new Date(item?.end_time) > nowDate) ? true : false
 
         return (
           <div key={index}
@@ -104,7 +105,7 @@ const Ongoing = () => {
                   className="px-3 py-1 rounded-full text-sm"
                   style={{
                     backgroundColor:
-                       isOngoing
+                      isOngoing
                         ? COLORS.bg_ongoing_green
                         : COLORS.bg_upcoming_blue,
                     color: COLORS.secondary_white,
@@ -157,20 +158,23 @@ const Ongoing = () => {
 
             <div className="pt-3">
               <div className="flex gap-2 items-center">
-                <button
-                  className="flex gap-2 text-sm items-center justify-center px-2 py-2 rounded-[10px] whitespace-nowrap"
-                  // onClick={() => setLiveIndex(isLive ? null : index)}
-                  onClick={() => handelStartClass(item?.uuid)}
-                  style={{
-                    backgroundColor: isLive ? COLORS.bg_red : COLORS.secondary_white,
-                    color: isLive ? COLORS.secondary_white : COLORS.primary_violet,
-                    borderColor: COLORS.primary_violet,
-                    borderWidth: '1px',
-                  }}>
+                {
+                  item.class_mode === 'online' &&
+                  <button
+                    className="flex gap-2 text-sm items-center justify-center px-2 py-2 rounded-[10px] whitespace-nowrap"
+                    // onClick={() => setLiveIndex(isLive ? null : index)}
+                    onClick={() => handelStartClass(item?.uuid)}
+                    style={{
+                      backgroundColor: isLive ? COLORS.bg_red : COLORS.secondary_white,
+                      color: isLive ? COLORS.secondary_white : COLORS.primary_violet,
+                      borderColor: COLORS.primary_violet,
+                      borderWidth: '1px',
+                    }}>
 
-                  <img src={isLive ? endclasswhite : startclassviolet} />
-                  <span>{isLive ? 'End Class' : 'Start Class'}</span>
-                </button>
+                    <img src={isLive ? endclasswhite : startclassviolet} />
+                    <span>{isLive ? 'End Class' : 'Start Class'}</span>
+                  </button>
+                }
 
                 <button
                   className="flex gap-2 text-sm items-center px-2 py-2 rounded-[10px] border border-[#3B153A] whitespace-nowrap"

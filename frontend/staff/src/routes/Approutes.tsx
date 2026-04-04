@@ -21,7 +21,7 @@ const Approutes: React.FC = () => {
 
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<LoginPage />} />
-          <Route path='/onlineclass' element={<ClassWindow />} />
+          {/* <Route path='/onlineclass' element={<ClassWindow />} /> */}
         </Route>
 
         <Route element={<ProtectedRoute />} >
@@ -33,7 +33,7 @@ const Approutes: React.FC = () => {
             {/* <Route path='/attendance' element={<Attendance />} /> */}
             <Route path='/syllabus' element={<Syllabus />} />
           </Route>
-            {/* <Route path='/onlineclass' element={<ClassWindow />} /> */}
+            <Route path='/onlineclass' element={<ClassWindow />} />
         </Route>
       </Routes>
     </>

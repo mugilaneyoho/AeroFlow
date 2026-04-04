@@ -50,7 +50,7 @@ const ViewMyClasses = () => {
                 </div>
 
                 <div className="mt-5">
-                    {activeTab === "Today" && <Today classes={classes}/>}
+                    {activeTab === "Today" && <Today/>}
                     {activeTab === "Upcoming" && <Upcoming />}
                     {activeTab === "Completed" && <Completed classes={classes}/>}
                 </div>
