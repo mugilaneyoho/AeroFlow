@@ -40,7 +40,7 @@ export const httpEndPoints = {
     },
 
     dashboard:{
-        getAll: '/activelog'
+        getAll: '/notifylog/activelog'
     }
 
 }
