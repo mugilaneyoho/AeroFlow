@@ -1,0 +1,35 @@
+{
+  "name": "runner-script",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "start:telecaller":"cd .. && cd telecalling && npm run dev",
+    "start:hod":"cd .. && cd hod && npm run dev",
+    "start:staff":"cd .. && cd staff && npm run dev",
+    "start:student":"cd .. && cd student && npm run dev",
+    "start:reception":"cd .. && cd reception && npm run dev",
+    "start:master":"cd .. && cd master && npm run dev",
+
+    "build:telecaller":"cd .. && cd telecalling && npm run build && npm run preview",
+    "build:hod":"cd .. && cd hod && npm run build && npm run preview",
+    "build:staff":"cd .. && cd staff && npm run build && npm run preview",
+    "build:student":"cd .. && cd student && npm run build && npm run preview",
+    "build:reception":"cd .. && cd reception && npm run build && npm run preview",
+    "build:master":"cd .. && cd master && npm run build && npm run preview",
+    "build:ticket":"cd .. && cd ticketsystem && npm run build && npm run preview",
+    "build:video":"cd .. && cd videoconfrence && npm run build && npm run preview",
+
+    "start:dev":"concurrently -n TELECALLER,HOD,STAFF,STUDENT,RECEPTION,MASTER,TICKET,VIDEO -c yellow,green,blue,red,white,gray,purple,pink \"npm run start:telecaller\" \"npm run start:hod\" \"npm run start:staff\" \"npm run start:student\" \"npm run start:reception\" \"npm run start:master\" \"npm run build:ticket\" \"npm run build:video\" \"npm run build:telecaller\" \"npm run build:hod\" ",
+    
+    "build:all":"concurrently -n TELECALLER,HOD,STAFF,STUDENT,RECEPTION,MASTER,TICKET,VIDEO -c yellow,green,blue,red,white,gray,purple,pink \"npm run build:telecaller\" \"npm run build:hod\" \"npm run build:staff\" \"npm run build:student\" \"npm run build:reception\" \"npm run build:master\" \"npm run build:ticket\" \"npm run build:video\" "
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
