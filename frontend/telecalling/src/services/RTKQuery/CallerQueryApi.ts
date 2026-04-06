@@ -7,7 +7,7 @@ export const CallerQueryApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: import.meta.env.VITE_BACKEND_URL,
         prepareHeaders: (headers) => {
-            const token = GetLocalStorage('t_a_tk')
+            const token = GetLocalStorage("af_a_tk")
             if (token) {
                 headers.set('authorization', `${token}`)
             }

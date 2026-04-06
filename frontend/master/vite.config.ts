@@ -11,11 +11,11 @@ export default defineConfig({
     federation({
       name: "master",
       remotes: {
-        telecaller: "http://localhost:4174/assets/telecaller.js",
-        courses: "http://localhost:4173/assets/training.js",
-        batches: "http://localhost:4173/assets/training.js",
-        classes: "http://localhost:4173/assets/training.js",
-        ticketsystem:"http://localhost:4173/assets/ticketsystem.js"
+        telecaller: "http://localhost:6001/assets/telecaller.js",
+        courses: "http://localhost:6002/assets/training.js",
+        batches: "http://localhost:6002/assets/training.js",
+        classes: "http://localhost:6002/assets/training.js",
+        ticketsystem:"http://localhost:6007/assets/ticketsystem.js"
       },
       shared: {
         react: "^18.2.0",
@@ -25,4 +25,12 @@ export default defineConfig({
       },
     })
   ],
+  server:{
+    port:5006,
+    strictPort: true
+  },
+  preview:{
+    port:6006,
+    strictPort: true
+  }
 })

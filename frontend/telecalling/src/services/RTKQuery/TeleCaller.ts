@@ -7,7 +7,7 @@ export const TeleCallerApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: import.meta.env.VITE_BACKEND_URL,
         prepareHeaders: (headers) => {
-            const token = GetLocalStorage('t_a_tk')
+            const token = GetLocalStorage("af_a_tk")
             if (token) {
                 headers.set('authorization', `${token}`)
             }
@@ -25,7 +25,14 @@ export const TeleCallerApi = createApi({
             invalidatesTags: ['telecaller']
         }),
         getTeleCaller: builder.query({
-            query: () => ApiLists.telecaller.getAll,
+            query: (token:string | undefined) =>({
+                url:  ApiLists.telecaller.getAll,
+                method: 'GET',
+                headers:{
+                    Authorization: token ? token :  GetLocalStorage("af_a_tk") as string,
+                    'x-scope': 'telecaller'
+                }
+            }),
             providesTags: ['telecaller']
         }),
         updateTeleCaller:builder.mutation({

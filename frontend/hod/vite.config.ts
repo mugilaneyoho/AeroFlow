@@ -15,6 +15,9 @@ export default defineConfig({
       "./batches": "./src/remote/BatchPage.tsx",
       "./classes": "./src/remote/ClassPage.tsx",
     },
+    remotes: {
+      ticketsystem: "http://localhost:6007/assets/ticketsystem.js"
+    },
     shared: {
       react: "^18.2.0",
       "react-dom": "^18.2.0",
@@ -22,18 +25,17 @@ export default defineConfig({
       "@reduxjs/toolkit": "^1.9.5",
     },
   }),
-  federation({
-    name:'ticketsystem',
-    remotes:{
-      ticketsystem:"http://localhost:4173/assets/ticketsystem.js"
-    },
-    shared: {
-        react: "^18.2.0",
-    },
-  })
   ],
   build: {
     target: 'esnext',
     cssCodeSplit: false,
+  },
+  server: {
+    port: 5002,
+    strictPort: true
+  },
+  preview: {
+    port: 6002,
+    strictPort: true
   }
 })

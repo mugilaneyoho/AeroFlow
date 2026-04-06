@@ -20,4 +20,12 @@ export default defineConfig({
     target: 'esnext',   
     cssCodeSplit: false,
   },
+  server:{
+    port:5008,
+    strictPort: true
+  },
+  preview:{
+    port:6008,
+    strictPort: true
+  }
 })

@@ -11,11 +11,19 @@ export default defineConfig({
     federation({
       name: "vedioconfrence",
       remotes: {
-        onlineclass:"http://localhost:4173/assets/callservice.js"
+        onlineclass:"http://localhost:6008/assets/callservice.js"
       },
       shared: {
         react: "^18.2.0",
       },
     })
   ],
+  server:{
+    port:5004,
+    strictPort: true
+  },
+  preview:{
+    port:6004,
+    strictPort: true
+  }
 })

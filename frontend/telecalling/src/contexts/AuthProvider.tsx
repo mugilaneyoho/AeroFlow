@@ -4,17 +4,17 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider:React.FC<{children:ReactNode}>=({children})=>{
     const [isAuthenticated, setisAuthenticated] = useState(()=>{
-        const token = GetLocalStorage('t_a_tk')
+        const token = GetLocalStorage("af_a_tk")
         return !!token
     });
 
     const [isAdmin, setisAdmin] = useState(()=>{
-        const role = GetLocalStorage('t_as_r')
+        const role = GetLocalStorage("af_a_tk")
         return role === 'TELEADMIN' ? true : false
     });
 
     const login = (token:string, role:string, prof:string)=>{
-        StoreLocalStorage("t_a_tk",token)
+        StoreLocalStorage("af_a_tk",token)
         StoreLocalStorage("t_as_r",role)
         StoreLocalStorage("t_pro_i",prof)
         setisAuthenticated(true)
@@ -24,7 +24,7 @@ export const AuthProvider:React.FC<{children:ReactNode}>=({children})=>{
     };
 
     const logout=()=>{
-        RemoveLocalStorage('t_a_tk')
+        RemoveLocalStorage('"af_a_tk"')
         RemoveLocalStorage('t_as_r')
         setisAuthenticated(false)
     }

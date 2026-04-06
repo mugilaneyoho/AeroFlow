@@ -9,30 +9,32 @@ export default defineConfig({
     react(),
     tailwindcss(),
     federation({
-      name:'telecalling',
-      filename:'telecaller.js',
-      exposes:{
-        './telecallers':'./src/pages/remote/TeleCallers.tsx'
+      name: 'telecalling',
+      filename: 'telecaller.js',
+      exposes: {
+        './telecallers': './src/pages/remote/TeleCallers.tsx'
       },
-    shared: {
+      remotes: {
+        ticketsystem: "http://localhost:6007/assets/ticketsystem.js"
+      },
+      shared: {
         react: '^18.2.0',
         'react-dom': '^18.2.0',
         'react-redux': '^8.1.1',
         '@reduxjs/toolkit': '^1.9.5',
       },
     }),
-    federation({
-      name:'ticketsystem',
-      remotes:{
-        ticketsystem:"http://localhost:4173/assets/ticketsystem.js"
-      },
-      shared: {
-        react: '^18.2.0',
-      },
-    })
   ],
-   build: {
-    target: 'esnext',   
+  build: {
+    target: 'esnext',
     cssCodeSplit: false,
   },
+  server: {
+    port: 5001,
+    strictPort: true
+  },
+  preview: {
+    port: 6001,
+    strictPort: true
+  }
 })

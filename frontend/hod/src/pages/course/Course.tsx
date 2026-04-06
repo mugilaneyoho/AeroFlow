@@ -25,7 +25,11 @@ const Course:React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [price, setPrice] = useState<number>(0);
 
-
+  
+  // const location = window.location;
+  
+  // const values = new URLSearchParams(location.search)
+  // const token: string = values.get('tkn') as string;
 
   
   useEffect(() => {

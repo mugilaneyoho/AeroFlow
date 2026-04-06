@@ -14,20 +14,21 @@ import training from "../assets/sidebar/training.png"
 import logo from "../assets/sidebar/logo.png"
 import logoutimg from "../assets/sidebar/logout.png"
 import { useAuth } from '../contexts/AuthUseContext'
+import { GetLocalStorage } from '../utils/SecureStorage'
 
 
 const menuItems = [
-  { name: 'Dashboard', path: "/", icon: dasshboard },
-  { name: 'Admission', path: '/admission', icon: doubleuser },
-  // { name: 'Department', path: '/department', icon: doubleuser },
-  { name: 'Users & Faculty', path: '/usersandfaculty', icon: doubleuser },
-  { name: 'Meeting Management', path: '/meetingmanagement', icon: doubleuser },
-  { name: 'Tele-Calling', path: '/telecalling', icon: telecalling },
-  { name: 'Training & Events', path: '/trainingmanagement', icon: training },
-  { name: 'Student Management', path: '/studentmanagement', icon: student },
-  { name: 'Finance & Fees', path: '/financeandfees', icon: finance },
-  { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket },
-  // { name: 'Placement', path: '/placement', icon: Placement },
+  { name: 'Dashboard', path: "/", icon: dasshboard,token:false },
+  { name: 'Admission', path: '/admission', icon: doubleuser,token:false },
+  // { name: 'Department', path: '/department', icon: doubleuser,token:false },
+  { name: 'Users & Faculty', path: '/usersandfaculty', icon: doubleuser,token:false },
+  { name: 'Meeting Management', path: '/meetingmanagement', icon: doubleuser,token:false },
+  { name: 'Tele-Calling', path: '/telecalling', icon: telecalling, token:true },
+  { name: 'Training & Events', path: '/trainingmanagement', icon: training,token:false },
+  { name: 'Student Management', path: '/studentmanagement', icon: student,token:false },
+  { name: 'Finance & Fees', path: '/financeandfees', icon: finance,token:false },
+  { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket,token:false },
+  // { name: 'Placement', path: '/placement', icon: Placement,token:false },
   // { name: 'Reports & Analytics', path: '/reportsandanalytics', icon: report },
   // { name: 'Notification', path: '/notification', icon: notification }
 ]
@@ -39,6 +40,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
   const [trainingDropDowm, settrainingDropDowm] = useState(false);
   const {logout} = useAuth()
+  const token = GetLocalStorage("af_a_tk")
 
   function chagneTrainingDropdown() {
     settrainingDropDowm(!trainingDropDowm)
@@ -74,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
               {
                 trainingDropDowm &&
                 <div className='flex flex-col gap-3 ml-10 *:p-3'>
-                  <NavLink to='/course' className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+                  <NavLink to={`/course?tkn=${token}`} className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
                     <div className=''>
                       <img src={item.icon} className="w-5 h-5 " />
                     </div>
@@ -85,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
                       </span>
                     )}
                   </NavLink>
-                  <NavLink to='/batch' className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+                  <NavLink to={`/batch?tkn=${token}`} className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
                     <div className=''>
                       <img src={item.icon} className="w-5 h-5 " />
                     </div>
@@ -96,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
                       </span>
                     )}
                   </NavLink>
-                  <NavLink to='/class' className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+                  <NavLink to={`/class?tkn=${token}`} className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
                     <div className=''>
                       <img src={item.icon} className="w-5 h-5 " />
                     </div>
@@ -111,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }: SidebarProps) => {
               }
             </div>
             : <div key={item.name} className="relative group">
-              <NavLink to={item.path} className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
+              <NavLink to={item.path + (item.token ? `?tkn=${token}` : '')} className={({ isActive }) => `flex items-center gap-3 p-2 rounded-xl transition-all duration-200 ${!isOpen ? "justify-center" : ""} ${isActive ? "bg-[#EDBF5C] text-[#54191D]" : "text-white hover:bg-[#EDBF5C] hover:text-[#54191D]"} `}>
                 <div className=''>
                   <img src={item.icon} className="w-5 h-5 " />
                 </div>

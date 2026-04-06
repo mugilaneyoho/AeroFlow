@@ -7,7 +7,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useUpdateEmployeeLeadsMutation } from '../../services/RTKQuery/CallerQueryApi'
 
 type props = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data:any
 }
 
@@ -15,10 +14,11 @@ const FilteredCards:React.FC<props> = ({data}) => {
 
     const {status} = useParams()
     const navigate = useNavigate()
-    const [UpdateLeads,{isLoading,isSuccess}] = useUpdateEmployeeLeadsMutation()
+    const [UpdateLeads,{isLoading}] = useUpdateEmployeeLeadsMutation()
 
     const handelStatusUpdate = (data:any)=>{
         UpdateLeads({...data,status:'REJECTED'})
+        console.log(isLoading)
     }
 
   return (

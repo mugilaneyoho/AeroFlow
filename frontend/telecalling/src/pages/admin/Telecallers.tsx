@@ -12,7 +12,12 @@ const Telecaller:React.FC = () => {
   const [Form, setForm] = useState<boolean>(false);
   const [uuid,setuuid] = useState('')
 
-  const {data} = useGetTeleCallerQuery('telecallerapi')
+  const location = window.location;
+  
+  const values = new URLSearchParams(location.search)
+  const token: string = values.get('tkn') as string;
+
+  const {data} = useGetTeleCallerQuery(token)
 
   const CloseForm =()=>{
     setForm(false)
@@ -46,8 +51,8 @@ const Telecaller:React.FC = () => {
 
       <div className='grid 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-5 w-full'>
         {
-          data?.data?.map((data:TeleCallerProfile)=>(
-            <TeleCallerCard data={data} setuuid={setuuid} setform={setForm}/>
+          data?.data?.map((data:TeleCallerProfile,index:number)=>(
+            <TeleCallerCard key={index} data={data} setuuid={setuuid} setform={setForm}/>
           ))
         }
       </div>

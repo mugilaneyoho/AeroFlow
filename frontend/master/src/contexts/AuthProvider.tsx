@@ -4,17 +4,17 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider:React.FC<{children:ReactNode}>=({children})=>{
     const [isAuthenticated, setisAuthenticated] = useState(()=>{
-        const token = GetLocalStorage('t_m_tk')
+        const token = GetLocalStorage("af_a_tk")
         return !!token
     });
 
     const login = (token:string)=>{
-        SetLocalStorage("t_m_tk",token)
+        SetLocalStorage("af_a_tk",token)
         setisAuthenticated(true)
     };
 
     const logout=()=>{
-        RemoveLocalStorage('t_m_tk')
+        RemoveLocalStorage("af_a_tk")
         setisAuthenticated(false)
     }
 

@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Suspense } from 'react'
 
 const TicketManagement:React.FC = () => {
-  const loadRemote = () => import('ticketsystem/ticketsystem')
+  const loadRemote = () => import('ticketsystem/ticketsystem' as any)
     .then((module) => module)
     .catch(() => ({
       default: () => <div>Ticket System module unavailable</div>

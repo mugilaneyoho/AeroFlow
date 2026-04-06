@@ -5,7 +5,7 @@ const RecentCall:React.FC = () => {
 
     const {data,isLoading} = useGetAllActivityQuery({})
 
-    console.log(data,"active log")
+    console.log(isLoading,"active log")
 
   return (
     <div className='w-full h-full shadow-[0px_0px_14px_0px_#00000040_inset] p-3 rounded-xl'>

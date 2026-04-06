@@ -91,8 +91,8 @@ const Dashboard: React.FC = () => {
     },
   ];
 
-  const onlineBatches = BatchList?.filter((batch) => batch.batchMode === "ONLINE");
-  const offlineBatches = BatchList?.filter((batch) => batch.batchMode === "OFFLINE");
+  // const onlineBatches = BatchList?.filter((batch) => batch.batchMode === "ONLINE");
+  // const offlineBatches = BatchList?.filter((batch) => batch.batchMode === "OFFLINE");
 
   return (
 
