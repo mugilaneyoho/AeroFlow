@@ -58,7 +58,7 @@ const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>)  => {
 
     login(token);
     secureLocalStorage.setItem("user", JSON.stringify(result.user));
-    secureLocalStorage.setItem("token", token);
+    
 
     toast.success("Login Successful");
 
