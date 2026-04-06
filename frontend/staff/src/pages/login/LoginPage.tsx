@@ -49,6 +49,8 @@ const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
           console.log("Dispatch result:", result);
 
        const userRole = result.user.role ;
+       console.log("check the data", userRole);
+       
 
        if (role === "Staff" && userRole !== "Staff") 
     {

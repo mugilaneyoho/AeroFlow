@@ -6,6 +6,7 @@ import batchReducer from '../features/batchpage/reducer/batchSlice';
 import dashboardReducer from '../features/dashboards/reducers/dashboardSlice';
 import studentReducer from '../features/studentpage/reducer/studentSlice';
 import loginReaducer from '../features/login/reducer/loginSlice';
+import notification from '../features/notification/reducers/hodnotislice'
 const store = configureStore({
 	reducer: {
 		staff: staffReducer,
@@ -14,7 +15,8 @@ const store = configureStore({
 		batch: batchReducer,
 		dashboard:dashboardReducer,
 		student:studentReducer,
-		login: loginReaducer 
+		login: loginReaducer,
+		notification: notification ,
 	},
 });
 

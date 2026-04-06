@@ -1,7 +1,9 @@
 // import React from 'react'
 import { COLORS, FONTS } from '../../constant'
-import { useSelector } from "react-redux";
-import { selectStaffDashboard } from "../../features/dashboard/reducer/selector";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllNotification } from "../../features/notification/reducer/selector";
+import { getNotificationThunk } from "../../features/notification/reducer/thunk";
+import { useEffect } from 'react';
 
 // const stats =[
 //     {
@@ -33,9 +35,12 @@ import { selectStaffDashboard } from "../../features/dashboard/reducer/selector"
 // ]
 
 const Notifications = () => {
-    const staffDashboard: any = useSelector(selectStaffDashboard);
+    const dispatch = useDispatch<any>();
+    const stats = useSelector(selectAllNotification);
 
-    const stats = staffDashboard?.notifications || [];
+    useEffect(() => {
+        dispatch(getNotificationThunk());
+    }, [dispatch]);
     return (
         <div className='w-full h-full p-4 rounded-[10px]' style={{ boxShadow: COLORS.shadow_violet }}>
             <h1 style={{ color: COLORS.primary_violet, ...FONTS.header }}>Notifications</h1>
@@ -46,8 +51,14 @@ const Notifications = () => {
                             <p>{item.topic}</p>
                             <p>{item.hours}</p>
                         </div>
-                        <div>
-                            <span className='text-[#6D6D6D]'>{item.status} . {item.priority}</span>
+                        <div className='flex justify-between'>
+                            <span className='text-[#6D6D6D] font-bold'> {item.title}</span>
+                            <span className='text-[#6D6D6D] border px-2 rounded-md'>{item.priority}</span>
+                        </div>
+                        <div className='flex flex-col'>
+                            <span className='text-[#6D6D6D]'> {item.message}</span>
+                            <span className='text-[#6D6D6D]'> {item.Role}</span>
+                            <span className='text-[#6D6D6D]'> {item.CreateAt}</span>
                         </div>
                     </div>
                 ))}

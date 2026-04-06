@@ -22,8 +22,12 @@ const httpEndPoints = {
       
   },
    dashboard: { 
-      staff: "/training/staff/dashboard",   
+      staff: "/staff/dashboard",   
   },
+
+  notification:{
+    getAll: '/notification/get'
+  }
  
 }
 export default httpEndPoints;

@@ -48,6 +48,10 @@ const httpEndPoints = {
       getAll:"/auth/admins/all",
       update:"/auth/admins/:uuid",
       delete:"/auth/admins/:uuid",
+  },
+  
+  notification:{
+    getAll: '/notification/get'
   }
 };
 

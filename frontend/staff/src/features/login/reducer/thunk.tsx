@@ -16,14 +16,16 @@ export const staffloginThunk = (loginData: { email: string; password: string ; r
         const token = await staffloginService(loginData);
 
       console.log("Token Received:", token);
+      console.log("Login Data:", loginData);
 
-      if (!token) {
-        throw new Error("Please enter correct email and password");
-      }
+      // if (!token) {
+      //   throw new Error("Please enter correct email and password");
+      // }
 
       const user = {
         email: loginData.email,
         role: loginData.role,
+        passwordd: loginData.password
       };
 
       dispatch(signin({ user, token }));

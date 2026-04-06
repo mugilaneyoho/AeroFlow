@@ -131,6 +131,9 @@ class Client {
     createAdmin: (data: any) => httpClients.post(httpEndPoints.admins.create, data),
     updateAdmin: (uuid: string, data: any) => httpClients.put(httpEndPoints.admins.update.replace(":uuid", uuid), data),
     deleteAdmin: (uuid: string) => httpClients.delete(httpEndPoints.admins.delete.replace(":uuid", uuid)),
+  };
+  notification={
+    getAllNotification:()=>httpClients.get(httpEndPoints.notification.getAll)
   }
 
 }
