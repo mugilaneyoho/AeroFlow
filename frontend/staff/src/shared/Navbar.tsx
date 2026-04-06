@@ -4,20 +4,20 @@ import logoutimg from '../assets/images/logout.png'
 import { COLORS, FONTS } from '../constant'
 import { useNavigate } from 'react-router-dom'
 import Profilepage from '../component/profile/Profilepage'
-import { RemoveLocalStorage } from '../utils/helpers'
-import type { AppDispatch } from '../store/store'
-import { useDispatch } from 'react-redux'
-import { logout } from '../features/login/reducer/authSlice'
+import { RemoveLocalStorage } from '../utils/SecureStorage'
+import { useAuth } from '../context/AuthUseContext'
+
+// import { logout } from '../features/login/reducer/authSlice'
 
 const Navbar:React.FC = () => {
    const navigate = useNavigate()
    const[open,setOpen] = useState(false)
    const [profileOpen , setProfileOpen] = useState(false)
-   const dispatch = useDispatch<AppDispatch>()
+   const { logout: authLogout } = useAuth();
    
    const handleLogout = () =>{
     RemoveLocalStorage("AuthToken")
-    dispatch(logout())
+    authLogout();
     setOpen(false)
     navigate("/login",{replace:true})
   }

@@ -2,14 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import classesReducer from '../features/classes/reducer/classesSlice';
 import attendanceReducer from '../features/attendance/reducer/attenSlice';
-import loginReducer from '../features/login/reducer/authSlice';
+// import loginReducer from '../features/login/reducer/authSlice';
 import dashboardReducer from '../features/dashboard/reducer/dashboadSlice';
 import notification from '../features/notification/reducer/notislice'
 const store = configureStore({
 	reducer: {
         classes: classesReducer, 
 		attendance: attendanceReducer,
-        login:loginReducer,
+        // login:loginReducer,
 		dashboard:dashboardReducer,
 		notification:notification
 	},

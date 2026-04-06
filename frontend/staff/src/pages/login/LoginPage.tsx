@@ -4,16 +4,19 @@ import loginimg from "../../assets/images/loginimg.png";
 import computerimg from "../../assets/images/loginsystem.png";
 import { COLORS, FONTS } from "../../constant";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store";
-import { staffloginThunk } from "../../features/login/reducer/thunk";
+// import { staffloginThunk } from "../../features/login/reducer/thunk";
 import { toast } from "react-toastify/unstyled";
+import { useAuth } from "../../context/AuthUseContext";
+import secureLocalStorage from "react-secure-storage";
+import { staffloginService } from "../../features/login/services";
 
 const LoginPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 const navigate = useNavigate();
-const { isAuthenticated } = useSelector((state: any) => state.login);
-
+// const { isAuthenticated } = useSelector((state: any) => state.login);
+const { login ,isAuthenticated } = useAuth()
 
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
@@ -28,46 +31,43 @@ useEffect(()=>{
 
 const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/?.test(email);
 
-const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>)  => {
   e.preventDefault();
-  let newErrors = { email: "", password: "" };
-    
+  
+   if (!isValidEmail(email)) {
+    toast.error("Please enter a valid email");
+    return;
+  }
+ 
+  if (!password) {
+    toast.error("Password is required");
+    return;
+  }
+  try {
+    const result = await staffloginService({
+      email,
+      password,
+     
+    });
+    const token = result?.data;
 
-    if (!isValidEmail(email)) {
-      newErrors.email = "Enter a valid email";
-    }
-
-    if (!password.trim()) {
-      newErrors.password = "Password is required";
-    }
-    try {
-      const result = await dispatch(
-        staffloginThunk({ email, password,role })
-      ) as any; 
-
-   
-          console.log("Dispatch result:", result);
-
-       const userRole = result.user.role ;
-       console.log("check the data", userRole);
-       
-
-       if (role === "Staff" && userRole !== "Staff") 
-    {
-      toast.error("You are not allowed to login as Staff");
+    if (!token) {
+      toast.error("Token not received");
       return;
     }
 
-      toast.success("Login Successful");
-      setTimeout(() => {
-       navigate("/", { replace: true });
-       }, 800);
-    } catch (err: any) {
-      toast.error(err?.message || "Invalid credentials!", {
-        style: { backgroundColor: "#DC2626", color: "white" },
-      });
-    }
-  };
+    login(token);
+    secureLocalStorage.setItem("user", JSON.stringify(result.user));
+    secureLocalStorage.setItem("token", token);
+
+    toast.success("Login Successful");
+
+    navigate("/", { replace: true });
+
+  } catch (err: any) {
+    toast.error(err?.message || "Invalid credentials!");
+  }
+};
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 bg-[#F4F4F4] px-8">
