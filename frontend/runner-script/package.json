@@ -25,7 +25,7 @@
     "build:ticket":"cd .. && cd ticketsystem && npm run build && npm run preview",
     "build:video":"cd .. && cd videoconfrence && npm run build && npm run preview",
 
-    "start:dev":"concurrently -n TELECALLER,HOD,STAFF,STUDENT,RECEPTION,MASTER,TICKET,VIDEO -c yellow,green,blue,red,white,gray,purple,pink \"npm run start:telecaller\" \"npm run start:hod\" \"npm run start:staff\" \"npm run start:student\" \"npm run start:reception\" \"npm run start:master\" \"npm run build:ticket\" \"npm run build:video\" \"npm run build:telecaller\" \"npm run build:hod\" ",
+    "start:all":"concurrently -n TELECALLER,HOD,STAFF,STUDENT,RECEPTION,MASTER,TICKET,VIDEO -c yellow,green,blue,red,white,gray,purple,pink \"npm run start:telecaller\" \"npm run start:hod\" \"npm run start:staff\" \"npm run start:student\" \"npm run start:reception\" \"npm run start:master\" \"npm run build:ticket\" \"npm run build:video\" \"npm run build:telecaller\" \"npm run build:hod\" ",
     
     "build:all":"concurrently -n TELECALLER,HOD,STAFF,STUDENT,RECEPTION,MASTER,TICKET,VIDEO -c yellow,green,blue,red,white,gray,purple,pink \"npm run build:telecaller\" \"npm run build:hod\" \"npm run build:staff\" \"npm run build:student\" \"npm run build:reception\" \"npm run build:master\" \"npm run build:ticket\" \"npm run build:video\" "
   },
