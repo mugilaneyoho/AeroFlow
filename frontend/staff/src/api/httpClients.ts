@@ -75,6 +75,13 @@ class HttpClient {
     const response = await Axios.delete(url, { params });
     return response.data;
   }
+
+  async upload(url: string, formData: FormData) {
+    const response = await Axios.post(url, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return response.data;
+  }
 }
 
 export default new HttpClient();

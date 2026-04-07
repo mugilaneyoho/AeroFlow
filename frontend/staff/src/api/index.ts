@@ -52,6 +52,11 @@ class Client {
   };
   notification={
     getAllNotification:()=>httpClients.get(httpEndPoints.notification.getAll)
+  };
+  notes={
+    getNotes:()=>httpClients.get(httpEndPoints.notes.getAll),
+    createNote:(data:any)=>httpClients.post(httpEndPoints.notes.create, data),
+    updateNote:(id:number, data:any)=>httpClients.put(httpEndPoints.notes.update.replace(':id', String(id)), data)
   }
   }
 
