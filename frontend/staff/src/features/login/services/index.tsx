@@ -1,13 +1,8 @@
-import Client from "../../../api/index";
 
-export const staffloginService = async (data: {email: string;password: string;}) => {
-  try {
-    const response = await Client.staff.login(data);
-    return response.data;
-  } catch (error: any) {
-    throw error?.response?.data || {message:error.message || 'Login failed'};
-  }
-};
+import client from "../../../api/index"
 
-
-
+export const staffloginService = async (data:{email:string,password:string})=>{
+    const response = await client.staff.login(data)
+    console.log("login response:", response)
+    return response
+}

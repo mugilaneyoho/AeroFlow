@@ -17,7 +17,8 @@ const httpEndPoints = {
 
    stafflogin:
    {
-      login: "/auth/staff/login",      
+      // login: "/auth/staff/login", 
+      login: "/staff/login",     
       update:"/auth/staff/:uuid",      
       
   },
