@@ -34,6 +34,7 @@ const httpEndPoints = {
   },
   dashboard: {
     admin: "/training/dashboard",
+    // admin: "/dashboard",
     staff: "/training/dashboard/staff/:uuid",
   },
   student:{
@@ -43,7 +44,9 @@ const httpEndPoints = {
     delete: "/institute/student/:uuid",
   },
   admins:{
-     login: "/auth/admins/login",
+    //  login: "/auth/admins/login",
+     login: "/admins/login",
+
      create:"/auth/admins/create",
       getAll:"/auth/admins/all",
       update:"/auth/admins/:uuid",
@@ -51,7 +54,7 @@ const httpEndPoints = {
   },
   
   notification:{
-    getAll: '/notification/get'
+    getAll: '/notification'
   }
 };
 

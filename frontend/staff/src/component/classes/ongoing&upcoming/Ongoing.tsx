@@ -51,7 +51,7 @@ const Ongoing = () => {
   const handelStartClass = (classid: string) => {
     const token = GetLocalStorage("AuthToken")
     window.open(`/onlineclass?classId=${classid}&token=${token}`, '_blank', 'noopener,noreferrer');
-    // navigate(`/onlineclass?classId=${classid}&token=${token}`)
+    navigate(`/onlineclass?classId=${classid}&token=${token}`)
   }
 
   const nowDate = new Date()

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import LoginPage from '../pages/loginPage'
-import DashBoard from '../pages/DashBoard'
+import DashBoard from '../pages/dashboard'
 import Classes from '../pages/classes'
 import Syllabus from '../pages/syllabus'
 import Attendace from '../components/Attendance'
@@ -16,8 +16,8 @@ const AppRoute: React.FC = () => {
 
     return (
         <>
-            {
-                isAuthenticated ?
+            {/* {
+                isAuthenticated ? */}
                     <Routes>
                         <Route path='/' element={<MainLayout />}>
                             <Route index element={<DashBoard />} />
@@ -29,12 +29,12 @@ const AppRoute: React.FC = () => {
                         </Route>
                         <Route path='/confrence' element={<CallerWindow />} />
                     </Routes>
-                    :
+                    {/* :
                     <Routes>
                         <Route path='/login' element={<LoginPage />} />
                         <Route path='*' element={<Navigate to='/login' />} />
-                    </Routes>
-            }
+                    </Routes> */}
+            {/* } */}
         </>
     )
 }

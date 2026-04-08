@@ -8,6 +8,10 @@ import { logout } from "../features/login/reducer/loginSlice";
 const Axios = axios.create({
 //  baseURL: "http://localhost:3004",
  baseURL: "http://localhost:3000",
+//  baseURL: "http://localhost:3002",
+// baseURL: "http://localhost:3010",
+  //  baseURL: "http://localhost:3008",
+
 
   timeout: 500000,
   headers: { "Content-Type": "application/json" },
@@ -17,7 +21,7 @@ Axios.interceptors.request.use(
   (config) => {
     const token = GetLocalStorage("AuthToken");
     if (token) {
-      config.headers["Authorization"] = `${token}`;
+      // config.headers["Authorization"] = `${token}`;
     }
     return config;
   }
