@@ -27,6 +27,12 @@ const httpEndPoints = {
 
   notification:{
     getAll: '/notification/get'
+  },
+
+  notes:{
+   getAll: '/resources/notes',
+   create: '/resources/note',
+   update: '/resources/note/:id',
   }
  
 }
