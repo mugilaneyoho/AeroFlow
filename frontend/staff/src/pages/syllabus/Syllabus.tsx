@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { COLORS, FONTS } from '../../constant'
 import Online from '../../component/syllabus/Online'
 import Offline from '../../component/syllabus/Offline'
+import UploadOnline from '../../component/syllabus/UploadOnline';
 
 const Syllabus:React.FC = () => {
   const [activeTab , setActiveTab] = useState<'online' | 'offline'>('online')
+  const [showUpload, setShowUpload] = useState(false);
   return (
     <div className=''>
         <div className='flex justify-between flex-col sm:flex-row items-start sm:items-center gap-4'>
@@ -17,7 +19,9 @@ const Syllabus:React.FC = () => {
             </p>
           </div>
            <div>
-               <button style={{borderColor:COLORS.primary_violet,color:COLORS.primary_violet}} className='p-2 border rounded font-medium'>Uploaded Materials</button>
+               <button style={{borderColor:COLORS.primary_violet,color:COLORS.primary_violet}} className='p-2 border rounded font-medium'
+               onClick={() => setShowUpload(true)}
+               >Uploaded Materials</button>
            </div>
             </div>  
            
@@ -46,6 +50,7 @@ const Syllabus:React.FC = () => {
         {activeTab === 'online' && <Online />}
         {activeTab === 'offline' && <Offline />}
       </div>
+      {showUpload && <UploadOnline onClose={() => setShowUpload(false)} />}
 
     </div>
   )

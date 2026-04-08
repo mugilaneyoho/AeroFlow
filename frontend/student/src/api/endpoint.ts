@@ -8,10 +8,6 @@ export const HttpEndPoints = {
         get:'/training/classes/student/:classtype'
     },
 
-    notes:{
-
-    },
-
     attendance:{
         get:'/training/attendance/student'
     },
@@ -22,5 +18,8 @@ export const HttpEndPoints = {
     
     fees:{
         getAll: (uuid: string) => `/institute/student/${uuid}/fees`
-    }
+    },
+    notes: {
+        getnotes: (id: number) => `/resources/notes/${id}`
+}
 }

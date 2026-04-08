@@ -21,6 +21,10 @@ class Client {
     attendance = {
         get:(data:{date:string})=>httpclient.get(HttpEndPoints.attendance.get,data)
     }
+
+    notes = {
+    getById: (id: number) => httpclient.get(HttpEndPoints.notes.getnotes(id))
+}
 }
 
 export default new Client()
