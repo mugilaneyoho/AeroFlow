@@ -9,8 +9,8 @@ import { useAuth } from "../contexts/AuthUseContext";
 
 const Login = () => {
 
-    const [email, setEmail] = useState("admin@reception.com");
-    const [password, setPassword] = useState("123456");
+    const [email, setEmail] = useState("reception@aeroflow.com");
+    const [password, setPassword] = useState("reception");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [Login,{isLoading}] = useLoginMutation();

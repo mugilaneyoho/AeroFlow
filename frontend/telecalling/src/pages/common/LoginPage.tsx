@@ -73,12 +73,12 @@ const LoginPage:React.FC = () => {
         <div className='flex flex-col gap-5 mt-5 w-80'>
             <div className='flex flex-row gap-5 p-2 items-center rounded-xl bg-white'>
                 <CiMail/>
-                <input type="text" defaultValue="admin@telecalling.com" ref={emailRef} className='w-full focus:outline-none' placeholder='enter your email'/>
+                <input type="text" defaultValue={isAdmin ? "teleadmin@aeroflow.com" : undefined} ref={emailRef} className='w-full focus:outline-none' placeholder='enter your email'/>
             </div>
             <div className='flex flex-row gap-5 p-2 items-center rounded-xl bg-white justify-between'>
                 <div className='flex flex-row items-center gap-5'>
                 <CiLock/>
-                <input type="text" defaultValue="123456" ref={passRef} className='w-full focus:outline-none' placeholder='enter your password'/>
+                <input type="text" defaultValue={isAdmin ? "teleadmin" : undefined} ref={passRef} className='w-full focus:outline-none' placeholder='enter your password'/>
                 </div>
                 <IoEyeOutline/>
             </div>

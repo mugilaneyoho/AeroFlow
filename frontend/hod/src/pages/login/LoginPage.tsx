@@ -16,8 +16,8 @@ const LoginPage = () => {
   const { isAuthenticated } = useSelector((state: any) => state.login);
 
 
-  const [email, setEmail] = useState("hod@training.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("hod@aeroflow.com");
+  const [password, setPassword] = useState("hod");
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("Head of the Department");
 
