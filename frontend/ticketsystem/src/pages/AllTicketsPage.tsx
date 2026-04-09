@@ -1,13 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import FilterBar from "../components/FilterBar";
-import { dummyTickets } from "../data/dummyTickets";
 
 const AllTicketsPage = () => {
     const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [tickets, setTickets] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const location = window.location
+
+    const values = new URLSearchParams(location.search)
+    const token: string = values.get('tkn') as string;
 
     const handleToggle = (id: string) => {
         setExpandedId(prevId => (prevId === id ? null : id));
     };
+
+    useEffect(() => {
+        const fetchTickets = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/tickets', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
+
+                setTickets(response.data);
+            } catch (error: any) {
+                console.error("Error fetching tickets:", error.response?.data || error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTickets();
+    }, [token]);
 
     const statusStyles: Record<string, string> = {
         'open': 'bg-blue-100 text-blue-700 border-blue-200',
@@ -23,6 +50,8 @@ const AllTicketsPage = () => {
         'urgent': 'bg-purple-100 text-purple-700 border-purple-200',
     };
 
+    if (loading) return <div>Loading tickets...</div>;
+
     return (
         <>
             <h1 className="text-3xl font-medium">All Tickets</h1>
@@ -30,7 +59,7 @@ const AllTicketsPage = () => {
             <FilterBar />
 
             <div className="flex flex-col gap-4 mt-6">
-                {dummyTickets.map((ticket) => {
+                {tickets.map((ticket) => {
                     const isExpanded = expandedId === ticket.id;
 
                     return (

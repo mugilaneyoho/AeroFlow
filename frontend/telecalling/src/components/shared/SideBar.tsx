@@ -2,8 +2,10 @@
 import React, { useState } from 'react'
 import NavbarIcon from '../../assets/navbar/index'
 import { Link, useLocation } from 'react-router-dom'
+import { GetLocalStorage } from '../../utils/LocalStorage'
 
 const SideBar:React.FC = () => {
+  const token = GetLocalStorage('af_a_tk')
   return (
     <div className='w-16'>
       <div className='w-full h-[90vh] bg-[#1F338C]' style={{clipPath:'polygon(0 0, 100% 19%, 100% 80%, 0% 100%)'}}>
@@ -44,7 +46,7 @@ const SideBar:React.FC = () => {
             ]}
           /> */}
           <SideBarLink
-            to='/ticket'
+            to={`/ticket/?tkn=${token}`}
             icon={[
               <img src={NavbarIcon.normal.ticket} alt="" className=' absolute'/>,
               <img src={NavbarIcon.clickable.ticket} alt="" className=' absolute'/>

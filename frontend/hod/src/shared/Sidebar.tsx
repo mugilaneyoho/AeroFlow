@@ -8,8 +8,10 @@ import classes from "../assets/sidebar/classes.png"
 import tickets from "../assets/sidebar/tickets.png"
 import sidelogo from "../assets/sidebar/sidelogo.png"
 import { COLORS } from "../constant"
+import { GetLocalStorage } from "../utils/helpers"
 
 const Sidebar = () => {
+  const token = GetLocalStorage('AuthToken')
   return (
     <aside className="w-16 sm:w-60 h-screen p-2 sm:p-4 rounded-r-[10px]" style={{ backgroundColor: COLORS.primary_blue }}>
 
@@ -93,7 +95,7 @@ const Sidebar = () => {
           <span className="hidden sm:inline">Classes</span>
         </NavLink>
 
-        <NavLink to="/ticket"
+        <NavLink to={`/ticket/?tkn=${token}`}
           style={({ isActive }) => ({
             backgroundColor: isActive ? COLORS.bg_light_white : 'transparent',
             color: isActive ? COLORS.secondary_white : COLORS.text_sidebar,

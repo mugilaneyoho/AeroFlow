@@ -1,6 +1,26 @@
-import { dummyTickets } from "../data/dummyTickets";
+import axios from "axios";
+import { useEffect,useState } from "react";
 
 const FilterBar = () => {
+    const [tickets, setTickets] = useState<any[]>([]);
+
+        useEffect(() => {
+        const fetchTickets = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/tickets', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                setTickets(response.data);
+            } catch (error: any) {
+                console.error("Error fetching tickets:", error.response?.data || error.message);
+            }
+        };
+
+        fetchTickets();
+    }, []);
 
     return (
         <div className="flex border border-gray-300 rounded-md p-4 gap-6 mt-4">
@@ -32,7 +52,7 @@ const FilterBar = () => {
                 </select>
             </div>
 
-            <div className="ml-auto my-auto">{dummyTickets.length} tickets</div>
+            <div className="ml-auto my-auto">{tickets.length} tickets</div>
         </div>
     )
 }

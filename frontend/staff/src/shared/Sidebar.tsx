@@ -15,8 +15,10 @@ import tickets_gray from "../assets/sidebar/ticket_gray.png"
 
 import sidelogo from "../assets/sidebar/admin_logo.png"
 import { COLORS } from "../constant"
+import { GetLocalStorage } from "../utils/SecureStorage"
 
 const Sidebar = () => {
+  const token = GetLocalStorage('AuthToken')
   return (
     <aside className="w-16 sm:w-60 h-screen p-2 sm:p-4 rounded-r-[10px]" style={{ backgroundColor: COLORS.primary_violet }}>
 
@@ -95,7 +97,7 @@ const Sidebar = () => {
 
 
 
-        <NavLink to="/ticket"
+        <NavLink to={`/ticket/?tkn=${token}`}
           style={({ isActive }) => ({
             backgroundColor: isActive ? COLORS.secondary_white : 'transparent',
             color: isActive ? COLORS.primary_violet : COLORS.text_gray,

@@ -1,15 +1,16 @@
 import { Ticket, Plus, CircleCheckBig } from 'lucide-react';
 
 interface NavbarProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+    activeTab: string;
+    setActiveTab: (tab: string) => void;
+    openCreateTicket: () => void;
 }
 
 
-const Navbar = ({ activeTab, setActiveTab }: NavbarProps) => {
+const Navbar = ({ activeTab, setActiveTab, openCreateTicket }: NavbarProps) => {
 
     const getTabClass = (tabName: string) => {
-        const baseClasses = "flex gap-2 items-center p-2 rounded-md transition-all cursor-pointer text-xl";
+        const baseClasses = "flex gap-2 items-center p-2 rounded-md cursor-pointer text-xl";
         const activeClasses = "bg-gray-300 text-gray-900 font-medium";
         const inactiveClasses = "text-gray-500 hover:bg-gray-200 hover:text-gray-700";
 
@@ -28,7 +29,7 @@ const Navbar = ({ activeTab, setActiveTab }: NavbarProps) => {
                     <h1 className='text-xl'>All Tickets</h1>
                 </div>
                 <div className={getTabClass('created')}
-                    onClick={() => setActiveTab('created')}>
+                    onClick={openCreateTicket}>
                     <Plus className='w-6 h-6' />
                     <h1 className='text-xl'>Create Ticket</h1>
                 </div>

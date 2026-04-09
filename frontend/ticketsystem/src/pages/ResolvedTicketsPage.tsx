@@ -1,13 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CircleCheckBig } from "lucide-react";
-import { dummyTickets } from "../data/dummyTickets";
+import axios from "axios";
 
 const ResolvedTicketsPage = () => {
     const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [tickets, setTickets] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const location = window.location
+
+    const values = new URLSearchParams(location.search)
+    const token: string = values.get('tkn') as string;
 
     const handleToggle = (id: string) => {
         setExpandedId(prevId => (prevId === id ? null : id));
     };
+
+    useEffect(() => {
+        const fetchTickets = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/tickets', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
+
+                setTickets(response.data);
+            } catch (error: any) {
+                console.error("Error fetching tickets:", error.response?.data || error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTickets();
+    }, []);
 
     const statusStyles: Record<string, string> = {
         'resolved': 'bg-green-100 text-green-700 border-green-200',
@@ -21,9 +48,11 @@ const ResolvedTicketsPage = () => {
         'urgent': 'bg-purple-100 text-purple-700 border-purple-200',
     };
 
-    const filteredTickets = dummyTickets.filter(
+    const filteredTickets = tickets.filter(
         (t) => t.status === 'resolved' || t.status === 'closed'
     );
+
+    if (loading) return <div>Loading tickets...</div>;
 
     return (
         <>

@@ -27,7 +27,7 @@ const menuItems = [
   { name: 'Training & Events', path: '/trainingmanagement', icon: training,token:false },
   { name: 'Student Management', path: '/studentmanagement', icon: student,token:false },
   { name: 'Finance & Fees', path: '/financeandfees', icon: finance,token:false },
-  { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket,token:false },
+  { name: 'Ticket Management', path: '/ticketmanagement', icon: ticket,token:true },
   // { name: 'Placement', path: '/placement', icon: Placement,token:false },
   // { name: 'Reports & Analytics', path: '/reportsandanalytics', icon: report },
   // { name: 'Notification', path: '/notification', icon: notification }
