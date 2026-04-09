@@ -15,7 +15,7 @@ const StudyMaterials = () => {
 
     useEffect(() => {
         dispatch(getNoteByIdThunk(1))
-    }, [])
+    }, [dispatch])
 
 
     // const courses = [{
@@ -36,13 +36,13 @@ const StudyMaterials = () => {
             </div>
             <div>
                 {notesdata?.map((item: any) => (
-                    <div key={item.topicName} className="shadow-[0px_0px_10px_0px_#00000026] p-3 rounded-2xl my-2 w-300">
+                    <div key={item?.topicName} className="shadow-[0px_0px_10px_0px_#00000026] p-3 rounded-2xl my-2 w-300">
                         <div className="flex justify-between">
                             <div>
                                 <div className="flex gap-10">
                                     <div>
-                                        <div className="text-xl font-bold ">{item.topicName}</div>
-                                        <h3 className="text-[#8F8F8F]">{item.classType}</h3>
+                                        <div className="text-xl font-bold ">{item?.topicName}</div>
+                                        <h3 className="text-[#8F8F8F]">{item?.classType}</h3>
                                     </div>
                                 </div>
 
@@ -50,20 +50,20 @@ const StudyMaterials = () => {
                                     <Calendar className="text-[#8F8F8F]" />
                                     <div className="font-medium flex gap-1">
                                         <h3>Date:</h3>
-                                        {item.classDate}
+                                        {item?.classDate}
                                     </div>
                                 </div>
 
                             </div>
                             <div className="mt-3">
-                                {item.status === "completed" && (
+                                {item?.status === "completed" && (
                                     <div className="bg-[#0B580E] text-white p-1 rounded">
-                                        {item.status}
+                                        {item?.status}
                                     </div>
                                 )}
-                                {item.status === "ongoing" && (
+                                {item?.status === "ongoing" && (
                                     <div className="bg-[#0B0F58] text-white px-2.5 py-1 rounded">
-                                        {item.status}
+                                        {item?.status}
                                     </div>
                                 )}
                             </div>
@@ -75,7 +75,7 @@ const StudyMaterials = () => {
                             </div>
                             <div>
                                 <div className="shadow-[0px_0px_15px_0px_#00000040] my-2 p-1 rounded mx-3 flex justify-between">
-                                    {item.materialType}
+                                    {item?.materialType}
                                     <button>
                                         <ArrowDownToLine />
                                     </button>

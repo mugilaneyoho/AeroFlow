@@ -1,7 +1,7 @@
 import { getByIdNotes } from "./notesSlice";
 import { fetchNote } from "../service";
 
-export const getNoteByIdThunk=(id:number)=>async(dispatch:any)=>{
+export const getNoteByIdThunk=()=>async(dispatch:any)=>{
     try {
         const response = await fetchNote(id)
         console.log("API data in thunk:", response)

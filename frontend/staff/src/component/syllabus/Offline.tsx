@@ -26,22 +26,22 @@ const Offline = () => {
 
   return (
     <div className="grid grid-cols-1 gap-3 p-3 rounded-[10px] w-full pt-4" style={{ boxShadow: COLORS.shadow_white }}>
-      {(notes as any[]).filter((item: any) => item.classType === 'offline').map((item: any, index: number) => (
-        <div key={item.id}style={{ boxShadow: COLORS.shadow_white, background: COLORS.secondary_white }} className='p-3 rounded-[10px]'>
+      {(notes as any[])?.filter((item: any) => item.classType === 'offline')?.map((item: any, index: number) => (
+        <div key={item?.id}style={{ boxShadow: COLORS.shadow_white, background: COLORS.secondary_white }} className='p-3 rounded-[10px]'>
 
           <div className="flex justify-between items-center border-b border-[#E4D1B1] flex-wrap gap-2">
             <div className="flex justify-center flex-col sm:flex-row gap-2 pb-4">
               <div>
-                <p>{item.topicName}</p>
-                <p style={{color:COLORS.bg_dark_gray}} className='text-sm'>{item.batch}</p>
+                <p>{item?.topicName}</p>
+                <p style={{color:COLORS.bg_dark_gray}} className='text-sm'>{item?.batch}</p>
               </div>
               <div className="flex items-center">
                 <span className="px-3 py-1 rounded-full text-sm"
                   style={{
                     backgroundColor:item.status === 'completed'? COLORS.bg_ongoing_green: COLORS.ongoing_gray,
-                    color: item.status ==='completed'? COLORS.secondary_white:"#164853",
+                    color: item?.status ==='completed'? COLORS.secondary_white:"#164853",
                   }}>
-                  {item.status}
+                  {item?.status}
                 </span>
               </div>
             </div>
@@ -51,7 +51,7 @@ const Offline = () => {
                 <img src={calendaricon} alt='img' className='w-5 h-5' />
                 <input type='date' className='absolute inset-0 opacity-0 cursor-pointer'
                   onChange={(e) => setSelectedDate({ ...selectedDate, [index]: e.target.value })} />
-                <p>{selectedDate[index] || item.classDate}</p>
+                <p>{selectedDate[index] || item?.classDate}</p>
               </label>
             </div>
           </div>

@@ -18,7 +18,7 @@ const PendingReal = () => {
                 <h1 className='font-semibold'>Pending Approvals</h1>
             </div>
             <div className='grid grid-rows-3 gap-4'>
-                {Pending.map((data,index)=>{
+                {Pending?.map((data,index)=>{
                     return(
                         <div key={index} className={`grid gap-2 rounded-md border-l-4 p-2 ${data.priority === "High"? "bg-[#E0ABAB]/20 border-l-[#D00000]" : data.priority === "MEDIUM"? "bg-[#D8C197]/20 border-l-[#D08700]" : data.priority === "NORMAL"? "bg-[#0053D0]/20 border-l-[#0053D0]" : ""}`}>
                             <div className='flex justify-between'>
@@ -53,7 +53,7 @@ const PendingReal = () => {
                 <h1 className='font-bold'>Real - Time Activity Feed</h1>
             </div>
             <div className='flex flex-col gap-4'>
-               {activityData.map((data,index)=>{
+               {activityData?.map((data,index)=>{
                 return(
                     <div key={index} className='flex justify-between gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] rounded-xl p-4 py-4'>
                         <div>

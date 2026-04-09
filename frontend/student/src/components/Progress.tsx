@@ -26,7 +26,7 @@ const Progress = () => {
                 </div>
                 <div className="flex shadow-[0px_0px_15px_0px_#498A3833,inset_0px_0px_14px_0px_#498A38] px-4 py-2 gap-3 rounded-sm">
                     <img src={clock} alt="image" />
-                    <h1 className="text-[#1A7B9D]">{dashboard?.batch?.classStartTime?.split(' ')[1].split('.')[0]} - {dashboard?.batch?.classEndTime?.split(' ')[1].split('.')[0]}</h1>
+                    <h1 className="text-[#1A7B9D]">{dashboard?.batch?.classStartTime?.split(' ')[1]?.split('.')[0]} - {dashboard?.batch?.classEndTime?.split(' ')[1]?.split('.')[0]}</h1>
                 </div>
                 <div className="flex shadow-[0px_0px_15px_0px_#498A3833,inset_0px_0px_14px_0px_#498A38] px-4 py-2 gap-3 rounded-sm">
                     <img src={calendar} alt="image" />

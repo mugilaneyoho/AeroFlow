@@ -21,7 +21,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 bg-[#FFFFFF]">
-        {card.map((data,index)=>{
+        {card?.map((data,index)=>{
           return(
             <div key={index} className={`rounded-xl p-2 grid gap-4 shadow-[0_0_15px_rgba(0,0,0,0.1)] `}>
               <div className='flex justify-between'>
