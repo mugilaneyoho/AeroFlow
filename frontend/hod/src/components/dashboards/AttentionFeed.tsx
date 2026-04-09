@@ -20,7 +20,7 @@ const AttentionFeed: React.FC = () => {
       </h1>
 
       { 
-      notifications.length === 0 ? (
+      notifications.length > 0 ? (
       notifications.map((item : any) => 
         {
           const color =
@@ -41,13 +41,13 @@ const AttentionFeed: React.FC = () => {
             <div>
               <p style={{ color }} className=''>{item.title}</p>
               <p className="text-sm" style={{ color: COLORS.text_gray }}>
-                {item.subtitle}
+                {item.message}
               </p>
               <span
                 className="inline-block text-sm px-2 py-1 rounded mt-1"
                 style={{ backgroundColor: COLORS.bg_light_green }}
               >
-                {item.action}
+                {item.type}
               </span>
             </div>
           </div>

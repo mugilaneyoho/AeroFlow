@@ -44,8 +44,8 @@ const httpEndPoints = {
     delete: "/institute/student/:uuid",
   },
   admins:{
-    //  login: "/auth/admins/login",
-     login: "/admins/login",
+     login: "/auth/admins/login",
+    //  login: "/admins/login",
 
      create:"/auth/admins/create",
       getAll:"/auth/admins/all",

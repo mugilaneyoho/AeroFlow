@@ -134,6 +134,8 @@ class Client {
   };
   notification={
     getAllNotification:()=>httpClients.get(httpEndPoints.notification.getAll)
+   
+    // getAllNotification:()=>httpClients.get( "/notifylog/notification")
   }
 
 }
